@@ -1,4 +1,5 @@
 === Zotpress ===
+
 Contributors: kseaborn, s4ndhyac
 Plugin Name: Zotpress
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5HQ8FXAXS9MUQ
