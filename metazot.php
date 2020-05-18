@@ -4,7 +4,7 @@
 
     Plugin Name: Metazot
     Plugin URI: http://guillaumeisabelle.com/plugins
-    Description: Bringing Zotero and scholarly blogging to your WordPress website.
+    Description: MetaZot is bringing Zotero filesystem to your WordPress website.
     Author: Katie Seaborn, Jean Guillaume Isabelle
     Version: 7.0.3
     Author URI: http://katieseaborn.com
