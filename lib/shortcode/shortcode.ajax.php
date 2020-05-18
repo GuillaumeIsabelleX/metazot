@@ -570,7 +570,7 @@ function Metazot_shortcode_AJAX()
 				// Downloads, notes
 				if ( $zpr["downloadable"] || $zpr["shownotes"] )
 				{
-					// Check if item has children that could be downloads
+					//@STCGoal Check if item has children that could be downloads
 					if ( $item->meta->numChildren > 0 )
 					{
 						// Get the user's account
