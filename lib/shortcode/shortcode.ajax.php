@@ -616,11 +616,11 @@ function Metazot_shortcode_AJAX()
 							}
 						}
 
-            // Display download link if file exists
+            //@STCGoal Display download link if file exists
             $downloadBib = "";
             if ( $mz_download_meta )
               $downloadBib = "<a title='Download' class='zp-DownloadURL' href='".METAZOT_PLUGIN_URL."lib/request/request.dl.php?api_user_id=".$zpr["api_user_id"]."&amp;dlkey=".$mz_download_meta["dlkey"]."&amp;content_type=".$mz_download_meta["contentType"]."'>Download</a>";
-            else // Display upload link if file does not exist
+            else //@STCGoal Display upload link if file does not exist
             {
               $upload_url = METAZOT_PLUGIN_URL."lib/request/request.ul.php?api_user_id=".$zpr["api_user_id"]."&amp;key=".$item->key."&amp;content_type=application/pdf";
               $html_var = "

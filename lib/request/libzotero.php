@@ -3743,6 +3743,7 @@ class Utils
         return "<a href=\"http://dx.doi.org/{$matches[0]}\" rel=\"nofollow\">{$safetxt}</a>";
     }
     
+    //@STCGoal translate Mime Type - Extend for your own type
     public static function translateMimeType($mimeType)
     {
         switch ($mimeType) {
