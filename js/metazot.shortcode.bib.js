@@ -319,7 +319,7 @@ jQuery(document).ready(function()
 					// Append notes to container:
 					if ( params.zpShowNotes == true && tempNotes.length > 0 )
 					{
-						tempNotes = "<div class='zp-Citation-Notes'>\n<h3>Notes</h3>\n<ol>\n" + tempNotes;
+						tempNotes = "<div class='zp-Citation-Notes'>\n<hr><h3>Notes</h3>\n<ol>\n" + tempNotes;
 						tempNotes = tempNotes + "</ol>\n</div><!-- .zp-Citation-Notes -->\n\n";
 
 						jQuery("#"+mz_items.instance).append( tempNotes );
