@@ -4,7 +4,7 @@
     require("shortcode.class.lib.php");
     
     
-    function Zotpress_zotpressLib($atts)
+    function Metazot_metazotLib($atts)
     {
         extract(shortcode_atts(array(
             
@@ -38,7 +38,7 @@
 			'target' => false, 
 			'urlwrap' => false 
             
-        ), $atts, "zotpress"));
+        ), $atts, "metazot"));
         
         
         // FORMAT PARAMETERS
@@ -103,40 +103,40 @@
 		
         if ($nickname !== false)
         {
-            $zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress WHERE nickname='".$nickname."'", OBJECT);
+            $mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot WHERE nickname='".$nickname."'", OBJECT);
 			
-			if ( is_null($zp_account) ): echo "<p>Sorry, but the selected Zotpress nickname can't be found.</p>"; return false; endif;
+			if ( is_null($mz_account) ): echo "<p>Sorry, but the selected Metazot nickname can't be found.</p>"; return false; endif;
 			
-            $api_user_id = $zp_account->api_user_id;
+            $api_user_id = $mz_account->api_user_id;
         }
         else if ($api_user_id !== false)
         {
-            $zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress WHERE api_user_id='".$api_user_id."'", OBJECT);
+            $mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot WHERE api_user_id='".$api_user_id."'", OBJECT);
 			
-			if ( is_null($zp_account) ): echo "<p>Sorry, but the selected Zotpress account can't be found.</p>"; return false; endif;
+			if ( is_null($mz_account) ): echo "<p>Sorry, but the selected Metazot account can't be found.</p>"; return false; endif;
 			
-            $api_user_id = $zp_account->api_user_id;
+            $api_user_id = $mz_account->api_user_id;
         }
         else if ($api_user_id === false && $nickname === false)
         {
-            if (get_option("Zotpress_DefaultAccount") !== false)
+            if (get_option("Metazot_DefaultAccount") !== false)
             {
-                $api_user_id = get_option("Zotpress_DefaultAccount");
-                $zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress WHERE api_user_id ='".$api_user_id."'", OBJECT);
+                $api_user_id = get_option("Metazot_DefaultAccount");
+                $mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot WHERE api_user_id ='".$api_user_id."'", OBJECT);
             }
             else // When all else fails ...
             {
-                $zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress LIMIT 1", OBJECT);
-                $api_user_id = $zp_account->api_user_id;
+                $mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot LIMIT 1", OBJECT);
+                $api_user_id = $mz_account->api_user_id;
             }
         }
 		
 		
 		// Use Browse class
 		
-		$zpLib = new zotpressLib;
+		$zpLib = new metazotLib;
 		
-		$zpLib->setAccount($zp_account);
+		$zpLib->setAccount($mz_account);
 		$zpLib->setType($type);
 		if ( $searchby ) $zpLib->setFilters($searchby);
 		$zpLib->setMinLength($minlength);
@@ -153,7 +153,7 @@
 		$zpLib->setTarget($target);
 		
 		// Show theme scripts
-        $GLOBALS['zp_is_shortcode_displayed'] = true;
+        $GLOBALS['mz_is_shortcode_displayed'] = true;
 		
 		return $zpLib->getLib();
 	}

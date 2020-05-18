@@ -1,11 +1,11 @@
 <?php
 
-    function Zotpress_zotpressInTextBib ($atts)
+    function Metazot_metazotInTextBib ($atts)
     {
         /*
         *   RELIES ON THESE GLOBAL VARIABLES:
         *
-        *   $GLOBALS['zp_shortcode_instances'][get_the_ID()] {instantiated previously}
+        *   $GLOBALS['mz_shortcode_instances'][get_the_ID()] {instantiated previously}
         *   
         */
         
@@ -94,9 +94,9 @@
         
         
 		// Get in-text items
-		if ( isset( $GLOBALS['zp_shortcode_instances'][get_the_ID()] ) )
+		if ( isset( $GLOBALS['mz_shortcode_instances'][get_the_ID()] ) )
 		{
-			foreach ( $GLOBALS['zp_shortcode_instances'][get_the_ID()] as $intextitem )
+			foreach ( $GLOBALS['mz_shortcode_instances'][get_the_ID()] as $intextitem )
 			{
 				if ( $api_user_id === false ) $api_user_id = $intextitem["api_user_id"];
 				
@@ -106,14 +106,14 @@
 		}
 		
         // Generate instance id for shortcode
-        $zp_instance_id = "zotpress-".md5($item_key.$style.$sortby.$order.$showimage.$showtags.$title.$download.$notes.$abstracts.$cite.$target.$forcenumber);
+        $mz_instance_id = "metazot-".md5($item_key.$style.$sortby.$order.$showimage.$showtags.$title.$download.$notes.$abstracts.$cite.$target.$forcenumber);
 		
 		
         // GENERATE IN-TEXT BIB STRUCTURE
-		$zp_output = "\n<div id='zp-InTextBib-".$zp_instance_id."' class='zp-Zotpress zp-Zotpress-InTextBib";
-		if ( $forcenumber ) $zp_output .= " forcenumber";
-		$zp_output .= " zp-Post-".get_the_ID()."'>";
-		$zp_output .= '
+		$mz_output = "\n<div id='zp-InTextBib-".$mz_instance_id."' class='zp-Metazot zp-Metazot-InTextBib";
+		if ( $forcenumber ) $mz_output .= " forcenumber";
+		$mz_output .= " zp-Post-".get_the_ID()."'>";
+		$mz_output .= '
 			<span class="ZP_API_USER_ID" style="display: none;">'.$api_user_id.'</span>
 			<span class="ZP_ITEM_KEY" style="display: none;">'.$item_key.'</span>
 			<span class="ZP_STYLE" style="display: none;">'.$style.'</span>
@@ -131,14 +131,14 @@
 			<span class="ZP_FORCENUM" style="display: none;">'.$forcenumber.'</span>
 			<span class="ZP_HIGHLIGHT" style="display: none;">'.$highlight.'</span>
 			<span class="ZP_POSTID" style="display: none;">'.get_the_ID().'</span>
-			<span class="ZOTPRESS_PLUGIN_URL" style="display:none;">'.ZOTPRESS_PLUGIN_URL.'</span>';
+			<span class="METAZOT_PLUGIN_URL" style="display:none;">'.METAZOT_PLUGIN_URL.'</span>';
 		
-		$zp_output .= "<div class='zp-List loading'></div><!-- .zp-List --></div><!--.zp-Zotpress-->\n\n";
+		$mz_output .= "<div class='zp-List loading'></div><!-- .zp-List --></div><!--.zp-Metazot-->\n\n";
 		
 		// Show theme scripts
-		$GLOBALS['zp_is_shortcode_displayed'] = true;
+		$GLOBALS['mz_is_shortcode_displayed'] = true;
 		
-		return $zp_output;
+		return $mz_output;
 	}
 
 ?>

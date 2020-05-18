@@ -3,23 +3,23 @@ jQuery(document).ready(function()
 
     /****************************************************************************************
      *
-     *     ZOTPRESS LIB SEARCHBAR
+     *     METAZOT LIB SEARCHBAR
      *
      ****************************************************************************************/
 
 	// TO-DO: notes, abstract, target, showtags
 	// TO-DO: Always updates rather than checking the cache ... don't see an easy way around this ...
 
-	if ( jQuery("#zp-Zotpress-SearchBox").length > 0 )
+	if ( jQuery("#zp-Metazot-SearchBox").length > 0 )
 	{
 		var zpItemsFlag = true;
 		var zpItemNum = 1;
 		var zpLastTerm = "";
 		var zpSearchBarParams = "";
 		var zpSearchBarSource = zpShortcodeAJAX.ajaxurl + "?action=zpRetrieveViaShortcode&zpShortcode_nonce="+zpShortcodeAJAX.zpShortcode_nonce;
-		var zpShowImages = false; if ( jQuery("#ZOTPRESS_AC_IMAGES").length > 0 ) zpShowImages = true;
+		var zpShowImages = false; if ( jQuery("#METAZOT_AC_IMAGES").length > 0 ) zpShowImages = true;
 
-		function zp_set_lib_searchbar_params( filter, start, last )
+		function mz_set_lib_searchbar_params( filter, start, last )
 		{
 			// Set parameter defaults
 			if ( typeof(filter) === "undefined" || filter == "false" || filter == "" )
@@ -32,17 +32,17 @@ jQuery(document).ready(function()
 			zpSearchBarParams = "";
 
 			// Get param basics
-			zpSearchBarParams += "&api_user_id="+jQuery("#ZOTPRESS_USER").val();
+			zpSearchBarParams += "&api_user_id="+jQuery("#METAZOT_USER").val();
 			zpSearchBarParams += "&item_type=items";
-			zpSearchBarParams += "&downloadable="+jQuery("#ZOTPRESS_AC_DOWNLOAD").val();
+			zpSearchBarParams += "&downloadable="+jQuery("#METAZOT_AC_DOWNLOAD").val();
 			zpSearchBarParams += "&style="+jQuery("#ZP_STYLE").text();
 			zpSearchBarParams += "&sort_by="+jQuery("#ZP_SORTBY").text();
 			zpSearchBarParams += "&order="+jQuery("#ZP_ORDER").text();
-			zpSearchBarParams += "&citeable="+jQuery("#ZOTPRESS_AC_CITE").val();
+			zpSearchBarParams += "&citeable="+jQuery("#METAZOT_AC_CITE").val();
 
 			// Deal with possible max results
-			if ( jQuery("#ZOTPRESS_AC_MAXRESULTS").val().length > 0 )
-				zpSearchBarParams += "&maxresults=" + jQuery("#ZOTPRESS_AC_MAXRESULTS").val();
+			if ( jQuery("#METAZOT_AC_MAXRESULTS").val().length > 0 )
+				zpSearchBarParams += "&maxresults=" + jQuery("#METAZOT_AC_MAXRESULTS").val();
 
 			// Deal with possible showimage
 			if ( zpShowImages ) zpSearchBarParams += "&showimage=true";
@@ -61,7 +61,7 @@ jQuery(document).ready(function()
 			else if ( jQuery("input[name=zpSearchFilters]").length > 0 )
 				zpSearchBarParams += "&filter="+jQuery("input[name=zpSearchFilters]:checked").val();
 		}
-		zp_set_lib_searchbar_params( false, false, false );
+		mz_set_lib_searchbar_params( false, false, false );
 
 
 		// Deal with change in filters
@@ -69,20 +69,20 @@ jQuery(document).ready(function()
 		{
 			// Update filter param
 			if ( jQuery("input[name=zpSearchFilters]").length > 0 )
-				zp_set_lib_searchbar_params ( jQuery(this).val(), false, false );
+				mz_set_lib_searchbar_params ( jQuery(this).val(), false, false );
 
 			// Update autocomplete URL
-			jQuery("input#zp-Zotpress-SearchBox-Input").autocomplete( "option", "source", zpSearchBarSource+zpSearchBarParams );
+			jQuery("input#zp-Metazot-SearchBox-Input").autocomplete( "option", "source", zpSearchBarSource+zpSearchBarParams );
 
 			// If there's already text, search again
-			if ( jQuery("input#zp-Zotpress-SearchBox-Input").val().length > 0
-					&& jQuery("input#zp-Zotpress-SearchBox-Input").val() != zpShortcodeAJAX.txt_typetosearch )
-				jQuery("input#zp-Zotpress-SearchBox-Input").autocomplete("search");
+			if ( jQuery("input#zp-Metazot-SearchBox-Input").val().length > 0
+					&& jQuery("input#zp-Metazot-SearchBox-Input").val() != zpShortcodeAJAX.txt_typetosearch )
+				jQuery("input#zp-Metazot-SearchBox-Input").autocomplete("search");
 		});
 
 
 		// Set up autocomplete
-		jQuery("input#zp-Zotpress-SearchBox-Input")
+		jQuery("input#zp-Metazot-SearchBox-Input")
 			.bind( "keydown", function( event )
 			{
 				// Don't navigate away from the input on tab when selecting an item
@@ -113,7 +113,7 @@ jQuery(document).ready(function()
 			})
 			.autocomplete({
 				source: zpSearchBarSource+zpSearchBarParams,
-				minLength: jQuery("#ZOTPRESS_AC_MINLENGTH").val(),
+				minLength: jQuery("#METAZOT_AC_MINLENGTH").val(),
 				focus: function() {
 					// prevent value inserted on focus
 					return false;
@@ -138,8 +138,8 @@ jQuery(document).ready(function()
 						jQuery("#zpSearchResultsContainer").empty();
 
 						// Reset the query
-						zp_set_lib_searchbar_params( false, 0, 0 );
-						jQuery("input#zp-Zotpress-SearchBox-Input").autocomplete( "option", "source", zpSearchBarSource+zpSearchBarParams );
+						mz_set_lib_searchbar_params( false, 0, 0 );
+						jQuery("input#zp-Metazot-SearchBox-Input").autocomplete( "option", "source", zpSearchBarSource+zpSearchBarParams );
 
 						// Reset the current pagination
 						window.zpPage = 1;
@@ -199,12 +199,12 @@ jQuery(document).ready(function()
 							else window.zpACPagination(zpItemsFlag, true);
 							zpItemsFlag = false;
 
-							zp_set_lib_searchbar_params( false, ui.content[1].request_next, ui.content[1].request_last );
+							mz_set_lib_searchbar_params( false, ui.content[1].request_next, ui.content[1].request_last );
 
-							jQuery("input#zp-Zotpress-SearchBox-Input").autocomplete( "option", "source", zpSearchBarSource+zpSearchBarParams );
-							jQuery("input#zp-Zotpress-SearchBox-Input").autocomplete("search");
+							jQuery("input#zp-Metazot-SearchBox-Input").autocomplete( "option", "source", zpSearchBarSource+zpSearchBarParams );
+							jQuery("input#zp-Metazot-SearchBox-Input").autocomplete("search");
 
-							//zp_get_items ( ui.content[1].request_next, ui.content[1].request_last );
+							//mz_get_items ( ui.content[1].request_next, ui.content[1].request_last );
 						}
 						else
 						{
@@ -228,6 +228,6 @@ jQuery(document).ready(function()
 				}
 			});
 
-	} // Zotpress SearchBar Library
+	} // Metazot SearchBar Library
 
 });

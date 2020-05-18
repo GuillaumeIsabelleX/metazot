@@ -2,7 +2,7 @@
 
 /**
  *
- *  ZOTPRESS REQUEST CLASS
+ *  METAZOT REQUEST CLASS
  *
  *  Based on Sean Huber's CURL library with additions by Mike Purvis.
  *
@@ -11,9 +11,9 @@
  *
 */
 
-if ( ! class_exists('ZotpressRequest') )
+if ( ! class_exists('MetazotRequest') )
 {
-    class ZotpressRequest
+    class MetazotRequest
     {
         // TIME: 300 seconds = 5 minutes; 3600 seconds = 60 minutes
         var $update = false,
@@ -26,7 +26,7 @@ if ( ! class_exists('ZotpressRequest') )
 
         // TODO: This is causing problems for some people
         // Could it be how the database is set up? e.g., https://stackoverflow.com/questions/36028844/warning-gzdecode-data-error-in-php
-        function zp_gzdecode($data)
+        function mz_gzdecode($data)
         {
             // Thanks to Waynn Lue (StackOverflow)
             if ( function_exists("gzdecode") )
@@ -99,20 +99,20 @@ if ( ! class_exists('ZotpressRequest') )
             if ( $this->update === false )
             {
                 // First, check db to see if cached version exists
-                $zp_query =
+                $mz_query =
                         "
-                        SELECT DISTINCT ".$wpdb->prefix."zotpress_cache.*
-                        FROM ".$wpdb->prefix."zotpress_cache
-                        WHERE ".$wpdb->prefix."zotpress_cache.request_id = '".md5( $url )."'
-                        AND ".$wpdb->prefix."zotpress_cache.api_user_id = '".$this->api_user_id."'
+                        SELECT DISTINCT ".$wpdb->prefix."metazot_cache.*
+                        FROM ".$wpdb->prefix."metazot_cache
+                        WHERE ".$wpdb->prefix."metazot_cache.request_id = '".md5( $url )."'
+                        AND ".$wpdb->prefix."metazot_cache.api_user_id = '".$this->api_user_id."'
                         ";
-                $zp_results = $wpdb->get_results($zp_query, OBJECT); unset($zp_query);
+                $mz_results = $wpdb->get_results($mz_query, OBJECT); unset($mz_query);
 
-                if ( count($zp_results) != 0 )
+                if ( count($mz_results) != 0 )
                 {
-                    $data = $this->zp_gzdecode($zp_results[0]->json);
-                    //$data = $zp_results[0]->json;
-                    $headers = $zp_results[0]->headers;
+                    $data = $this->mz_gzdecode($mz_results[0]->json);
+                    //$data = $mz_results[0]->json;
+                    $headers = $mz_results[0]->headers;
                 }
 
                 else // No cached
@@ -141,25 +141,25 @@ if ( ! class_exists('ZotpressRequest') )
         function getRegular( $wpdb, $url )
         {
             // First, check db to see if cached version exists
-            $zp_query =
+            $mz_query =
                     "
-                    SELECT DISTINCT ".$wpdb->prefix."zotpress_cache.*
-                    FROM ".$wpdb->prefix."zotpress_cache
-                    WHERE ".$wpdb->prefix."zotpress_cache.request_id = '".md5( $url )."'
-                    AND ".$wpdb->prefix."zotpress_cache.api_user_id = '".$this->api_user_id."'
+                    SELECT DISTINCT ".$wpdb->prefix."metazot_cache.*
+                    FROM ".$wpdb->prefix."metazot_cache
+                    WHERE ".$wpdb->prefix."metazot_cache.request_id = '".md5( $url )."'
+                    AND ".$wpdb->prefix."metazot_cache.api_user_id = '".$this->api_user_id."'
                     ";
-            $zp_results = $wpdb->get_results($zp_query, OBJECT); unset($zp_query);
+            $mz_results = $wpdb->get_results($mz_query, OBJECT); unset($mz_query);
 
 
             // Then, if no cached version, proceed and save one.
             // Or, if cached version exists, check to see if it's out of date,
             // and return whichever is newer (and cache the newest).
 
-            if ( count($zp_results) == 0
-                    || ( isset($zp_results[0]->retrieved) && $this->checkTime($zp_results[0]->retrieved) ) )
+            if ( count($mz_results) == 0
+                    || ( isset($mz_results[0]->retrieved) && $this->checkTime($mz_results[0]->retrieved) ) )
             {
                 $headers_arr = array ( "Zotero-API-Version" => "3" );
-                if ( count($zp_results) > 0 ) $headers_arr["If-Modified-Since-Version"] = $zp_results[0]->libver;
+                if ( count($mz_results) > 0 ) $headers_arr["If-Modified-Since-Version"] = $mz_results[0]->libver;
 
                 // Get response
                 $response = wp_remote_get( $url, array ( 'headers' => $headers_arr ) );
@@ -167,7 +167,7 @@ if ( ! class_exists('ZotpressRequest') )
             }
 
             // Proceed if no cached version or to check server for newer
-            if ( count($zp_results) == 0
+            if ( count($mz_results) == 0
                     || ( isset($response["response"]["code"])
                             && $response["response"]["code"] != "304" )
             )
@@ -264,7 +264,7 @@ if ( ! class_exists('ZotpressRequest') )
 
                     $wpdb->query( $wpdb->prepare(
                         "
-                            INSERT INTO ".$wpdb->prefix."zotpress_cache
+                            INSERT INTO ".$wpdb->prefix."metazot_cache
                             ( request_id, api_user_id, json, headers, libver, retrieved )
                             VALUES ( %s, %s, %s, %s, %d, %s )
                             ON DUPLICATE KEY UPDATE
@@ -289,8 +289,8 @@ if ( ! class_exists('ZotpressRequest') )
             // Retrieve cached version
             else
             {
-                $data = $this->zp_gzdecode($zp_results[0]->json);
-                $headers = $zp_results[0]->headers;
+                $data = $this->mz_gzdecode($mz_results[0]->json);
+                $headers = $mz_results[0]->headers;
             }
 
             $wpdb->flush();

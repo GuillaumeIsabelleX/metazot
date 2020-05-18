@@ -1,7 +1,7 @@
 jQuery(document).ready( function()
 {
 
-    jQuery(document).on( 'click', '.Zotpress_update_notice .notice-dismiss', function()
+    jQuery(document).on( 'click', '.Metazot_update_notice .notice-dismiss', function()
     {
         jQuery.ajax({
             url: zpNoticesAJAX.ajaxurl,

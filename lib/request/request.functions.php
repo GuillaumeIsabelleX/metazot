@@ -4,11 +4,11 @@
 
     /****************************************************************************************
     *
-    *     ZOTPRESS BASIC IMPORT FUNCTIONS
+    *     METAZOT BASIC IMPORT FUNCTIONS
     *
     ****************************************************************************************/
     
-    function zp_db_prep ($input)
+    function mz_db_prep ($input)
     {
         $input =  str_replace("%", "%%", $input);
         return ($input);
@@ -16,7 +16,7 @@
     
     
     
-    function zp_extract_year ($date)
+    function mz_extract_year ($date)
     {
 		if ( strlen($date) > 0 ):
 			preg_match_all( '/(\d{4})/', $date, $matches );
@@ -32,7 +32,7 @@
     
     
     
-    function zp_get_api_user_id ($api_user_id_incoming=false)
+    function mz_get_api_user_id ($api_user_id_incoming=false)
     {
         if (isset($_GET['api_user_id']) && preg_match("/^[0-9]+$/", $_GET['api_user_id']) == 1)
             $api_user_id = htmlentities($_GET['api_user_id']);
@@ -46,46 +46,46 @@
     
     
     
-    function zp_get_account ($wpdb, $api_user_id_incoming=false)
+    function mz_get_account ($wpdb, $api_user_id_incoming=false)
     {
         if ($api_user_id_incoming !== false)
 		{
-            $zp_account = $wpdb->get_results(
+            $mz_account = $wpdb->get_results(
 										$wpdb->prepare(
-										"SELECT * FROM ".$wpdb->prefix."zotpress WHERE api_user_id='%s'",
+										"SELECT * FROM ".$wpdb->prefix."metazot WHERE api_user_id='%s'",
 										$api_user_id_incoming
 										)
 									);
 		}
         else
 		{
-            $zp_account = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."zotpress ORDER BY id DESC LIMIT 1");
+            $mz_account = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."metazot ORDER BY id DESC LIMIT 1");
 		}
         
-        return $zp_account;
+        return $mz_account;
     }
 
 
 
 	// Moved to admin.functions
-    //function zp_get_accounts ($wpdb)
+    //function mz_get_accounts ($wpdb)
     //{
-    //    $zp_accounts = $wpdb->get_results("SELECT api_user_id FROM ".$wpdb->prefix."zotpress");
+    //    $mz_accounts = $wpdb->get_results("SELECT api_user_id FROM ".$wpdb->prefix."metazot");
     //    
-    //    return $zp_accounts;
+    //    return $mz_accounts;
     //}
 	
     
 	
-    function zp_clear_cache_for_user ($wpdb, $api_user_id)
+    function mz_clear_cache_for_user ($wpdb, $api_user_id)
     {
-        $wpdb->query("DELETE FROM ".$wpdb->prefix."zotpress_cache WHERE api_user_id='".$api_user_id."'");
+        $wpdb->query("DELETE FROM ".$wpdb->prefix."metazot_cache WHERE api_user_id='".$api_user_id."'");
     }
 	
 	
 	
 	// Takes single author
-	function zp_check_author_continue( $item, $author )
+	function mz_check_author_continue( $item, $author )
 	{
 		$author_continue = false;
 		$author = strtolower($author);
@@ -174,7 +174,7 @@
 		
 		return $author_continue;
 	
-	} // function zp_check_author_continue
+	} // function mz_check_author_continue
     
 
 ?>

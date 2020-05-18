@@ -65,7 +65,7 @@
 
 /* START OF CREATOR BASICS */
 
-.zp-ZotpressMetaBox-Sub {
+.zp-MetazotMetaBox-Sub {
     border: 1px solid #EEEEEE;
     margin: 5px 15px;
     padding: 0 5px;
@@ -77,17 +77,17 @@
 
 /* START OF IN-TEXT CREATOR CSS */
 
-div#zp-ZotpressMetaBox-InText {
+div#zp-MetazotMetaBox-InText {
     display: none;
 }
 
 
 /* START OF SEARCH CSS */
 
-div#zp-ZotpressMetaBox-Search {
+div#zp-MetazotMetaBox-Search {
     margin-bottom: 10px;
 }
-div#zp-ZotpressMetaBox-Search-Inner {
+div#zp-MetazotMetaBox-Search-Inner {
     border: 5px solid #E14D43;
     margin: 5px 15px;
 
@@ -96,7 +96,7 @@ div#zp-ZotpressMetaBox-Search-Inner {
     -webkit-border-radius: 5px;
 }
 
-input#zp-ZotpressMetaBox-Search-Input {
+input#zp-MetazotMetaBox-Search-Input {
     border: none;
     background: #fff;
     font-size: inherit;
@@ -105,42 +105,42 @@ input#zp-ZotpressMetaBox-Search-Input {
     width: calc(100% - 4px);
     height: 22px;
 }
-input#zp-ZotpressMetaBox-Search-Input.ui-autocomplete-loading {
+input#zp-MetazotMetaBox-Search-Input.ui-autocomplete-loading {
     background: #fff url("../images/loading_default.gif") no-repeat right center;
 }
-input#zp-ZotpressMetaBox-Search-Input.help {
+input#zp-MetazotMetaBox-Search-Input.help {
     color: #aaa;
 }
 
-div#zp-ZotpressMetaBox-Biblio-Generate,
-div#zp-ZotpressMetaBox-InText-Generate {
+div#zp-MetazotMetaBox-Biblio-Generate,
+div#zp-MetazotMetaBox-InText-Generate {
     background: #f5f5f5 none repeat scroll 0 0;
     margin: 15px;
     padding: 5px;
 }
-div#zp-ZotpressMetaBox-Biblio-Generate-Inner,
-div#zp-ZotpressMetaBox-InText-Generate-Inner {
+div#zp-MetazotMetaBox-Biblio-Generate-Inner,
+div#zp-MetazotMetaBox-InText-Generate-Inner {
     background-color: #f6f6f6;
     display: none;
     margin: 15px 0 0 0;
 }
 
-#ZotpressMetaBox .ui-widget-content a#zp-ZotpressMetaBox-Biblio-Generate-Button,
-#ZotpressMetaBox .ui-widget-content a#zp-ZotpressMetaBox-InText-Generate-Button {
+#MetazotMetaBox .ui-widget-content a#zp-MetazotMetaBox-Biblio-Generate-Button,
+#MetazotMetaBox .ui-widget-content a#zp-MetazotMetaBox-InText-Generate-Button {
     color: #fff;
     float: right;
     line-height: 1.75em;
     height: auto;
 }
-#ZotpressMetaBox .ui-widget-content a#zp-ZotpressMetaBox-Biblio-Clear-Button,
-#ZotpressMetaBox .ui-widget-content a#zp-ZotpressMetaBox-InText-Clear-Button {
+#MetazotMetaBox .ui-widget-content a#zp-MetazotMetaBox-Biblio-Clear-Button,
+#MetazotMetaBox .ui-widget-content a#zp-MetazotMetaBox-InText-Clear-Button {
     float: left;
     line-height: 1.75em;
     height: auto;
 }
 
-div#zp-ZotpressMetaBox-Biblio-Generate hr.clear,
-div#zp-ZotpressMetaBox-InText-Generate hr.clear {
+div#zp-MetazotMetaBox-Biblio-Generate hr.clear,
+div#zp-MetazotMetaBox-InText-Generate hr.clear {
     border: none;
     clear: both;
     margin: 0;
@@ -149,8 +149,8 @@ div#zp-ZotpressMetaBox-InText-Generate hr.clear {
     height: 1px;
 }
 
-div#ZotpressMetaBox div#zp-ZotpressMetaBox-Biblio-Generate label,
-div#ZotpressMetaBox div#zp-ZotpressMetaBox-InText-Generate label
+div#MetazotMetaBox div#zp-MetazotMetaBox-Biblio-Generate label,
+div#MetazotMetaBox div#zp-MetazotMetaBox-InText-Generate label
 {
     font-size: 13px;
     display: block;
@@ -159,30 +159,30 @@ div#ZotpressMetaBox div#zp-ZotpressMetaBox-InText-Generate label
     padding: 0;
 }
 
-#zp-ZotpressMetaBox-Biblio-Generate-Text,
-#zp-ZotpressMetaBox-InText-Text-Bib,
-#zp-ZotpressMetaBox-InText-InText {
+#zp-MetazotMetaBox-Biblio-Generate-Text,
+#zp-MetazotMetaBox-InText-Text-Bib,
+#zp-MetazotMetaBox-InText-InText {
     font-size: 13px;
     width: 100%;
 }
 
-div#zp-ZotpressMetaBox-InText-Text-Bib-Container {
+div#zp-MetazotMetaBox-InText-Text-Bib-Container {
     margin-top: 0.75em;
 }
-div#zp-ZotpressMetaBox-Biblio-Text-Bib-Container label span,
-div#zp-ZotpressMetaBox-InText-Text-Bib-Container label span {
+div#zp-MetazotMetaBox-Biblio-Text-Bib-Container label span,
+div#zp-MetazotMetaBox-InText-Text-Bib-Container label span {
     color: #999;
     font-weight: normal;
 }
 
 /* Start of Visual Indicator Item CSS */
 
-div#zp-ZotpressMetaBox-List {
+div#zp-MetazotMetaBox-List {
     margin-bottom: 10px;
     padding: 0 20px;
 }
 
-div#zp-ZotpressMetaBox-List div.item {
+div#zp-MetazotMetaBox-List div.item {
     position: relative;
     border-top: 1px solid #eee;
     font-weight: 400;
@@ -191,37 +191,37 @@ div#zp-ZotpressMetaBox-List div.item {
     padding: 0.5rem 0;
     width: 100%;
 }
-div#zp-ZotpressMetaBox-List div.item:first-child {
+div#zp-MetazotMetaBox-List div.item:first-child {
     border-top: none;
 }
 
-div#zp-ZotpressMetaBox-List div.item .label {
+div#zp-MetazotMetaBox-List div.item .label {
     display: block;
     width: 90%;
 }
 
-div#zp-ZotpressMetaBox-List div.item .options {
+div#zp-MetazotMetaBox-List div.item .options {
     margin: 0.5rem 0;
     display: none;
     width: 90%;
 }
-div#zp-ZotpressMetaBox-List.intext div.item .options {
+div#zp-MetazotMetaBox-List.intext div.item .options {
     display: block;
 }
-div#zp-ZotpressMetaBox-List div.item .options:before,
-div#zp-ZotpressMetaBox-List div.item .options:after {
+div#zp-MetazotMetaBox-List div.item .options:before,
+div#zp-MetazotMetaBox-List div.item .options:after {
     content: "";
     display: table;
 }
-div#zp-ZotpressMetaBox-List div.item .options:after {
+div#zp-MetazotMetaBox-List div.item .options:after {
     clear: both;
 }
-div#zp-ZotpressMetaBox-List div.item .options label {
+div#zp-MetazotMetaBox-List div.item .options label {
     float: left;
     line-height: 1.5;
     margin-right: 0.2rem;
 }
-div#zp-ZotpressMetaBox-List div.item .options input {
+div#zp-MetazotMetaBox-List div.item .options input {
     text-transform: uppercase;
     font-weight: 600;
     float: left;
@@ -230,16 +230,16 @@ div#zp-ZotpressMetaBox-List div.item .options input {
     width: 40%;
 }
 
-div#zp-ZotpressMetaBox-List div.item .item_key,
-div#zp-ZotpressMetaBox-List div.item .account {
+div#zp-MetazotMetaBox-List div.item .item_key,
+div#zp-MetazotMetaBox-List div.item .account {
     display: block;
     margin-top: 0.25rem;
 }
-div#zp-ZotpressMetaBox-List div.item .account {
+div#zp-MetazotMetaBox-List div.item .account {
     margin-top: 0;
 }
 
-div#zp-ZotpressMetaBox-List div.item .delete {
+div#zp-MetazotMetaBox-List div.item .delete {
     position: absolute;
     top: 0.5rem;
     right: 0;
@@ -255,7 +255,7 @@ div#zp-ZotpressMetaBox-List div.item .delete {
     -webkit-border-radius: 1em;
 }
 
-div#zp-ZotpressMetaBox-List hr.clear {
+div#zp-MetazotMetaBox-List hr.clear {
     background: none;
     border: none;
     height: 1px;
@@ -267,16 +267,16 @@ div#zp-ZotpressMetaBox-List hr.clear {
 
 /* Start of Account CSS */
 
-.edit-post-meta-boxes-area #poststuff div#ZotpressMetaBox h2.hndle {
+.edit-post-meta-boxes-area #poststuff div#MetazotMetaBox h2.hndle {
     color: #191e23; /* 555d66 */
     font-size: inherit;
     border-bottom: 0;
 }
 
-div#zp-ZotpressMetaBox-Account {
+div#zp-MetazotMetaBox-Account {
     margin: 0 15px;
 }
-select#zp-ZotpressMetaBox-Acccount-Select {
+select#zp-MetazotMetaBox-Acccount-Select {
     width: calc(100% - 4px);
     height: 22px;
 }
@@ -284,56 +284,56 @@ select#zp-ZotpressMetaBox-Acccount-Select {
 
 /* START OF OPTIONS CSS */
 
-div#ZotpressMetaBox div#zp-ZotpressMetaBox-Biblio-Options h4,
-div#ZotpressMetaBox div#zp-ZotpressMetaBox-InText-Options h4 {
+div#MetazotMetaBox div#zp-MetazotMetaBox-Biblio-Options h4,
+div#MetazotMetaBox div#zp-MetazotMetaBox-InText-Options h4 {
     color: #555d66;
     font-weight: normal;
     margin: 5px 0;
 }
 
-div#zp-ZotpressMetaBox-Biblio-Options-Inner,
-div#zp-ZotpressMetaBox-InText-Options-Inner {
+div#zp-MetazotMetaBox-Biblio-Options-Inner,
+div#zp-MetazotMetaBox-InText-Options-Inner {
     display: none;
     padding: 15px 0 5px;
 }
-div.zp-ZotpressMetaBox-Field {
+div.zp-MetazotMetaBox-Field {
     font-size: inherit;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-div.zp-ZotpressMetaBox-Field-Radio {
+div.zp-MetazotMetaBox-Field-Radio {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-div#ZotpressMetaBox div.zp-ZotpressMetaBox-Field-Radio label {
+div#MetazotMetaBox div.zp-MetazotMetaBox-Field-Radio label {
     font-size: 11px;
     text-transform: uppercase;
     margin: 0 4px 0 20px;
     padding: 0;
 }
-div#zp-ZotpressMetaBox-Biblio-Options-Inner input,
-div#zp-ZotpressMetaBox-Biblio-Options-Inner select,
-div#zp-ZotpressMetaBox-InText-Options-Inner input,
-div#zp-ZotpressMetaBox-InText-Options-Inner select {
+div#zp-MetazotMetaBox-Biblio-Options-Inner input,
+div#zp-MetazotMetaBox-Biblio-Options-Inner select,
+div#zp-MetazotMetaBox-InText-Options-Inner input,
+div#zp-MetazotMetaBox-InText-Options-Inner select {
     font-size: inherit;
     margin: 0.5em 0;
     line-height: 1em;
 }
-div#zp-ZotpressMetaBox-Biblio-Options-Inner select,
-div#zp-ZotpressMetaBox-InText-Options-Inner select {
+div#zp-MetazotMetaBox-Biblio-Options-Inner select,
+div#zp-MetazotMetaBox-InText-Options-Inner select {
     height: auto;
 }
 
-div#zp-ZotpressMetaBox-Biblio-Options div.right,
-div#zp-ZotpressMetaBox-InText-Options div.right {
+div#zp-MetazotMetaBox-Biblio-Options div.right,
+div#zp-MetazotMetaBox-InText-Options div.right {
     float: right;
     line-height: 1;
 }
 
-div#ZotpressMetaBox div#zp-ZotpressMetaBox-Biblio-Options h5,
-div#ZotpressMetaBox div#zp-ZotpressMetaBox-InText-Options h5 {
+div#MetazotMetaBox div#zp-MetazotMetaBox-Biblio-Options h5,
+div#MetazotMetaBox div#zp-MetazotMetaBox-InText-Options h5 {
     background-color: #f9f9f9;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
@@ -342,12 +342,12 @@ div#ZotpressMetaBox div#zp-ZotpressMetaBox-InText-Options h5 {
     margin: 0.5em 0;
     padding: 0.5em 0.75em;
 }
-div#ZotpressMetaBox div#zp-ZotpressMetaBox-InText-Options h5.first {
+div#MetazotMetaBox div#zp-MetazotMetaBox-InText-Options h5.first {
     margin-top: -0.3em;
 }
 
-div#zp-ZotpressMetaBox-Biblio-Options h4 span.toggle,
-div#zp-ZotpressMetaBox-InText-Options h4 span.toggle {
+div#zp-MetazotMetaBox-Biblio-Options h4 span.toggle,
+div#zp-MetazotMetaBox-InText-Options h4 span.toggle {
     float: right;
     cursor: pointer;
     font-size: 0.8em;
@@ -357,8 +357,8 @@ div#zp-ZotpressMetaBox-InText-Options h4 span.toggle {
     text-transform: uppercase;
     width: 50%;
 }
-div#zp-ZotpressMetaBox-Biblio-Options h4 span.toggle-button,
-div#zp-ZotpressMetaBox-InText-Options h4 span.toggle-button {
+div#zp-MetazotMetaBox-Biblio-Options h4 span.toggle-button,
+div#zp-MetazotMetaBox-InText-Options h4 span.toggle-button {
     content: "\f347";
     cursor: pointer;
     display: inline-block;
@@ -370,13 +370,13 @@ div#zp-ZotpressMetaBox-InText-Options h4 span.toggle-button {
     width: 50%;
     height: 16px;
 }
-div#zp-ZotpressMetaBox-Biblio-Options h4 span.toggle-button.dashicons-arrow-up-alt2,
-div#zp-ZotpressMetaBox-InText-Options h4 span.toggle-button.dashicons-arrow-up-alt2 {
+div#zp-MetazotMetaBox-Biblio-Options h4 span.toggle-button.dashicons-arrow-up-alt2,
+div#zp-MetazotMetaBox-InText-Options h4 span.toggle-button.dashicons-arrow-up-alt2 {
     content: "\f343";
 }
 
-div#zp-ZotpressMetaBox-Biblio-Options hr,
-div#zp-ZotpressMetaBox-InText-Options hr {
+div#zp-MetazotMetaBox-Biblio-Options hr,
+div#zp-MetazotMetaBox-InText-Options hr {
     border: none;
     background-color: #fff;
     clear: both;
@@ -384,17 +384,17 @@ div#zp-ZotpressMetaBox-InText-Options hr {
     padding: 0;
     height: 1px;
 }
-div#ZotpressMetaBox div#zp-ZotpressMetaBox-Biblio-Options select#zp-ZotpressMetaBox-Biblio-Options-Style {
+div#MetazotMetaBox div#zp-MetazotMetaBox-Biblio-Options select#zp-MetazotMetaBox-Biblio-Options-Style {
     float: none;
 }
 
-input#zp-ZotpressMetaBox-Biblio-Options-Format,
-input#zp-ZotpressMetaBox-InText-Options-Format {
+input#zp-MetazotMetaBox-Biblio-Options-Format,
+input#zp-MetazotMetaBox-InText-Options-Format {
     min-width: 185px;
 }
 
-div#zp-ZotpressMetaBox-Biblio-Options p.note,
-div#zp-ZotpressMetaBox-InText-Options p.note {
+div#zp-MetazotMetaBox-Biblio-Options p.note,
+div#zp-MetazotMetaBox-InText-Options p.note {
     color: #666;
     font-size: 0.75em;
     margin: 0 1em 0.75em;
@@ -406,25 +406,25 @@ div#zp-ZotpressMetaBox-InText-Options p.note {
 
 /* START OF GENERIC METABOX CSS */
 
-div#ZotpressMetaBox.postbox div.inside {
+div#MetazotMetaBox.postbox div.inside {
     /*padding: 0 6px;*/
     margin: 0;
     padding: 0;
 }
 
-div#ZotpressMetaBox h3.hndle span {
+div#MetazotMetaBox h3.hndle span {
     background: transparent url('../images/icon.png') no-repeat left center;
     padding-left: 22px;
 }
 
-div.zp-ZotpressMetaBox-Tabs {
+div.zp-MetazotMetaBox-Tabs {
     border-radius: 5px;
     -moz-border-radius: 5px;
     border: 1px solid #ccc;
     padding: 1px;
     margin-bottom: 10px;
 }
-div.zp-ZotpressMetaBox-Tabs ul.ui-tabs-nav {
+div.zp-MetazotMetaBox-Tabs ul.ui-tabs-nav {
     display: none;
     border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
@@ -434,20 +434,20 @@ div.zp-ZotpressMetaBox-Tabs ul.ui-tabs-nav {
     overflow: hidden;
     /*height: 20px;*/
 }
-div.zp-ZotpressMetaBox-Tabs ul li,
-div.zp-ZotpressMetaBox-Tabs ul.ui-tabs-nav li {
+div.zp-MetazotMetaBox-Tabs ul li,
+div.zp-MetazotMetaBox-Tabs ul.ui-tabs-nav li {
     margin: 0;
     padding: 5px 5px 0;
     float: left;
     height: 13px;
 }
-div.zp-ZotpressMetaBox-Tabs ul.ui-tabs-nav li.ui-state-active {
+div.zp-MetazotMetaBox-Tabs ul.ui-tabs-nav li.ui-state-active {
     border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
     background-color: #fff;
     height: 13px;
 }
-div.zp-ZotpressMetaBox-Tabs ul.ui-tabs-nav li a {
+div.zp-MetazotMetaBox-Tabs ul.ui-tabs-nav li a {
     /*font: 9px/10px 'Arial', sans-serif;*/
     letter-spacing: 1px;
     padding: 0 3px;
@@ -455,33 +455,33 @@ div.zp-ZotpressMetaBox-Tabs ul.ui-tabs-nav li a {
     text-transform: uppercase;
     vertical-align: top;
 }
-div.zp-ZotpressMetaBox-Tabs ul.ui-tabs-nav li.ui-state-active a {
+div.zp-MetazotMetaBox-Tabs ul.ui-tabs-nav li.ui-state-active a {
     color: #333;
 }
-div.zp-ZotpressMetaBox-Tabs input[type="radio"] {
+div.zp-MetazotMetaBox-Tabs input[type="radio"] {
     vertical-align: text-top;
 }
 
-div#ZotpressMetaBox h4 {
+div#MetazotMetaBox h4 {
     margin: 0;
     padding: 0;
 }
 
-div#zp-ZotpressMetaBox-Biblio-Options label,
-div#zp-ZotpressMetaBox-InText-Options label {
+div#zp-MetazotMetaBox-Biblio-Options label,
+div#zp-MetazotMetaBox-InText-Options label {
     font-size: 13px;
     color: #555d66;
     margin: 0;
     padding: 5px 0;
     font-weight: normal;
 }
-div#ZotpressMetaBox div.zp-Tab label {
+div#MetazotMetaBox div.zp-Tab label {
     font-size: 12px;
     display: block;
     margin: 0;
     padding: 0 0 5px 0;
 }
-div#ZotpressMetaBox div.zp-Tab select {
+div#MetazotMetaBox div.zp-Tab select {
     width: 100%;
     height: 5em !important;
 }
@@ -515,19 +515,19 @@ div.zp-Tab select {
 }
 
 /* MAIN */
-#normal-sortables .zp-ZotpressMetaBox-Tabs .sm {
+#normal-sortables .zp-MetazotMetaBox-Tabs .sm {
     display: none;
 }
-#normal-sortables .zp-ZotpressMetaBox-Tabs .wide {
+#normal-sortables .zp-MetazotMetaBox-Tabs .wide {
     display: block;
 }
 /* MAIN */
 
 /* SIDEBAR */
-#side-sortables .zp-ZotpressMetaBox-Tabs .sm {
+#side-sortables .zp-MetazotMetaBox-Tabs .sm {
     display: block;
 }
-#side-sortables .zp-ZotpressMetaBox-Tabs .wide {
+#side-sortables .zp-MetazotMetaBox-Tabs .wide {
     display: none;
 }
 /* SIDEBAR */
@@ -537,13 +537,13 @@ div.zp-Tab select {
 }
 
 
-/* START OF ZOTPRESS METABOX TYPE */
+/* START OF METAZOT METABOX TYPE */
 
-div#ZotpressMetaBox div#zp-ZotpressMetaBox-Type.zp-ZotpressMetaBox-Sub {
+div#MetazotMetaBox div#zp-MetazotMetaBox-Type.zp-MetazotMetaBox-Sub {
     margin-top: 0;
 }
 
-div#ZotpressMetaBox div#zp-ZotpressMetaBox-Type h4 {
+div#MetazotMetaBox div#zp-MetazotMetaBox-Type h4 {
     color: #555d66;
     font-weight: normal;
     float: left;
@@ -554,18 +554,18 @@ div#ZotpressMetaBox div#zp-ZotpressMetaBox-Type h4 {
 
 /* START OF CKEDIT STYLES */
 
-span.zp-Zotpress-Citation {
+span.zp-Metazot-Citation {
     background-color: #eee !important;
 }
-span.zp-Zotpress-Citation:hover {
+span.zp-Metazot-Citation:hover {
     background-color: #ddd !important;
 }
 
-span.zp-Zotpress-Citation span.zp-Zotpress-Citation-Shortcode {
+span.zp-Metazot-Citation span.zp-Metazot-Citation-Shortcode {
     display: none !important;
 }
 
-span.zp-Zotpress-Citation span.zp-Zotpress-Citation-Info {
+span.zp-Metazot-Citation span.zp-Metazot-Citation-Info {
     display: inline !important;
 }
 

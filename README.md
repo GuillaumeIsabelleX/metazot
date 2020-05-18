@@ -1,20 +1,20 @@
-=== Zotpress ===
+=== Metazot ===
 
 Contributors: kseaborn, s4ndhyac
-Plugin Name: Zotpress
+Plugin Name: Metazot
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5HQ8FXAXS9MUQ
-Tags: zotero, zotpress, citation manager, citations, citation, cite, citing, bibliography, bibliographies, reference, referencing, references, reference list, reference manager, academic, academic blogging, academia, scholar, scholarly, scholarly blogging, cv, curriculum vitae, resume, publish, publication, publications
+Tags: zotero, metazot, citation manager, citations, citation, cite, citing, bibliography, bibliographies, reference, referencing, references, reference list, reference manager, academic, academic blogging, academia, scholar, scholarly, scholarly blogging, cv, curriculum vitae, resume, publish, publication, publications
 Author: Katie Seaborn, Sandhya Chandramohan
 Requires at least: 3.5
 Tested up to: 5.0.2
 Stable tag: 7.0.3
 License: Apache2.0
 
-Zotpress displays your Zotero citations on WordPress.
+Metazot displays your Zotero citations on WordPress.
 
 == Description ==
 
-[Zotpress](http://katieseaborn.com/plugins/ "Zotpress for WordPress") brings publication broadcasting and scholarly blogging to WordPress through [Zotero](http://zotero.org/ "Zotero"), a free, cross-platform reference manager.
+[Metazot](http://katieseaborn.com/plugins/ "Metazot for WordPress") brings publication broadcasting and scholarly blogging to WordPress through [Zotero](http://zotero.org/ "Zotero"), a free, cross-platform reference manager.
 
 = Features =
 * Displays your personal and group Zotero items through in-text citations, bibliographies, and searchable libraries
@@ -28,39 +28,39 @@ Compatible with Firefox, Safari, Chrome, and IE9. Made with jQuery, jQuery UI, j
 Special thanks to Joe Alberts for substantial contributions to the code, comprehensive testing, and design ideation. Thanks also to contributors Christopher Cheung and Jason S. for their development support and advice. Finally, my sincere gratitude goes out to all who have donated in support of this plugin.
 
 = Requirements =
-jQuery included in your theme (Zotpress will do this for you if it isn't already included), and an HTTP request method supported by WordPress enabled on your server: cURL, fopen with Streams (PHP 5), or fsockopen. In your server config file, X-Frame-Options should be set to SAMEORIGIN. Optional: OAuth enabled on your server.
+jQuery included in your theme (Metazot will do this for you if it isn't already included), and an HTTP request method supported by WordPress enabled on your server: cURL, fopen with Streams (PHP 5), or fsockopen. In your server config file, X-Frame-Options should be set to SAMEORIGIN. Optional: OAuth enabled on your server.
 
 == Installation ==
 
-1. Upload the folder `zotpress` to the `/wp-content/plugins/` directory.
+1. Upload the folder `metazot` to the `/wp-content/plugins/` directory.
 1. Activate the plugin through the 'Plugins' menu in WordPress.
 1. Add the Zotero API information for each Zotero account you'd like to use.
-1. On the Browse page, look up the keys of the items, collections, or tags that you wish to display. Or, use the Zotpress Reference Widget to generate shortcodes.
-1. Place the shortcodes in your blog post or page, or enable the Zotpress sidebar widget.
+1. On the Browse page, look up the keys of the items, collections, or tags that you wish to display. Or, use the Metazot Reference Widget to generate shortcodes.
+1. Place the shortcodes in your blog post or page, or enable the Metazot sidebar widget.
 
 = Shortcode =
 You can display your Zotero citations in a number of ways. To display a list of five citations from the collection with the key "ZKDTKM3X", use this shortcode:
 
-> [zotpress collection="ZKDTKM3X" limit="5"]
+> [metazot collection="ZKDTKM3X" limit="5"]
 
 You can also use in-text citations as follows:
 
-> [zotpressInText item="{U9Z5JTKC,36-45}"]
+> [metazotInText item="{U9Z5JTKC,36-45}"]
 
-> [zotpressInTextBib]
+> [metazotInTextBib]
 
-The first shortcode will display an in-text citation for an item with the key "U9Z5JTKC", which will look something like this: (Seaborn, 2011, p. 36). The [zotpressInTextBib] will auto-generate a bibliography for all [zotpressInText] shortcodes on the post/page.
+The first shortcode will display an in-text citation for an item with the key "U9Z5JTKC", which will look something like this: (Seaborn, 2011, p. 36). The [metazotInTextBib] will auto-generate a bibliography for all [metazotInText] shortcodes on the post/page.
 
-Check out the "Help" page on your installation of Zotpress for more information and a full listing of parameters for all shortcodes.
+Check out the "Help" page on your installation of Metazot for more information and a full listing of parameters for all shortcodes.
 
 == Frequently Asked Questions ==
 
-The F.A.Q. can be found on the "Help" page of every Zotpress installation. If you have a question that isn't answered there, feel free to post a message in the [forums](https://wordpress.org/support/plugin/zotpress "Zotpress forums on Wordpress.com").
+The F.A.Q. can be found on the "Help" page of every Metazot installation. If you have a question that isn't answered there, feel free to post a message in the [forums](https://wordpress.org/support/plugin/metazot "Metazot forums on Wordpress.com").
 
 == Screenshots ==
 
 1. Display items from individual or group Zotero libraries on your WordPress website. Special characters are supported.
-2. Search for items using the autocomplete feature. Generate shortcodes for bibliographies and in-text citations using the "Zotpress Reference" widget on edit screens.
+2. Search for items using the autocomplete feature. Generate shortcodes for bibliographies and in-text citations using the "Metazot Reference" widget on edit screens.
 3. Give your citation an image using WordPress's Media Library or Open Library.
 4. Share your library through your website. Allow visitors to browse by collection or tag.
 5. Allow visitors to search your library by item metadata or tag, or both.
@@ -97,13 +97,13 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 * Minified styles and scripts.
 * Updated branding.
 * Added search bar for shortcode attributes to Help page.
-* Minor style and UI updates to Zotpress Library.
+* Minor style and UI updates to Metazot Library.
 * Removed experimental tinymce code.
 
 = 6.2.4 =
 
 * Updated shortcode styles and fixed the Search Bar display.
-* Updated Zotpress Reset to remove additional options and tables from db.
+* Updated Metazot Reset to remove additional options and tables from db.
 * Download now looks for import_url as well as import_file.
 * Updated the readme and screenshots.
 
@@ -151,7 +151,7 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 = 6.1.3 =
 
-* Fixed security issue with zp_get_account().
+* Fixed security issue with mz_get_account().
 * New! "style" attribute for searchbar.
 * Updated widget account selection and fixed retrieval error.
 * Minor image and code style updates.
@@ -194,7 +194,7 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 * New way of selecting in-text citations without relying on post IDs as HTML IDs or classes.
 * The "items" and "collections" parameters in bib and in-text shortcodes are now flexible around extra spaces.
-* Fixed Zotpress In-Text Bibliography non-unique ID issue.
+* Fixed Metazot In-Text Bibliography non-unique ID issue.
 * Fixed parenthesis formatting issue for number-based in-text citations.
 * Number-based in-text citations now have bibliographic details on mouse hover.
 
@@ -202,7 +202,7 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 * Re-added item keys on Browse page.
 * Set withCredentials attribute to true for AJAX requests.
-* Fixed Zotpress Bibliography unique identifier bug.
+* Fixed Metazot Bibliography unique identifier bug.
 * Fixed default sorting for in-text citations.
 * Fixed in-text format <sup> (superscript).
 * Re-added bib info as title for non-number-based in-text citation anchors.
@@ -212,7 +212,7 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 * Fixed inclusive="no" bug for tags.
 * Fixed pagination for searchbar.
-* Fixed non-English characters bug for the Zotpress Reference widget.
+* Fixed non-English characters bug for the Metazot Reference widget.
 * Fixed sidebar widget issues.
 * Fixed in-text bug that assumed id rather than class for posts/pages.
 * Fixed various in-text formatting bugs.
@@ -227,17 +227,17 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 = 6.0.1 =
 
-* Fixed "limit" attribute bug for the Zotpress Bibliography Shortcode.
-* Fixed single item bug for the Zotpress In-Text Shortcode.
+* Fixed "limit" attribute bug for the Metazot Bibliography Shortcode.
+* Fixed single item bug for the Metazot In-Text Shortcode.
 
 = 6.0 =
 
 * New! Auto-updating/syncing through realtime data access with cURL and AJAX.
 * Now using Zotero API version 3.
-* Retired Zotpress Bibliography Shortcode attribute "linkedlist"/"link"; use Zotpress Library Shortcode instead.
-* Retired Zotpress Bibliography Shortcode attribute "datatype"; use Zotpress Library Shortcode instead.
-* Modified Zotpress Bibliography Shortcode attribute "inclusive"; use with multiple authors only.
-* Zotpress Reference widget refined; now uses WP AJAX.
+* Retired Metazot Bibliography Shortcode attribute "linkedlist"/"link"; use Metazot Library Shortcode instead.
+* Retired Metazot Bibliography Shortcode attribute "datatype"; use Metazot Library Shortcode instead.
+* Modified Metazot Bibliography Shortcode attribute "inclusive"; use with multiple authors only.
+* Metazot Reference widget refined; now uses WP AJAX.
 * Fixed "cite" bug for the Library shortcode.
 * Shortcode parameter "searchby" for the Library SearchBar is now limited to items and tags.
 * Updated deprecated code to WP 4.3 standards.
@@ -272,12 +272,12 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 = 5.5 =
 
-* New! Autocomplete search bar option for "zotpressLib" shortcode.
+* New! Autocomplete search bar option for "metazotLib" shortcode.
 * Updated DOI hyperlinking function.
 * Fixed item import bugs related to quotes and empty queries.
 * Thanks to @mlwk for a thorough, 2+ level nested collections fix.
 * Thanks to Joe Alberts for fixing the permission denied error reporting.
-* Added support for "month-month year" format to zp_date_format.
+* Added support for "month-month year" format to mz_date_format.
 
 = 5.4.2 =
 
@@ -290,7 +290,7 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 = 5.4 =
 
-* New! "zotpressLib" shortcode for displaying your library on the front-end of your website.
+* New! "metazotLib" shortcode for displaying your library on the front-end of your website.
 * Fixed "set image" bug for single-account setups.
 * Fixed "remove image" bug.
 * Optimized nested collections display.
@@ -341,7 +341,7 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 = 5.2.8.1 =
 
-* Fixed zp_get_year warning messages.
+* Fixed mz_get_year warning messages.
 
 = 5.2.8 =
 
@@ -365,7 +365,7 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 = 5.2.5 =
 
-* Confirmed that Zotpress works with WP 4.0.
+* Confirmed that Metazot works with WP 4.0.
 * New! "forcenumber" attribute numbers bibliographies, even when the style doesn't.
 * New! Clicking in-text anchors highlights the corresponding entry in the bibliography.
 * New! DOIs are automatically hyperlinked.
@@ -394,7 +394,7 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 = 5.2 =
 
-* IMPORTANT! You must re-import your Zotero library/libraries in Zotpress when you install this version or your shortcodes will not display correctly.
+* IMPORTANT! You must re-import your Zotero library/libraries in Metazot when you install this version or your shortcodes will not display correctly.
 * Fixed selective import bug for libraries with more than 50 top-level collections.
 * Optimized import script and enforced Zotero API Version 2.
 * Increased time length before timeout for import scripts.
@@ -402,10 +402,10 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 = 5.1 =
 
-* Zotpress now requires version 3.5 of WordPress.
+* Metazot now requires version 3.5 of WordPress.
 * New! In-text citation attributes "and" and "separator" for greater flexibility in format and style.
 * New! Bibliography shortcode attributes "showtags" for displaying a citation's tags and "target" for HTML5 compliance.
-* New! Enable or disable Zotpress Reference Widget for specific post types.
+* New! Enable or disable Metazot Reference Widget for specific post types.
 * Updated import script, including compliance testing and friendly error messages.
 * Updated style names, e.g. mla is now modern-language-association.
 * Updated look and feel to match WordPress 3.8+.
@@ -429,7 +429,7 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 = 5.0.8 =
 
 * New! Import functionality check added.
-* New! Reset Zotpress feature on Options page.
+* New! Reset Metazot feature on Options page.
 * New! Added security measures to prevent direct access.
 * New! Import items, collections and tags separately.
 * Updated import script; sessions removed.
@@ -464,13 +464,13 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 * Fixed front-end style update script for large (50+) items.
 * Fixed "datatype" filtering error.
 * Fixed typos in the Help page.
-* Added default account constraint to Zotpress Reference results.
+* Added default account constraint to Metazot Reference results.
 
 = 5.0.4 =
 
 * Fixed table install, update and uninstall issues.
 * New import and sync scripts for large libraries.
-* Zotpress admin now accessible to Editors.
+* Metazot admin now accessible to Editors.
 * Styles updated and Help page shortcode documentation redesigned.
 
 = 5.0.3 =
@@ -492,13 +492,13 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 = 5.0 =
 
-* Happy new year! Zotpress is now optimized for Wordpress 3.5.
+* Happy new year! Metazot is now optimized for Wordpress 3.5.
 * Near-complete rewrite of the code for greater loading speeds across the board.
 * Revamped Browse page and Reference Widget with autocomplete and a new shortcode builder.
-* Expanded Zotpress In-Text capabilities, including multiple items and formatting.
+* Expanded Metazot In-Text capabilities, including multiple items and formatting.
 * New shortcode parameters, including ones for filtering and providing RIS links for citing.
 * Greater shortcode flexibility, including support for multiple items and new sort options.
-* Many more additions and bug fixes. Explore and enjoy the new Zotpress!
+* Many more additions and bug fixes. Explore and enjoy the new Metazot!
 
 = 4.5.4 =
 
@@ -519,11 +519,11 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 = 4.5.1 =
 
 * In-Text Bibliography display fixed (or, made better).
-* New! Set default citation style (for all posts, via Zotpress Reference Metabox Widget).
+* New! Set default citation style (for all posts, via Metazot Reference Metabox Widget).
 
 = 4.5 =
 
-* New: Shortcode Creator in the Zotpress Reference Metabox Widget.
+* New: Shortcode Creator in the Metazot Reference Metabox Widget.
 * "Show Image" and "Sort" bugs fixed.
 
 = 4.4.1 =
@@ -534,14 +534,14 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 * A number of security measures added.
 * Fixed "Help" page shortcode for in-text citations and private vs. public groups: oops!
-* The Zotpress shortcode now accepts lists for these parameters: collection, item.
+* The Metazot shortcode now accepts lists for these parameters: collection, item.
 * Notes can now be shown, if made publicly available through Zotero.
-* Zotpress Reference should now show up on custom post type writing/editing pages.
-* Zotpress Reference now working with the latest versions of Chrome and Safari.
+* Metazot Reference should now show up on custom post type writing/editing pages.
+* Metazot Reference now working with the latest versions of Chrome and Safari.
 
 = 4.3 =
 
-* Introducing "Zotpress InText", a new shortcode that let's you add in-text citations, and then auto-generates a bibliography for you. jQuery must be enabled. Only supports APA style; requests can be made in the forums. Use information can be found in your Zotpress installation's "Help" page.
+* Introducing "Metazot InText", a new shortcode that let's you add in-text citations, and then auto-generates a bibliography for you. jQuery must be enabled. Only supports APA style; requests can be made in the forums. Use information can be found in your Metazot installation's "Help" page.
 * Recaching and auto-checking for new or updated Zotero data back in action.
 * The "collection" shortcode parameter now working.
 * Zotero XML data gathering functions optimized.
@@ -563,7 +563,7 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 = 4.2.4 =
 
 * Fixed sidebar widget error and display issue.
-* Added more information to and sorting of citations listed in the Zotpress Reference widget.
+* Added more information to and sorting of citations listed in the Metazot Reference widget.
 
 = 4.2.3 =
 
@@ -643,16 +643,16 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 = 3.0 =
 
-* New "Zotpress Reference" widget, meant to speed up the process of adding shortcodes to your posts and pages by allowing you to selectively search for ids directly on the add and edit pages.
+* New "Metazot Reference" widget, meant to speed up the process of adding shortcodes to your posts and pages by allowing you to selectively search for ids directly on the add and edit pages.
 * OAuth is now supported, which means that you don't have to go out of your way to generate the required private key for your Zotero account anymore (unless your server doesn't support OAuth, of course).
-* I've changed the way Zotpress's admin splash page loads. Before, the page would hang until finished loading the latest citations from Zotero. This is a friendlier way of letting you know what Zotpress is up to.
+* I've changed the way Metazot's admin splash page loads. Before, the page would hang until finished loading the latest citations from Zotero. This is a friendlier way of letting you know what Metazot is up to.
 * Manual re-caching and clear cache options added, for those who desire to refresh the cache at their leisure.
 * Citations that have URLs will now have their URLs automatically hyperlinked.
 * More IDs and classes added for greater CSS styling possibilities.
-* Improved handling of multiple Zotpress shortcode calls on a single page.
+* Improved handling of multiple Metazot shortcode calls on a single page.
 * Code reduced and refined plugin-wide, which should equal an overall performance improvement.
 * "Order" parameter no longer available, at least for now; see http://www.zotero.org/support/dev/server_api
-* "Forcing cURL" option abandoned. If your server supports it, cURL will be used; otherwise, Zotpress will resort to file_get_contents().
+* "Forcing cURL" option abandoned. If your server supports it, cURL will be used; otherwise, Metazot will resort to file_get_contents().
 
 = 2.6.1 =
 
@@ -698,7 +698,7 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 = 2.0 =
 
-* Zotpress completely restructured.
+* Metazot completely restructured.
 * Most requests now made through PHP. Shortcode requests made through PHP/jQuery combo for user-friendliness on the front-end.
 * Cross-user caching implemented. Updates request data every 10 minutes and only if request made.
 * Increased security now that private keys are no longer exposed through JavaScript.
@@ -722,7 +722,7 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 = 1.2 =
 
-* Optimized JavaScript functions. Fixed some grammatical errors on the Help page. More selective loading of JavaScript. And most importantly ... added a Zotpress widget option. This also means you can have more than one Zotpress call on a single page.
+* Optimized JavaScript functions. Fixed some grammatical errors on the Help page. More selective loading of JavaScript. And most importantly ... added a Metazot widget option. This also means you can have more than one Metazot call on a single page.
 
 = 1.1 =
 
@@ -730,7 +730,7 @@ The F.A.Q. can be found on the "Help" page of every Zotpress installation. If yo
 
 = 1.0 =
 
-* Zotpress makes its debut.
+* Metazot makes its debut.
 
 == Upgrade Notice ==
 

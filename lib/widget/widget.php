@@ -2,56 +2,56 @@
 
 
 	// Add Widget Metabox
-    function Zotpress_add_meta_box()
+    function Metazot_add_meta_box()
     {
-        $zp_default_cpt = "post,page";
-        if (get_option("Zotpress_DefaultCPT"))
-            $zp_default_cpt = get_option("Zotpress_DefaultCPT");
-        $zp_default_cpt = explode(",",$zp_default_cpt);
+        $mz_default_cpt = "post,page";
+        if (get_option("Metazot_DefaultCPT"))
+            $mz_default_cpt = get_option("Metazot_DefaultCPT");
+        $mz_default_cpt = explode(",",$mz_default_cpt);
 
-        foreach ($zp_default_cpt as $post_type )
+        foreach ($mz_default_cpt as $post_type )
         {
             add_meta_box(
-                'ZotpressMetaBox',
-                __( 'Zotpress Reference', 'zotpress' ),
-                'Zotpress_show_meta_box',
+                'MetazotMetaBox',
+                __( 'Metazot Reference', 'metazot' ),
+                'Metazot_show_meta_box',
                 $post_type,
                 'side'
             );
         }
     }
-    add_action('admin_init', 'Zotpress_add_meta_box', 1); // backwards compatible
+    add_action('admin_init', 'Metazot_add_meta_box', 1); // backwards compatible
 
-    function Zotpress_show_meta_box() { require( dirname(__FILE__) . '/widget.metabox.php'); }
+    function Metazot_show_meta_box() { require( dirname(__FILE__) . '/widget.metabox.php'); }
 
 
 
 	// Set up Widget Metabox AJAX search
-	function Zotpress_widget_metabox_AJAX_search()
+	function Metazot_widget_metabox_AJAX_search()
 	{
 		global $wpdb;
 
 		// Determine account based on passed account
         if ( $_GET['api_user_id'] && is_numeric($_GET['api_user_id']) )
         {
-            $zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress WHERE api_user_id='".$_GET['api_user_id']."'", OBJECT);
-            $zp_api_user_id = $zp_account->api_user_id;
-            $zp_nickname = $zp_account->nickname;
+            $mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot WHERE api_user_id='".$_GET['api_user_id']."'", OBJECT);
+            $mz_api_user_id = $mz_account->api_user_id;
+            $mz_nickname = $mz_account->nickname;
         }
         // If, for some reason, the account isn't passed through
         else
         {
-            if (get_option("Zotpress_DefaultAccount"))
+            if (get_option("Metazot_DefaultAccount"))
     		{
-    			$zp_api_user_id = get_option("Zotpress_DefaultAccount");
-                $zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress WHERE api_user_id='".$zp_api_user_id."'", OBJECT);
-                $zp_nickname = $zp_account->nickname;
+    			$mz_api_user_id = get_option("Metazot_DefaultAccount");
+                $mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot WHERE api_user_id='".$mz_api_user_id."'", OBJECT);
+                $mz_nickname = $mz_account->nickname;
     		}
     		else
     		{
-    			$zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress LIMIT 1", OBJECT);
-    			$zp_api_user_id = $zp_account->api_user_id;
-                $zp_nickname = $zp_account->nickname;
+    			$mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot LIMIT 1", OBJECT);
+    			$mz_api_user_id = $mz_account->api_user_id;
+                $mz_nickname = $mz_account->nickname;
     		}
         }
 
@@ -61,22 +61,22 @@
 		include( dirname(__FILE__) . '/../request/request.class.php' );
 		include( dirname(__FILE__) . '/../request/request.functions.php' );
 
-		// Set up Zotpress request
-		$zp_import_contents = new ZotpressRequest();
+		// Set up Metazot request
+		$mz_import_contents = new MetazotRequest();
 
 		// Get account
-		$zp_account = zp_get_account ($wpdb, $zp_api_user_id);
+		$mz_account = mz_get_account ($wpdb, $mz_api_user_id);
 
 		// Format Zotero request URL
 		// e.g., https://api.zotero.org/users/#####/items?key=###&format=json&q=###&limit=25
-		$zp_import_url = "https://api.zotero.org/".$zp_account[0]->account_type."/".$zp_account[0]->api_user_id."/items?";
-		if (is_null($zp_account[0]->public_key) === false && trim($zp_account[0]->public_key) != "")
-			$zp_import_url .= "key=".$zp_account[0]->public_key."&";
-		$zp_import_url .= "format=json&q=".urlencode($_GET['term'])."&limit=10&itemType=-attachment+||+note";
+		$mz_import_url = "https://api.zotero.org/".$mz_account[0]->account_type."/".$mz_account[0]->api_user_id."/items?";
+		if (is_null($mz_account[0]->public_key) === false && trim($mz_account[0]->public_key) != "")
+			$mz_import_url .= "key=".$mz_account[0]->public_key."&";
+		$mz_import_url .= "format=json&q=".urlencode($_GET['term'])."&limit=10&itemType=-attachment+||+note";
 
 		// Read the external data
-		$zp_xml = $zp_import_contents->get_request_contents( $zp_import_url, true ); // Unsure about "true"
-		$zpResultJSON = json_decode( $zp_xml["json"] );
+		$mz_xml = $mz_import_contents->get_request_contents( $mz_import_url, true ); // Unsure about "true"
+		$zpResultJSON = json_decode( $mz_xml["json"] );
 
 		if ( count($zpResultJSON) > 0 )
 		{
@@ -113,73 +113,73 @@
 				}
 				$label = $label . $title;
 
-				array_push( $zpSearch, array( "api_user_id" => $zp_api_user_id, "nickname" => $zp_nickname, "author" => $author, "label" => $label, "value" => $zpResult->key) );
+				array_push( $zpSearch, array( "api_user_id" => $mz_api_user_id, "nickname" => $mz_nickname, "author" => $author, "label" => $label, "value" => $zpResult->key) );
 			}
 		}
 
-		unset($zp_import_contents);
-		unset($zp_import_url);
-		unset($zp_xml);
+		unset($mz_import_contents);
+		unset($mz_import_url);
+		unset($mz_xml);
 
 
 		$response = json_encode($zpSearch);
 		echo $response;
 
-		unset($zp_api_user_id);
-		unset($zp_account);
+		unset($mz_api_user_id);
+		unset($mz_account);
 		$wpdb->flush();
 
 		exit();
     }
-    add_action( 'wp_ajax_zpWidgetMetabox-submit', 'Zotpress_widget_metabox_AJAX_search' );
+    add_action( 'wp_ajax_zpWidgetMetabox-submit', 'Metazot_widget_metabox_AJAX_search' );
 
 
 
 	// Set relevant admin-level Widget Metabox scripts
-	function Zotpress_zpWidgetMetabox_scripts_css($hook)
+	function Metazot_zpWidgetMetabox_scripts_css($hook)
 	{
         // Turn on/off minified versions if testing/live
-        $minify = ''; if ( ZOTPRESS_LIVEMODE ) $minify = '.min';
+        $minify = ''; if ( METAZOT_LIVEMODE ) $minify = '.min';
 
         if ( in_array( $hook, array('post.php', 'post-new.php') ) === true )
         {
-            wp_enqueue_script( 'jquery.livequery.min.js', ZOTPRESS_PLUGIN_URL . 'js/jquery.livequery.min.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-position', 'jquery-ui-tabs', 'jquery-ui-autocomplete' ) );
-            wp_enqueue_script( 'zotpress.widget.metabox'.$minify.'.js', ZOTPRESS_PLUGIN_URL . 'js/zotpress.widget.metabox'.$minify.'.js', array( 'jquery', 'jquery-form', 'json2' ) );
+            wp_enqueue_script( 'jquery.livequery.min.js', METAZOT_PLUGIN_URL . 'js/jquery.livequery.min.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-position', 'jquery-ui-tabs', 'jquery-ui-autocomplete' ) );
+            wp_enqueue_script( 'metazot.widget.metabox'.$minify.'.js', METAZOT_PLUGIN_URL . 'js/metazot.widget.metabox'.$minify.'.js', array( 'jquery', 'jquery-form', 'json2' ) );
 
 			wp_localize_script(
-				'zotpress.widget.metabox'.$minify.'.js',
+				'metazot.widget.metabox'.$minify.'.js',
 				'zpWidgetMetabox',
 				array(
 					'ajaxurl' => admin_url( 'admin-ajax.php' ),
 					'zpWidgetMetabox_nonce' => wp_create_nonce( 'zpWidgetMetabox_nonce_val' ),
 					'action' => 'zpWidgetMetabox-submit',
-                    'txt_typetosearch' => __( 'Type to search', 'zotpress' ),
-                    'txt_pages' => __( 'Page(s)', 'zotpress' ),
-                    'txt_itemkey' => __( 'Item Key', 'zotpress' ),
-                    'txt_account' => __( 'Account', 'zotpress' )
+                    'txt_typetosearch' => __( 'Type to search', 'metazot' ),
+                    'txt_pages' => __( 'Page(s)', 'metazot' ),
+                    'txt_itemkey' => __( 'Item Key', 'metazot' ),
+                    'txt_account' => __( 'Account', 'metazot' )
 				)
 			);
         }
 	}
-	add_action( 'admin_enqueue_scripts', 'Zotpress_zpWidgetMetabox_scripts_css' );
+	add_action( 'admin_enqueue_scripts', 'Metazot_zpWidgetMetabox_scripts_css' );
 
 
 
     /**
     * Metabox styles
     */
-    function Zotpress_admin_post_styles()
+    function Metazot_admin_post_styles()
     {
         // Turn on/off minified versions if testing/live
-        $minify = ''; if ( ZOTPRESS_LIVEMODE ) $minify = '.min';
+        $minify = ''; if ( METAZOT_LIVEMODE ) $minify = '.min';
 
-        wp_register_style('zotpress.metabox'.$minify.'.css', ZOTPRESS_PLUGIN_URL . 'css/zotpress.metabox'.$minify.'.css');
-        wp_enqueue_style('zotpress.metabox'.$minify.'.css');
+        wp_register_style('metazot.metabox'.$minify.'.css', METAZOT_PLUGIN_URL . 'css/metazot.metabox'.$minify.'.css');
+        wp_enqueue_style('metazot.metabox'.$minify.'.css');
 
-        wp_enqueue_style('jquery-ui-tabs', ZOTPRESS_PLUGIN_URL . 'css/smoothness/jquery-ui-1.8.11.custom'.$minify.'.css');
+        wp_enqueue_style('jquery-ui-tabs', METAZOT_PLUGIN_URL . 'css/smoothness/jquery-ui-1.8.11.custom'.$minify.'.css');
     }
-    add_action('admin_print_styles-post.php', 'Zotpress_admin_post_styles');
-    add_action('admin_print_styles-post-new.php', 'Zotpress_admin_post_styles');
+    add_action('admin_print_styles-post.php', 'Metazot_admin_post_styles');
+    add_action('admin_print_styles-post-new.php', 'Metazot_admin_post_styles');
 
 
 ?>

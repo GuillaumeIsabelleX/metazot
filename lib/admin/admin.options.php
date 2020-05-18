@@ -6,13 +6,13 @@ if ( current_user_can('edit_others_posts') )
 
 ?>
 
-		<div id="zp-Zotpress" class="wrap">
+		<div id="zp-Metazot" class="wrap">
 
             <?php include( dirname(__FILE__) . '/admin.menu.php' ); ?>
 
 			<div id="zp-Options-Wrapper">
 
-				<h3><?php _e('Options','zotpress'); ?></h3>
+				<h3><?php _e('Options','metazot'); ?></h3>
 
 				<?php include('admin.options.form.php'); ?>
 
@@ -24,19 +24,19 @@ if ( current_user_can('edit_others_posts') )
 				<div class="zp-Column-1">
 					<div class="zp-Column-Inner">
 
-						<h4><?php _e('Set Reference Widget','zotpress'); ?></h4>
+						<h4><?php _e('Set Reference Widget','metazot'); ?></h4>
 
-						<p class="note"><?php _e('Enable or disable the Zotpress Reference widget for specific post types.','zotpress'); ?></p>
+						<p class="note"><?php _e('Enable or disable the Metazot Reference widget for specific post types.','metazot'); ?></p>
 
-						<div id="zp-Zotpress-Options-CPT" class="zp-Zotpress-Options">
+						<div id="zp-Metazot-Options-CPT" class="zp-Metazot-Options">
 
 							<div class="zp-CPT-Checkbox-Container"><?php
 
 							// See if default exists
-                            $zp_default_cpt = "post,page";
-                            if (get_option("Zotpress_DefaultCPT"))
-                                $zp_default_cpt = get_option("Zotpress_DefaultCPT");
-							$zp_default_cpt = explode(",",$zp_default_cpt);
+                            $mz_default_cpt = "post,page";
+                            if (get_option("Metazot_DefaultCPT"))
+                                $mz_default_cpt = get_option("Metazot_DefaultCPT");
+							$mz_default_cpt = explode(",",$mz_default_cpt);
 
 							$post_types = get_post_types( '', 'names' );
 
@@ -44,7 +44,7 @@ if ( current_user_can('edit_others_posts') )
 							{
 								echo "<div class='zp-CPT-Checkbox'>";
 								echo "<input type=\"checkbox\" name=\"zp-CTP\" id=\"".$post_type."\" value=\"".$post_type."\" ";
-								if ( in_array( $post_type, $zp_default_cpt ) ) echo "checked ";
+								if ( in_array( $post_type, $mz_default_cpt ) ) echo "checked ";
 								echo ">";
 								echo "<label ";
 								echo "for=\"".$post_type."\">".$post_type."</label>";
@@ -53,10 +53,10 @@ if ( current_user_can('edit_others_posts') )
 
 							?></div><!-- .zp-CPT-Checkbox-Container -->
 
-							<input type="button" id="zp-Zotpress-Options-CPT-Button" class="button-secondary" value="<?php _e('Set Reference Widget','zotpress'); ?>">
+							<input type="button" id="zp-Metazot-Options-CPT-Button" class="button-secondary" value="<?php _e('Set Reference Widget','metazot'); ?>">
 							<div class="zp-Loading">loading</div>
-							<div class="zp-Success"><?php _e('Success','zotpress'); ?>!</div>
-							<div class="zp-Errors"><?php _e('Errors','zotpress'); ?>!</div>
+							<div class="zp-Success"><?php _e('Success','metazot'); ?>!</div>
+							<div class="zp-Errors"><?php _e('Errors','metazot'); ?>!</div>
 
 						</div>
 					</div>
@@ -68,16 +68,16 @@ if ( current_user_can('edit_others_posts') )
 				<div class="zp-Column-1">
 					<div class="zp-Column-Inner">
 
-						<h4><?php _e('Reset Zotpress','zotpress'); ?></h4>
+						<h4><?php _e('Reset Metazot','metazot'); ?></h4>
 
-						<p class="note"><?php _e('Note: This action will clear all database entries associated with Zotpress, including account information and citations&#8212;it <strong>cannot be undone</strong>. Proceed with caution.','zotpress'); ?></p>
+						<p class="note"><?php _e('Note: This action will clear all database entries associated with Metazot, including account information and citations&#8212;it <strong>cannot be undone</strong>. Proceed with caution.','metazot'); ?></p>
 
-						<div id="zp-Zotpress-Options-Reset" class="zp-Zotpress-Options">
+						<div id="zp-Metazot-Options-Reset" class="zp-Metazot-Options">
 
-							<input type="button" id="zp-Zotpress-Options-Reset-Button" class="button-secondary" value="<?php _e('Reset Zotpress','zotpress'); ?>">
+							<input type="button" id="zp-Metazot-Options-Reset-Button" class="button-secondary" value="<?php _e('Reset Metazot','metazot'); ?>">
 							<div class="zp-Loading">loading</div>
-							<div class="zp-Success"><?php _e('Success','zotpress'); ?>!</div>
-							<div class="zp-Errors"><?php _e('Errors','zotpress'); ?>!</div>
+							<div class="zp-Success"><?php _e('Success','metazot'); ?>!</div>
+							<div class="zp-Errors"><?php _e('Errors','metazot'); ?>!</div>
 
 						</div>
 					</div>
@@ -93,7 +93,7 @@ if ( current_user_can('edit_others_posts') )
 
 else
 {
-	echo "<p>"._e("Sorry, you don't have permission to access this page.","zotpress")."</p>";
+	echo "<p>"._e("Sorry, you don't have permission to access this page.","metazot")."</p>";
 }
 
 ?>

@@ -2,29 +2,29 @@
 
 // INSTALL -----------------------------------------------------------------------------------------
 
-    function Zotpress_install()
+    function Metazot_install()
     {
         global $wpdb;
 
-        $Zotpress_main_db_version = "5.2";
-        $Zotpress_oauth_db_version = "5.0.5";
-        $Zotpress_zoteroItemImages_db_version = "5.2.6";
-		$Zotpress_cache_version = "6.2";
+        $Metazot_main_db_version = "5.2";
+        $Metazot_oauth_db_version = "5.0.5";
+        $Metazot_zoteroItemImages_db_version = "5.2.6";
+		$Metazot_cache_version = "6.2";
 
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
 
 		// REMOVE OLD DATABASES AND CHECKS - since 6.0
-        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroItems;");
-        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroCollections;");
-        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroTags;");
-        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroRelItemColl;");
-        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroRelItemTags;");
-        delete_option( 'Zotpress_zoteroItems_db_version' );
-        delete_option( 'Zotpress_zoteroCollections_db_version' );
-        delete_option( 'Zotpress_zoteroTags_db_version' );
-        delete_option( 'Zotpress_zoteroRelItemColl_db_version' );
-        delete_option( 'Zotpress_zoteroRelItemTags_db_version' );
+        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroItems;");
+        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroCollections;");
+        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroTags;");
+        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroRelItemColl;");
+        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroRelItemTags;");
+        delete_option( 'Metazot_zoteroItems_db_version' );
+        delete_option( 'Metazot_zoteroCollections_db_version' );
+        delete_option( 'Metazot_zoteroTags_db_version' );
+        delete_option( 'Metazot_zoteroRelItemColl_db_version' );
+        delete_option( 'Metazot_zoteroRelItemTags_db_version' );
 
 
         // ZOTERO ACCOUNTS TABLE
@@ -40,11 +40,11 @@
 
         if
 			(
-				!get_option("Zotpress_main_db_version")
-                || get_option("Zotpress_main_db_version") != $Zotpress_main_db_version
+				!get_option("Metazot_main_db_version")
+                || get_option("Metazot_main_db_version") != $Metazot_main_db_version
             )
         {
-			$table_name = $wpdb->prefix . "zotpress";
+			$table_name = $wpdb->prefix . "metazot";
 
             $structure = "CREATE TABLE $table_name (
                 id INT(9) NOT NULL AUTO_INCREMENT,
@@ -58,17 +58,17 @@
 
             dbDelta($structure);
 
-            update_option("Zotpress_main_db_version", $Zotpress_main_db_version);
+            update_option("Metazot_main_db_version", $Metazot_main_db_version);
         }
 
 
         // OAUTH CACHE TABLE
 
-        if (!get_option("Zotpress_oauth_db_version")
-                || get_option("Zotpress_oauth_db_version") != $Zotpress_oauth_db_version
+        if (!get_option("Metazot_oauth_db_version")
+                || get_option("Metazot_oauth_db_version") != $Metazot_oauth_db_version
                 )
         {
-			$table_name = $wpdb->prefix . "zotpress_oauth";
+			$table_name = $wpdb->prefix . "metazot_oauth";
 
             $structure = "CREATE TABLE $table_name (
                 id INT(9) NOT NULL AUTO_INCREMENT,
@@ -78,22 +78,22 @@
 
             dbDelta($structure);
 
-            update_option("Zotpress_oauth_db_version", $Zotpress_oauth_db_version);
+            update_option("Metazot_oauth_db_version", $Metazot_oauth_db_version);
 
             // Initial populate
-            if ($wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."zotpress_oauth;") == 0)
-                $wpdb->query("INSERT INTO ".$wpdb->prefix."zotpress_oauth (cache) VALUES ('empty')");
+            if ($wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."metazot_oauth;") == 0)
+                $wpdb->query("INSERT INTO ".$wpdb->prefix."metazot_oauth (cache) VALUES ('empty')");
         }
 
 
 
         // ZOTERO ITEM IMAGES TABLE
 
-        if ( ! get_option("Zotpress_zoteroItemImages_db_version")
-                || get_option("Zotpress_zoteroItemImages_db_version") != $Zotpress_zoteroItemImages_db_version
+        if ( ! get_option("Metazot_zoteroItemImages_db_version")
+                || get_option("Metazot_zoteroItemImages_db_version") != $Metazot_zoteroItemImages_db_version
            )
         {
-			$table_name = $wpdb->prefix . "zotpress_zoteroItemImages";
+			$table_name = $wpdb->prefix . "metazot_zoteroItemImages";
 
             $structure = "CREATE TABLE $table_name (
                 id INT(9) AUTO_INCREMENT,
@@ -106,16 +106,16 @@
 
             dbDelta( $structure );
 
-            update_option( "Zotpress_zoteroItemImages_db_version", $Zotpress_zoteroItemImages_db_version );
+            update_option( "Metazot_zoteroItemImages_db_version", $Metazot_zoteroItemImages_db_version );
         }
 
 
         // ZOTERO CACHE TABLE
 
-        if ( ! get_option("Zotpress_cache_version")
-				|| get_option("Zotpress_cache_version") != $Zotpress_cache_version )
+        if ( ! get_option("Metazot_cache_version")
+				|| get_option("Metazot_cache_version") != $Metazot_cache_version )
         {
-            $structure = "CREATE TABLE ".$wpdb->prefix."zotpress_cache (
+            $structure = "CREATE TABLE ".$wpdb->prefix."metazot_cache (
                 id INT(9) NOT NULL AUTO_INCREMENT,
 				request_id VARCHAR(200) NOT NULL,
                 api_user_id VARCHAR(50),
@@ -129,56 +129,56 @@
 
             dbDelta($structure);
 
-            update_option("Zotpress_cache_version", $Zotpress_cache_version);
+            update_option("Metazot_cache_version", $Metazot_cache_version);
         }
 
 	}
-    register_activation_hook( ZOTPRESS_PLUGIN_FILE, 'Zotpress_install' );
+    register_activation_hook( METAZOT_PLUGIN_FILE, 'Metazot_install' );
 
 // INSTALL -----------------------------------------------------------------------------------------
 
 
 // UNINSTALL --------------------------------------------------------------------------------------
 
-    function Zotpress_deactivate()
+    function Metazot_deactivate()
     {
         global $wpdb;
         global $current_user;
 
         // Drop all tables -- originally not including accounts/main, but not sure why
-        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress;");
-        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_oauth;");
-        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroItems;");
-        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroItemImages;");
-        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroCollections;");
-        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroTags;");
-        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroRelItemColl;");
-        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroRelItemTags;");
-        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_cache;");
+        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot;");
+        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_oauth;");
+        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroItems;");
+        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroItemImages;");
+        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroCollections;");
+        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroTags;");
+        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroRelItemColl;");
+        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroRelItemTags;");
+        $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_cache;");
 
         // Delete options
-        delete_option( 'Zotpress_DefaultCPT' );
-        delete_option( 'Zotpress_DefaultAccount' );
-        delete_option( 'Zotpress_DefaultStyle' );
-        delete_option( 'Zotpress_StyleList' );
-        delete_option( 'Zotpress_update_version' );
-        delete_option( 'Zotpress_main_db_version' );
-        delete_option( 'Zotpress_oauth_db_version' );
-        delete_option( 'Zotpress_zoteroItems_db_version' );
-        delete_option( 'Zotpress_zoteroCollections_db_version' );
-        delete_option( 'Zotpress_zoteroTags_db_version' );
-        delete_option( 'Zotpress_zoteroRelItemColl_db_version' );
-        delete_option( 'Zotpress_zoteroRelItemTags_db_version' );
-		delete_option( 'Zotpress_zoteroItemImages_db_version' );
-		delete_option( 'Zotpress_cache_version' );
-		delete_option( 'Zotpress_update_notice_dismissed' );
+        delete_option( 'Metazot_DefaultCPT' );
+        delete_option( 'Metazot_DefaultAccount' );
+        delete_option( 'Metazot_DefaultStyle' );
+        delete_option( 'Metazot_StyleList' );
+        delete_option( 'Metazot_update_version' );
+        delete_option( 'Metazot_main_db_version' );
+        delete_option( 'Metazot_oauth_db_version' );
+        delete_option( 'Metazot_zoteroItems_db_version' );
+        delete_option( 'Metazot_zoteroCollections_db_version' );
+        delete_option( 'Metazot_zoteroTags_db_version' );
+        delete_option( 'Metazot_zoteroRelItemColl_db_version' );
+        delete_option( 'Metazot_zoteroRelItemTags_db_version' );
+		delete_option( 'Metazot_zoteroItemImages_db_version' );
+		delete_option( 'Metazot_cache_version' );
+		delete_option( 'Metazot_update_notice_dismissed' );
 
         // Delete user meta
-        delete_user_meta( $current_user->ID, 'zotpress_5_2_ignore_notice' );
-        delete_user_meta( $current_user->ID, 'zotpress_survey_notice_ignore' );
+        delete_user_meta( $current_user->ID, 'metazot_5_2_ignore_notice' );
+        delete_user_meta( $current_user->ID, 'metazot_survey_notice_ignore' );
     }
 
-    register_uninstall_hook( ZOTPRESS_PLUGIN_FILE, 'Zotpress_deactivate' );
+    register_uninstall_hook( METAZOT_PLUGIN_FILE, 'Metazot_deactivate' );
 
 // UNINSTALL ---------------------------------------------------------------------------------------
 
@@ -194,16 +194,16 @@
 	 * Then, run the install, which installs or updates the databases
 	 *
 	**/
-    if ( ! get_option( "Zotpress_update_version" )
-			|| get_option("Zotpress_update_version") != $GLOBALS['Zotpress_update_db_by_version'] )
+    if ( ! get_option( "Metazot_update_version" )
+			|| get_option("Metazot_update_version") != $GLOBALS['Metazot_update_db_by_version'] )
     {
-        Zotpress_install();
+        Metazot_install();
 
         // Add or update version number
-        if ( !get_option( "Zotpress_update_version" ) )
-            add_option( "Zotpress_update_version", $GLOBALS['Zotpress_update_db_by_version'], "", "no" );
+        if ( !get_option( "Metazot_update_version" ) )
+            add_option( "Metazot_update_version", $GLOBALS['Metazot_update_db_by_version'], "", "no" );
         else
-            update_option( "Zotpress_update_version", $GLOBALS['Zotpress_update_db_by_version'] );
+            update_option( "Metazot_update_version", $GLOBALS['Metazot_update_db_by_version'] );
     }
 
 // UPDATE ------------------------------------------------------------------------------------------

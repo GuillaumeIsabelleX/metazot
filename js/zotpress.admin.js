@@ -8,9 +8,9 @@ jQuery(document).ready( function()
 
     */
 
-    jQuery("input#zp-Zotpress-Setup-Options-Complete").click(function()
+    jQuery("input#zp-Metazot-Setup-Options-Complete").click(function()
     {
-		window.parent.location = "admin.php?page=Zotpress&accounts=true";
+		window.parent.location = "admin.php?page=Metazot&accounts=true";
 
         return false;
     });
@@ -19,7 +19,7 @@ jQuery(document).ready( function()
 
     /*
 
-        SYNC ACCOUNT WITH ZOTPRESS
+        SYNC ACCOUNT WITH METAZOT
 
     */
 
@@ -65,7 +65,7 @@ jQuery(document).ready( function()
 					if (jQuery("div#zp-Setup").length > 0)
 					{
 						jQuery.doTimeout(1000,function() {
-							window.parent.location = "admin.php?page=Zotpress&setup=true&setupstep=two";
+							window.parent.location = "admin.php?page=Metazot&setup=true&setupstep=two";
 						});
 					}
 
@@ -134,9 +134,9 @@ jQuery(document).ready( function()
 					if ( jQuery('result', xml).attr('success') == "true" )
 					{
 						if ( jQuery('result', xml).attr('total_accounts') == 0 )
-							window.location = 'admin.php?page=Zotpress';
+							window.location = 'admin.php?page=Metazot';
 						else
-							window.location = 'admin.php?page=Zotpress&accounts=true';
+							window.location = 'admin.php?page=Metazot&accounts=true';
 					}
 					else
 					{
@@ -239,17 +239,17 @@ jQuery(document).ready( function()
 			zpTempAccount = $this.attr("rel");
 		}
 
-		if ( jQuery("select#zp-Zotpress-Options-Account").length > 0 )
+		if ( jQuery("select#zp-Metazot-Options-Account").length > 0 )
 		{
 			zpTempType = "form";
-			zpTempAccount = jQuery("select#zp-Zotpress-Options-Account option:selected").val();
+			zpTempAccount = jQuery("select#zp-Metazot-Options-Account option:selected").val();
 		}
 
 		// Prep for data validation
 		if ( zpTempType == "form" )
 		{
 			jQuery(this).attr('disabled','true');
-			jQuery('#zp-Zotpress-Options-Account .zp-Loading').show();
+			jQuery('#zp-Metazot-Options-Account .zp-Loading').show();
 		}
 
 		// AJAX
@@ -271,22 +271,22 @@ jQuery(document).ready( function()
 
 				if ( zpTempType == "form" )
 				{
-					jQuery('#zp-Zotpress-Options-Account .zp-Loading').hide();
-					jQuery('input#zp-Zotpress-Options-Account-Button').removeAttr('disabled');
+					jQuery('#zp-Metazot-Options-Account .zp-Loading').hide();
+					jQuery('input#zp-Metazot-Options-Account-Button').removeAttr('disabled');
 
 					if ($result == "true")
 					{
-						jQuery('#zp-Zotpress-Options-Account div.zp-Errors').hide();
-						jQuery('#zp-Zotpress-Options-Account div.zp-Success').show();
+						jQuery('#zp-Metazot-Options-Account div.zp-Errors').hide();
+						jQuery('#zp-Metazot-Options-Account div.zp-Success').show();
 
 						jQuery.doTimeout(1000,function() {
-							jQuery('#zp-Zotpress-Options-Account div.zp-Success').hide();
+							jQuery('#zp-Metazot-Options-Account div.zp-Success').hide();
 						});
 					}
 					else // Show errors
 					{
-						jQuery('#zp-Zotpress-Options-Account div.zp-Errors').html("<p>"+jQuery('errors', xml).text()+"</p>\n");
-						jQuery('#zp-Zotpress-Options-Account div.zp-Errors').show();
+						jQuery('#zp-Metazot-Options-Account div.zp-Errors').html("<p>"+jQuery('errors', xml).text()+"</p>\n");
+						jQuery('#zp-Metazot-Options-Account div.zp-Errors').show();
 					}
 				}
 
@@ -336,24 +336,24 @@ jQuery(document).ready( function()
 
     */
 
-	if ( jQuery("select#zp-Zotpress-Options-Style").length > 0 )
+	if ( jQuery("select#zp-Metazot-Options-Style").length > 0 )
 	{
 		// Show/hide add style input
-		jQuery("#zp-Zotpress-Options-Style").change(function()
+		jQuery("#zp-Metazot-Options-Style").change(function()
 		{
 			if (this.value === 'new-style')
 			{
-				jQuery("#zp-Zotpress-Options-Style-New-Container").show();
+				jQuery("#zp-Metazot-Options-Style-New-Container").show();
 			}
 			else
 			{
-				jQuery("#zp-Zotpress-Options-Style-New-Container").hide();
-				jQuery("#zp-Zotpress-Options-Style-New").val("");
+				jQuery("#zp-Metazot-Options-Style-New-Container").hide();
+				jQuery("#zp-Metazot-Options-Style-New").val("");
 			}
 		});
 
 
-		jQuery("#zp-Zotpress-Options-Style-Button").click(function()
+		jQuery("#zp-Metazot-Options-Style-Button").click(function()
 		{
 			var $this = jQuery(this);
 			var updateStyleList = false;
@@ -362,11 +362,11 @@ jQuery(document).ready( function()
 			$this.addClass("loading");
 
 			// Determine if using existing or adding new
-            // If adding new, also update Zotpress_StyleList option
-			var styleOption = jQuery('select#zp-Zotpress-Options-Style').val();
+            // If adding new, also update Metazot_StyleList option
+			var styleOption = jQuery('select#zp-Metazot-Options-Style').val();
 			if ( styleOption == "new-style" )
 			{
-				styleOption = jQuery("#zp-Zotpress-Options-Style-New").val();
+				styleOption = jQuery("#zp-Metazot-Options-Style-New").val();
 				updateStyleList = true;
 			}
 
@@ -374,7 +374,7 @@ jQuery(document).ready( function()
 			{
 				// Prep for data validation
 				jQuery(this).attr('disabled','true');
-				jQuery('#zp-Zotpress-Options-Style-Container .zp-Loading').show();
+				jQuery('#zp-Metazot-Options-Style-Container .zp-Loading').show();
 
 				// AJAX
 				jQuery.ajax(
@@ -393,35 +393,35 @@ jQuery(document).ready( function()
 					{
 						var $result = jQuery('result', xml).attr('success');
 
-						jQuery('input#zp-Zotpress-Options-Style-Button').removeAttr('disabled');
-						jQuery('#zp-Zotpress-Options-Style-Container .zp-Loading').hide();
+						jQuery('input#zp-Metazot-Options-Style-Button').removeAttr('disabled');
+						jQuery('#zp-Metazot-Options-Style-Container .zp-Loading').hide();
 
 						if ($result == "true")
 						{
-							jQuery('#zp-Zotpress-Options-Style-Container div.zp-Errors').hide();
-							jQuery('#zp-Zotpress-Options-Style-Container div.zp-Success').show();
+							jQuery('#zp-Metazot-Options-Style-Container div.zp-Errors').hide();
+							jQuery('#zp-Metazot-Options-Style-Container div.zp-Success').show();
 
 							jQuery.doTimeout(1000,function()
 							{
-								jQuery('#zp-Zotpress-Options-Style-Container div.zp-Success').hide();
+								jQuery('#zp-Metazot-Options-Style-Container div.zp-Success').hide();
 
 								if (updateStyleList === true)
 								{
-									jQuery('#zp-Zotpress-Options-Style').prepend(jQuery("<option/>", {
+									jQuery('#zp-Metazot-Options-Style').prepend(jQuery("<option/>", {
 										value: styleOption,
 										text: styleOption,
 										selected: "selected"
 									}));
 
-									jQuery("#zp-Zotpress-Options-Style-New-Container").hide();
-									jQuery("#zp-Zotpress-Options-Style-New").val("");
+									jQuery("#zp-Metazot-Options-Style-New-Container").hide();
+									jQuery("#zp-Metazot-Options-Style-New").val("");
 								}
 							});
 						}
 						else // Show errors
 						{
-							jQuery('#zp-Zotpress-Options-Style-Container div.zp-Errors').html(jQuery('errors', xml).text()+"\n");
-							jQuery('#zp-Zotpress-Options-Style-Container div.zp-Errors').show();
+							jQuery('#zp-Metazot-Options-Style-Container div.zp-Errors').html(jQuery('errors', xml).text()+"\n");
+							jQuery('#zp-Metazot-Options-Style-Container div.zp-Errors').show();
 						}
 					},
 					error: function(errorThrown)
@@ -432,8 +432,8 @@ jQuery(document).ready( function()
 			}
 			else // Show errors
 			{
-				jQuery('#zp-Zotpress-Options-Style-Container div.zp-Errors').html("No style was entered.\n");
-				jQuery('#zp-Zotpress-Options-Style-Container div.zp-Errors').show();
+				jQuery('#zp-Metazot-Options-Style-Container div.zp-Errors').html("No style was entered.\n");
+				jQuery('#zp-Metazot-Options-Style-Container div.zp-Errors').show();
 			}
 
 			// Cancel default behaviours
@@ -455,12 +455,12 @@ jQuery(document).ready( function()
 
     */
 
-	jQuery("#zp-Zotpress-Options-CPT-Button").click(function()
+	jQuery("#zp-Metazot-Options-CPT-Button").click(function()
 	{
 		var $this = jQuery(this);
 
 		// Determine if using existing or adding new
-        // If adding new, also update Zotpress_StyleList option
+        // If adding new, also update Metazot_StyleList option
 		// Get all post types
 		var zpTempCPT = "";
 		jQuery("input[name='zp-CTP']:checked").each( function() {
@@ -471,7 +471,7 @@ jQuery(document).ready( function()
 		{
 			// Prep for data validation
 			jQuery(this).attr('disabled','true');
-			jQuery('#zp-Zotpress-Options-CPT .zp-Loading').show();
+			jQuery('#zp-Metazot-Options-CPT .zp-Loading').show();
 
 			// AJAX
 			jQuery.ajax(
@@ -490,22 +490,22 @@ jQuery(document).ready( function()
 				{
 					var $result = jQuery('result', xml).attr('success');
 
-					jQuery('#zp-Zotpress-Options-CPT .zp-Loading').hide();
-					jQuery('input#zp-Zotpress-Options-CPT-Button').removeAttr('disabled');
+					jQuery('#zp-Metazot-Options-CPT .zp-Loading').hide();
+					jQuery('input#zp-Metazot-Options-CPT-Button').removeAttr('disabled');
 
 					if ($result == "true")
 					{
-						jQuery('#zp-Zotpress-Options-CPT div.zp-Errors').hide();
-						jQuery('#zp-Zotpress-Options-CPT div.zp-Success').show();
+						jQuery('#zp-Metazot-Options-CPT div.zp-Errors').hide();
+						jQuery('#zp-Metazot-Options-CPT div.zp-Success').show();
 
 						jQuery.doTimeout(1000,function() {
-							jQuery('#zp-Zotpress-Options-CPT div.zp-Success').hide();
+							jQuery('#zp-Metazot-Options-CPT div.zp-Success').hide();
 						});
 					}
 					else // Show errors
 					{
-						jQuery('#zp-Zotpress-Options-CPT div.zp-Errors').html("<p>"+jQuery('errors', xml).text()+"</p>\n");
-						jQuery('#zp-Zotpress-Options-CPT div.zp-Errors').show();
+						jQuery('#zp-Metazot-Options-CPT div.zp-Errors').html("<p>"+jQuery('errors', xml).text()+"</p>\n");
+						jQuery('#zp-Metazot-Options-CPT div.zp-Errors').show();
 					}
 				},
 				error: function(errorThrown)
@@ -516,8 +516,8 @@ jQuery(document).ready( function()
 		}
 		else // Show errors
 		{
-			jQuery('#zp-Zotpress-Options-CPT div.zp-Errors').html("No content type was selected.\n");
-			jQuery('#zp-Zotpress-Options-CPT div.zp-Errors').show();
+			jQuery('#zp-Metazot-Options-CPT div.zp-Errors').html("No content type was selected.\n");
+			jQuery('#zp-Metazot-Options-CPT div.zp-Errors').show();
 		}
 
 		// Cancel default behaviours
@@ -529,11 +529,11 @@ jQuery(document).ready( function()
 
     /*
 
-        RESET ZOTPRESS
+        RESET METAZOT
 
     */
 
-	jQuery("#zp-Zotpress-Options-Reset-Button").click(function()
+	jQuery("#zp-Metazot-Options-Reset-Button").click(function()
 	{
 		var $this = jQuery(this);
 
@@ -543,11 +543,11 @@ jQuery(document).ready( function()
 		{
 			// Prep for data validation
 			jQuery(this).attr( 'disabled', 'true' );
-			jQuery('#zp-Zotpress-Options-Reset .zp-Loading').show();
+			jQuery('#zp-Metazot-Options-Reset .zp-Loading').show();
 
 			// Prep for data validation
 			jQuery(this).attr('disabled','true');
-			jQuery('#zp-Zotpress-Options-Reset .zp-Loading').show();
+			jQuery('#zp-Metazot-Options-Reset .zp-Loading').show();
 
 			// AJAX
 			jQuery.ajax(
@@ -566,23 +566,23 @@ jQuery(document).ready( function()
 				{
 					var $result = jQuery('result', xml).attr('success');
 
-					jQuery('#zp-Zotpress-Options-Reset .zp-Loading').hide();
-					jQuery('input#zp-Zotpress-Options-Reset-Button').removeAttr('disabled');
+					jQuery('#zp-Metazot-Options-Reset .zp-Loading').hide();
+					jQuery('input#zp-Metazot-Options-Reset-Button').removeAttr('disabled');
 
 					if ($result == "true")
 					{
-						jQuery('#zp-Zotpress-Options-Reset div.zp-Errors').hide();
-						jQuery('#zp-Zotpress-Options-Reset div.zp-Success').show();
+						jQuery('#zp-Metazot-Options-Reset div.zp-Errors').hide();
+						jQuery('#zp-Metazot-Options-Reset div.zp-Success').show();
 
 						jQuery.doTimeout(1000,function() {
-							jQuery('#zp-Zotpress-Options-Reset div.zp-Success').hide();
-							window.parent.location = "admin.php?page=Zotpress";
+							jQuery('#zp-Metazot-Options-Reset div.zp-Success').hide();
+							window.parent.location = "admin.php?page=Metazot";
 						});
 					}
 					else // Show errors
 					{
-						jQuery('#zp-Zotpress-Options-Reset div.zp-Errors').html("<p>"+jQuery('errors', xml).text()+"</p>\n");
-						jQuery('#zp-Zotpress-Options-Reset div.zp-Errors').show();
+						jQuery('#zp-Metazot-Options-Reset div.zp-Errors').html("<p>"+jQuery('errors', xml).text()+"</p>\n");
+						jQuery('#zp-Metazot-Options-Reset div.zp-Errors').show();
 					}
 				},
 				error: function(errorThrown)
@@ -605,7 +605,7 @@ jQuery(document).ready( function()
 
     */
 
-	var zp_uploader;
+	var mz_uploader;
 
 	jQuery(".zp-List").on("click", ".zp-Entry-Image a.upload", function(e)
 	{
@@ -613,13 +613,13 @@ jQuery(document).ready( function()
 
 		$this = jQuery(this);
 
-        if (zp_uploader)
+        if (mz_uploader)
 		{
-            zp_uploader.open();
+            mz_uploader.open();
             return;
         }
 
-        zp_uploader = wp.media.frames.file_frame = wp.media(
+        mz_uploader = wp.media.frames.file_frame = wp.media(
 		{
 			title: zpAccountsAJAX.txt_chooseimg,
 			button: {
@@ -628,9 +628,9 @@ jQuery(document).ready( function()
 			multiple: false
 		});
 
-        zp_uploader.on( 'select', function()
+        mz_uploader.on( 'select', function()
 		{
-            attachment = zp_uploader.state().get('selection').first().toJSON();
+            attachment = mz_uploader.state().get('selection').first().toJSON();
 
 			// Save as featured image
 			jQuery.ajax(
@@ -670,7 +670,7 @@ jQuery(document).ready( function()
 			});
         });
 
-        zp_uploader.open();
+        mz_uploader.open();
 
     });
 

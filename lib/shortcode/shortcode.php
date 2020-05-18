@@ -6,7 +6,7 @@
     require("shortcode.ajax.php");
 
 
-    function Zotpress_func($atts)
+    function Metazot_func($atts)
     {
         extract(shortcode_atts(array(
 
@@ -73,7 +73,7 @@
 			'forcenumber' => false,
 			'forcenumbers' => false
 
-        ), $atts, "zotpress"));
+        ), $atts, "metazot"));
 
 
         // FORMAT PARAMETERS
@@ -143,7 +143,7 @@
         if ($order === false) $order = "asc";
 
         // Show title
-		// EVENTUAL TO-DO: Zotpress API 3 doesn't allow multiple sortby params
+		// EVENTUAL TO-DO: Metazot API 3 doesn't allow multiple sortby params
 		// Can I use any set sortby param, then do the year sort in JS?
         $title = str_replace('"','',html_entity_decode($title));
         if ($title == "yes" || $title == "true" || $title === true)
@@ -216,44 +216,44 @@
         global $wpdb;
 
         // Turn on/off minified versions if testing/live
-        $minify = ''; if ( ZOTPRESS_LIVEMODE ) $minify = '.min';
+        $minify = ''; if ( METAZOT_LIVEMODE ) $minify = '.min';
 
-		wp_enqueue_script( 'zotpress.shortcode.bib'.$minify.'.js' );
+		wp_enqueue_script( 'metazot.shortcode.bib'.$minify.'.js' );
 
         // Get account (api_user_id)
-        $zp_account = false;
+        $mz_account = false;
 
         if ($nickname !== false)
         {
-            $zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress WHERE nickname='".$nickname."'", OBJECT);
+            $mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot WHERE nickname='".$nickname."'", OBJECT);
 
-			if ( is_null($zp_account) ):
-                return "<p>Sorry, but the selected Zotpress nickname can't be found.</p>";
+			if ( is_null($mz_account) ):
+                return "<p>Sorry, but the selected Metazot nickname can't be found.</p>";
             endif;
 
-            $api_user_id = $zp_account->api_user_id;
+            $api_user_id = $mz_account->api_user_id;
         }
         else if ($api_user_id !== false)
         {
-            $zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress WHERE api_user_id='".$api_user_id."'", OBJECT);
+            $mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot WHERE api_user_id='".$api_user_id."'", OBJECT);
 
-			if ( is_null($zp_account) ):
-                return "<p>Sorry, but the selected Zotpress account can't be found.</p>";
+			if ( is_null($mz_account) ):
+                return "<p>Sorry, but the selected Metazot account can't be found.</p>";
             endif;
 
-            $api_user_id = $zp_account->api_user_id;
+            $api_user_id = $mz_account->api_user_id;
         }
         else if ($api_user_id === false && $nickname === false)
         {
-            if (get_option("Zotpress_DefaultAccount") !== false)
+            if (get_option("Metazot_DefaultAccount") !== false)
             {
-                $api_user_id = get_option("Zotpress_DefaultAccount");
-                $zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress WHERE api_user_id ='".$api_user_id."'", OBJECT);
+                $api_user_id = get_option("Metazot_DefaultAccount");
+                $mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot WHERE api_user_id ='".$api_user_id."'", OBJECT);
             }
             else // When all else fails ...
             {
-                $zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress LIMIT 1", OBJECT);
-                $api_user_id = $zp_account->api_user_id;
+                $mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot LIMIT 1", OBJECT);
+                $api_user_id = $mz_account->api_user_id;
             }
         }
 
@@ -264,7 +264,7 @@
 		if ( is_array( $author ) ) $temp_author = implode( "-", $author); else $temp_author = $author;
 		if ( is_array( $year ) ) $temp_year = implode( "-", $year); else $temp_year = $year;
 		if ( is_array( $sortby ) ) $temp_sortby = implode( "-", $sortby); else $temp_sortby = $sortby;
-        $zp_instance_id = "zotpress-".md5($api_user_id.$nickname.$temp_author.$temp_year.$data_type.$temp_collection_id.$temp_item_key.$temp_tag_name.$style.$temp_sortby.$order.$limit.$showimage.$download.$note.$cite.$inclusive);
+        $mz_instance_id = "metazot-".md5($api_user_id.$nickname.$temp_author.$temp_year.$data_type.$temp_collection_id.$temp_item_key.$temp_tag_name.$style.$temp_sortby.$order.$limit.$showimage.$download.$note.$cite.$inclusive);
 
 		// Prepare item key
 		if ( $item_key ) if ( gettype( $item_key ) != "string" ) $item_key = implode( ",", $item_key );
@@ -275,9 +275,9 @@
 		// Prepare tags
 		if ( $tag_name ) if ( gettype( $tag_name ) != "string" ) $tag_name = implode( ",", $tag_name );
 
-		$zp_output = '<div id="' . $zp_instance_id . '" class="zp-Zotpress zp-Zotpress-Bib';
-		if ( $forcenumber ) $zp_output .= " forcenumber";
-		$zp_output .= '">
+		$mz_output = '<div id="' . $mz_instance_id . '" class="zp-Metazot zp-Metazot-Bib';
+		if ( $forcenumber ) $mz_output .= " forcenumber";
+		$mz_output .= '">
 
 			<span class="ZP_API_USER_ID" style="display: none;">'.$api_user_id.'</span>
 			<span class="ZP_ITEM_KEY" style="display: none;">'.$item_key.'</span>
@@ -302,24 +302,24 @@
 			<span class="ZP_URLWRAP" style="display: none;">'.$urlwrap.'</span>
 			<span class="ZP_FORCENUM" style="display: none;">'.$forcenumber.'</span>
 			<span class="ZP_HIGHLIGHT" style="display: none;">'.$highlight.'</span>
-			<span class="ZOTPRESS_PLUGIN_URL" style="display:none;">'.ZOTPRESS_PLUGIN_URL.'</span>
+			<span class="METAZOT_PLUGIN_URL" style="display:none;">'.METAZOT_PLUGIN_URL.'</span>
 
 			<div class="zp-List loading">';
 
 
         // GENERATE SHORTCODE
 
-        if ($zp_account === false)
-            $zp_output .= "\n<div id='".$zp_instance_id."' class='zp-Zotpress'>Sorry, no citation(s) found for this account.</div>\n";
+        if ($mz_account === false)
+            $mz_output .= "\n<div id='".$mz_instance_id."' class='zp-Metazot'>Sorry, no citation(s) found for this account.</div>\n";
 
-		$zp_output .= "</div><!-- .zp-List --></div><!--.zp-Zotpress-->\n\n";
+		$mz_output .= "</div><!-- .zp-List --></div><!--.zp-Metazot-->\n\n";
 
 
 		// Display shortcode
 
-		$GLOBALS['zp_is_shortcode_displayed'] = true;
+		$GLOBALS['mz_is_shortcode_displayed'] = true;
 
-		return $zp_output;
+		return $mz_output;
     }
 
 

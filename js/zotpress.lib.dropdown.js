@@ -2,7 +2,7 @@ jQuery(document).ready(function()
 {
 	///////////////////////////////////////////////
 	//
-	//   ZOTPRESS LIBRARY DROPDOWN
+	//   METAZOT LIBRARY DROPDOWN
 	//
 	///////////////////////////////////////////////
 
@@ -18,15 +18,15 @@ jQuery(document).ready(function()
 
 	if ( jQuery("#zp-Browse-Collections-Select").length > 0 )
 	{
-		zp_get_collections ( 0, 0, false );
-		zp_get_tags ( 0, 0, false );
-		zp_get_items ( 0, 0, false );
+		mz_get_collections ( 0, 0, false );
+		mz_get_tags ( 0, 0, false );
+		mz_get_items ( 0, 0, false );
 
-	} // Zotpress DropDown Library
+	} // Metazot DropDown Library
 
 
 	// Corrects numeric citations.
-	function zp_relabel_numbers()
+	function mz_relabel_numbers()
 	{
 		if ( jQuery("div.zp-List .csl-left-margin").length != 0
 		    && /\d/.test( jQuery("div.zp-List .csl-left-margin").text() ) )
@@ -42,7 +42,7 @@ jQuery(document).ready(function()
 	}
 
   	// Get list of collections
-	function zp_get_collections ( request_start, request_last, update )
+	function mz_get_collections ( request_start, request_last, update )
 	{
 		// Set parameter defaults
 		if ( typeof(request_start) === "undefined" || request_start == "false" || request_start == "" )
@@ -72,8 +72,8 @@ jQuery(document).ready(function()
 			},
 			success: function(data)
 			{
-				var zp_collections = jQuery.parseJSON( data );
-				var zp_collection_options = "";
+				var mz_collections = jQuery.parseJSON( data );
+				var mz_collection_options = "";
 
 
 				// Remove cached bib before adding updates
@@ -94,9 +94,9 @@ jQuery(document).ready(function()
 						.append( "<option value='blank' class='blank'>"+jQuery("#ZP_COLLECTION_NAME").text()+"</option>\n" );
 				}
 
-				if ( zp_collections != "0" && zp_collections.data.length > 0 )
+				if ( mz_collections != "0" && mz_collections.data.length > 0 )
 				{
-					jQuery.each(zp_collections.data, function( index, collection )
+					jQuery.each(mz_collections.data, function( index, collection )
 					{
 						var temp = "<option value='"+collection.key+"'";
 						if ( zpCollectionId == collection.key ) temp += " selected='selected'";
@@ -106,16 +106,16 @@ jQuery(document).ready(function()
 						if ( collection.meta.numCollections > 0 ) temp += collection.meta.numCollections+" "+zpShortcodeAJAX.txt_subcoll+", ";
 						temp += collection.meta.numItems+" "+zpShortcodeAJAX.txt_items+")</option>\n";
 
-						zp_collection_options += temp;
+						mz_collection_options += temp;
 					});
-					jQuery("select#zp-Browse-Collections-Select").append( zp_collection_options );
+					jQuery("select#zp-Browse-Collections-Select").append( mz_collection_options );
 
 					// Then, continue with other requests, if they exist
-					if ( zp_collections.meta.request_next != false && zp_collections.meta.request_next != "false" )
-						zp_get_collections ( zp_collections.meta.request_next, zp_collections.meta.request_last, update );
+					if ( mz_collections.meta.request_next != false && mz_collections.meta.request_next != "false" )
+						mz_get_collections ( mz_collections.meta.request_next, mz_collections.meta.request_last, update );
 					else
 						if ( ! jQuery("select#zp-Browse-Collections-Select").hasClass("updating") )
-							zp_get_collections ( 0, 0, true );
+							mz_get_collections ( 0, 0, true );
 				}
 
 				if ( zpCollectionId && jQuery("#zp-Browse-Collections-Select option.toplevel").length == 0 )
@@ -128,7 +128,7 @@ jQuery(document).ready(function()
 			},
 			error: function(jqXHR)
 			{
-				console.log("Error for zp_get_collections(): ", jqXHR.statusText);
+				console.log("Error for mz_get_collections(): ", jqXHR.statusText);
 			},
 			complete: function( jqXHRr, textStatus )　{}
 		});
@@ -136,7 +136,7 @@ jQuery(document).ready(function()
 
 
 	// Get list of tags
-	function zp_get_tags ( request_start, request_last, update )
+	function mz_get_tags ( request_start, request_last, update )
 	{
 		// Set parameter defaults
 		if ( typeof(request_start) === "undefined" || request_start == "false" || request_start == "" )
@@ -165,10 +165,10 @@ jQuery(document).ready(function()
 			},
 			success: function(data)
 			{
-				var zp_tags = jQuery.parseJSON( data );
+				var mz_tags = jQuery.parseJSON( data );
 
-				var zp_tag_options = "<option id='zp-List-Tags-Select' name='zp-List-Tags-Select'>--"+zpShortcodeAJAX.txt_notagsel+"--</option>\n";
-				if ( zpTagId ) zp_tag_options = "<option value='toplevel' class='toplevel'>--"+zpShortcodeAJAX.txt_backtotop+"--</option>\n";
+				var mz_tag_options = "<option id='zp-List-Tags-Select' name='zp-List-Tags-Select'>--"+zpShortcodeAJAX.txt_notagsel+"--</option>\n";
+				if ( zpTagId ) mz_tag_options = "<option value='toplevel' class='toplevel'>--"+zpShortcodeAJAX.txt_backtotop+"--</option>\n";
 
 
 
@@ -177,9 +177,9 @@ jQuery(document).ready(function()
 				if ( update === true && ! jQuery("select#zp-List-Tags").hasClass("updating") )
 					jQuery("select#zp-List-Tags").empty().addClass("updating");
 
-				if ( zp_tags !== 0 && zp_tags.data.length > 0 )
+				if ( mz_tags !== 0 && mz_tags.data.length > 0 )
 				{
-					jQuery.each(zp_tags.data, function( index, tag )
+					jQuery.each(mz_tags.data, function( index, tag )
 					{
 						var temp = "<option class='zp-List-Tag' value='"+tag.tag.replace(/ /g, "+")+"'";
 
@@ -190,16 +190,16 @@ jQuery(document).ready(function()
 						}
 						temp += ">"+tag.tag+" ("+tag.meta.numItems+" "+zpShortcodeAJAX.txt_items+")</option>\n";
 
-						zp_tag_options += temp;
+						mz_tag_options += temp;
 					});
-					jQuery("select#zp-List-Tags").append( zp_tag_options );
+					jQuery("select#zp-List-Tags").append( mz_tag_options );
 
 					// Then, continue with other requests, if they exist
-					if ( zp_tags.meta.request_next != false && zp_tags.meta.request_next != "false" )
-						zp_get_tags ( zp_tags.meta.request_next, zp_tags.meta.request_last, update );
+					if ( mz_tags.meta.request_next != false && mz_tags.meta.request_next != "false" )
+						mz_get_tags ( mz_tags.meta.request_next, mz_tags.meta.request_last, update );
 					else
 						if ( ! jQuery("select#zp-List-Tags").hasClass("updating") )
-							zp_get_tags ( 0, 0, true );
+							mz_get_tags ( 0, 0, true );
 
 					// Remove loading indicator
 					jQuery("select#zp-List-Tags").removeClass("loading").find(".loading").remove();
@@ -216,7 +216,7 @@ jQuery(document).ready(function()
 			},
 			error: function(jqXHR)
 			{
-				console.log("Error for zp_get_tags(): ", jqXHR.statusText);
+				console.log("Error for mz_get_tags(): ", jqXHR.statusText);
 			},
 			complete: function( jqXHRr, textStatus ) {}
 		});
@@ -224,7 +224,7 @@ jQuery(document).ready(function()
 
 
 	// Get list items
-	function zp_get_items ( request_start, request_last, update )
+	function mz_get_items ( request_start, request_last, update )
 	{
 		// Set parameter defaults
 		if ( typeof(request_start) === "undefined" || request_start == "false" || request_start == "" )
@@ -235,10 +235,10 @@ jQuery(document).ready(function()
 
 		// Feedback on where in item chunking we're at
 		if ( jQuery(".zp-List").hasClass("loading")
-			 && jQuery(".zp-List").find(".zp_display_progress").text() == "" )
+			 && jQuery(".zp-List").find(".mz_display_progress").text() == "" )
 		{
 			jQuery(".zp-List").append(
-				"<div class='zp_display_progress'>"+zpShortcodeAJAX.txt_loading+" ...</div>");
+				"<div class='mz_display_progress'>"+zpShortcodeAJAX.txt_loading+" ...</div>");
 		}
 
 		jQuery.ajax(
@@ -276,7 +276,7 @@ jQuery(document).ready(function()
 			},
 			success: function(data)
 			{
-				var zp_items = jQuery.parseJSON( data );
+				var mz_items = jQuery.parseJSON( data );
 
 				// Remove cached bib before adding updates
 				if ( update === false )
@@ -287,25 +287,25 @@ jQuery(document).ready(function()
 
 
 				// First, display the items from this request, if any
-				if ( typeof zp_items != 'undefined'
-						&& zp_items != null
-						&& zp_items != 0
-						&& zp_items.data.length > 0 )
+				if ( typeof mz_items != 'undefined'
+						&& mz_items != null
+						&& mz_items != 0
+						&& mz_items.data.length > 0 )
 				{
 					var tempItems = "";
 
 					// Feedback on where in item chunking we're at
 					if ( ! jQuery(".zp-List").hasClass("updating")
-							&& ( zp_items.meta.request_last !== false && zp_items.meta.request_last != "false" )
-							&& ( zp_items.meta.request_last !== 0 ) )
+							&& ( mz_items.meta.request_last !== false && mz_items.meta.request_last != "false" )
+							&& ( mz_items.meta.request_last !== 0 ) )
 					{
-						jQuery(".zp-List").find(".zp_display_progress").html(
+						jQuery(".zp-List").find(".mz_display_progress").html(
 							"Loading "
-							+ (zp_items.meta.request_next) + "-" + (zp_items.meta.request_next+50)
-							+ " out of " + (parseInt(zp_items.meta.request_last)+50) + "..." );
+							+ (mz_items.meta.request_next) + "-" + (mz_items.meta.request_next+50)
+							+ " out of " + (parseInt(mz_items.meta.request_last)+50) + "..." );
 					}
 
-					jQuery.each(zp_items.data, function( index, item )
+					jQuery.each(mz_items.data, function( index, item )
 					{
 						var tempItem = "";
 
@@ -323,7 +323,7 @@ jQuery(document).ready(function()
 						tempItem += "<div id='zp-ID-"+item.library.id+"-"+item.key+"' class='zp-Entry zpSearchResultsItem hidden";
 
 						// Add update class to item
-						if ( update === true ) tempItem += " zp_updated";
+						if ( update === true ) tempItem += " mz_updated";
 
 						tempItem += "' data-zp-author-year='"+tempAuthor+"-"+tempItemYear+"'";
 						tempItem += "' data-zp-year-author='"+tempItemYear+"-"+tempAuthor+"'";
@@ -369,16 +369,16 @@ jQuery(document).ready(function()
 
 
 					// Then, continue with other requests, if they exist
-					if ( zp_items.meta.request_next != false && zp_items.meta.request_next != "false" )
+					if ( mz_items.meta.request_next != false && mz_items.meta.request_next != "false" )
 					{
 						if ( zpItemsFlag == true ) window.zpACPagination(zpItemsFlag, false);
 						else window.zpACPagination(zpItemsFlag, true);
 						zpItemsFlag = false;
 
                         // If numeric, update numbers
-                        zp_relabel_numbers();
+                        mz_relabel_numbers();
 
-						zp_get_items ( zp_items.meta.request_next, zp_items.meta.request_last, update );
+						mz_get_items ( mz_items.meta.request_next, mz_items.meta.request_last, update );
 					}
 					else
 					{
@@ -387,12 +387,12 @@ jQuery(document).ready(function()
 
 						// Remove loading and feedback
 						jQuery(".zp-List").removeClass("loading");
-						jQuery(".zp-List").find(".zp_display_progress").remove();
+						jQuery(".zp-List").find(".mz_display_progress").remove();
 
 						// Check for updates
 						if ( ! jQuery("div.zp-List").hasClass("updating") )
 						{
-							zp_get_items ( 0, 0, true );
+							mz_get_items ( 0, 0, true );
 						}
 						else
 						{
@@ -406,7 +406,7 @@ jQuery(document).ready(function()
 								var sortOrder = "data-zp-author-year";
 								if ( sortby == "date") sortOrder = "data-zp-year-author";
 
-								jQuery("#"+zp_items.instance+" .zp-List div.zp-Entry").sort(function(a,b)
+								jQuery("#"+mz_items.instance+" .zp-List div.zp-Entry").sort(function(a,b)
 								{
 									var an = a.getAttribute(sortOrder).toLowerCase(),
 										bn = b.getAttribute(sortOrder).toLowerCase();
@@ -424,11 +424,11 @@ jQuery(document).ready(function()
 									else
 										return 0;
 
-								}).detach().appendTo("#"+zp_items.instance+" .zp-List");
+								}).detach().appendTo("#"+mz_items.instance+" .zp-List");
 							}
 
                             // If numerical, update numbers
-                            zp_relabel_numbers();
+                            mz_relabel_numbers();
 						}
 					}
 				}
@@ -439,7 +439,7 @@ jQuery(document).ready(function()
 					//if ( update === true )
 					//{
 						jQuery(".zp-List").removeClass("loading");
-						jQuery(".zp-List").find(".zp_display_progress").remove();
+						jQuery(".zp-List").find(".mz_display_progress").remove();
 
 						jQuery("#zpSearchResultsContainer").append("<p>"+zpShortcodeAJAX.txt_nocitations+"</p>\n");
 					//}
@@ -447,7 +447,7 @@ jQuery(document).ready(function()
 			},
 			error: function(jqXHR)
 			{
-				console.log("Error for zp_get_items(): ", jqXHR.statusText);
+				console.log("Error for mz_get_items(): ", jqXHR.statusText);
 			}
 		});
 	}

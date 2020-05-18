@@ -41,7 +41,7 @@
     //clientkey, clientSecret, and callbackurl should correspond to http://www.zotero.org/oauth/apps
     $clientKey = 'f8daeb1c6ec190ef3db1';
     $clientSecret = 'a52d8706611b7b612e83';
-    $callbackUrl = $_GET['return_uri'] . '/wp-content/plugins/zotpress/lib/admin/admin.accounts.oauth.php?oauth_user='.$_GET['oauth_user'].'&return_uri='.$_GET['return_uri'];
+    $callbackUrl = $_GET['return_uri'] . '/wp-content/plugins/metazot/lib/admin/admin.accounts.oauth.php?oauth_user='.$_GET['oauth_user'].'&return_uri='.$_GET['return_uri'];
 
     //the endpoints are specific to the OAuth provider, in this case Zotero
     $request_token_endpoint = 'https://www.zotero.org/oauth/request';
@@ -57,14 +57,14 @@
     //Functions to save state to temp file between requests, DB should replace this functionality
     function read_state(){
 		global $wpdb;
-		$oa_cache = $wpdb->get_results("SELECT cache FROM ".$wpdb->prefix."zotpress_oauth");
+		$oa_cache = $wpdb->get_results("SELECT cache FROM ".$wpdb->prefix."metazot_oauth");
 		return unserialize( $oa_cache[0]->cache );
     }
     function write_state($state)
     {
 		global $wpdb;
-		$oa_cache = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."zotpress_oauth");
-		$query = "UPDATE ".$wpdb->prefix."zotpress_oauth ";
+		$oa_cache = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."metazot_oauth");
+		$query = "UPDATE ".$wpdb->prefix."metazot_oauth ";
 		$query .= "SET cache='".serialize($state)."' WHERE id='".$oa_cache[0]->id."';";
 		$wpdb->query($query);
     }
@@ -155,7 +155,7 @@
         wp_redirect($redirectUrl, 301);
 
         $redirect = '
-                <script type="text/javascript" src="'.$_GET['return_uri'].'/wp-content/plugins/zotpress/js/jquery-1.5.2.min.js"></script>
+                <script type="text/javascript" src="'.$_GET['return_uri'].'/wp-content/plugins/metazot/js/jquery-1.5.2.min.js"></script>
                 <script type="text/javascript">
 
                 jQuery(document).ready(function()
@@ -198,21 +198,21 @@
 
     if (isset( $access_token_info ))
     {
-        // ADD PRIVATE KEY TO THE USER'S ACCOUNT IN ZOTPRESS
+        // ADD PRIVATE KEY TO THE USER'S ACCOUNT IN METAZOT
         global $wpdb;
-        $query = "UPDATE ".$wpdb->prefix."zotpress ";
+        $query = "UPDATE ".$wpdb->prefix."metazot ";
         $query .= "SET public_key='".$access_token_info['oauth_token_secret']."' WHERE api_user_id='".$_GET['oauth_user']."';";
         $wpdb->query($query);
 
         // EMPTY THE CACHE
-        $oa_cache = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."zotpress_oauth");
-        $query = "UPDATE ".$wpdb->prefix."zotpress_oauth ";
+        $oa_cache = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."metazot_oauth");
+        $query = "UPDATE ".$wpdb->prefix."metazot_oauth ";
         $query .= "SET cache='empty' WHERE id='".$oa_cache[0]->id."';";
         $wpdb->query($query);
 
         // CLOSE AND REFRESH PAGE
         $finish = '
-            <script type="text/javascript" src="'.$_GET['return_uri'].'/wp-content/plugins/zotpress/js/jquery-1.5.2.min.js"></script>
+            <script type="text/javascript" src="'.$_GET['return_uri'].'/wp-content/plugins/metazot/js/jquery-1.5.2.min.js"></script>
             <script type="text/javascript">
 
             jQuery(document).ready(function()

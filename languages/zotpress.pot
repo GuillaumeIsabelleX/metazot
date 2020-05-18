@@ -1,7 +1,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Zotpress\n"
+"Project-Id-Version: Metazot\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-27 05:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -15,116 +15,116 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.2.0; wp-5.0.2"
 
-#: zotpress.php:162 lib/admin/admin.options.php:58
+#: metazot.php:162 lib/admin/admin.options.php:58
 #: lib/admin/admin.options.php:79 lib/admin/admin.accounts.addform.php:115
 #: lib/admin/admin.options.form.php:41 lib/admin/admin.options.form.php:105
 msgid "Success"
 msgstr ""
 
-#: zotpress.php:163
+#: metazot.php:163
 msgid "Choose Image"
 msgstr ""
 
-#: zotpress.php:164
+#: metazot.php:164
 msgid "Your Zotero account has been validated."
 msgstr ""
 
-#: zotpress.php:165
+#: metazot.php:165
 msgid "Are you sure you want to remove this account?"
 msgstr ""
 
-#: zotpress.php:166
+#: metazot.php:166
 msgid "Are you sure you want to clear the cache for this account?"
 msgstr ""
 
-#: zotpress.php:167
+#: metazot.php:167
 msgid "Cache cleared!"
 msgstr ""
 
-#: zotpress.php:168
+#: metazot.php:168
 msgid "Oops!"
 msgstr ""
 
-#: zotpress.php:169
-msgid "Are you sure you want to reset Zotpress? This cannot be undone."
+#: metazot.php:169
+msgid "Are you sure you want to reset Metazot? This cannot be undone."
 msgstr ""
 
-#: zotpress.php:193 lib/admin/admin.menu.php:24
+#: metazot.php:193 lib/admin/admin.menu.php:24
 msgid "Browse"
 msgstr ""
 
-#: zotpress.php:194 lib/admin/admin.menu.php:25
+#: metazot.php:194 lib/admin/admin.menu.php:25
 msgid "Accounts"
 msgstr ""
 
-#: zotpress.php:195 lib/widget/widget.metabox.php:109
+#: metazot.php:195 lib/widget/widget.metabox.php:109
 #: lib/widget/widget.metabox.php:290 lib/widget/widget.metabox.php:294
 #: lib/widget/widget.metabox.php:332 lib/admin/admin.menu.php:26
 #: lib/admin/admin.options.php:15
 msgid "Options"
 msgstr ""
 
-#: zotpress.php:196 lib/admin/admin.menu.php:27
+#: metazot.php:196 lib/admin/admin.menu.php:27
 msgid "Help"
 msgstr ""
 
-#: zotpress.php:321 lib/shortcode/shortcode.class.lib.php:229
+#: metazot.php:321 lib/shortcode/shortcode.class.lib.php:229
 #: lib/shortcode/shortcode.class.lib.php:241
 msgid "Loading"
 msgstr ""
 
-#: zotpress.php:322
+#: metazot.php:322
 msgid "items"
 msgstr ""
 
-#: zotpress.php:323
+#: metazot.php:323
 msgid "subcollections"
 msgstr ""
 
-#: zotpress.php:324
+#: metazot.php:324
 msgid "Change Image"
 msgstr ""
 
-#: zotpress.php:325
+#: metazot.php:325
 msgid "Set Image"
 msgstr ""
 
-#: zotpress.php:326 lib/widget/widget.php:158
+#: metazot.php:326 lib/widget/widget.php:158
 msgid "Item Key"
 msgstr ""
 
-#: zotpress.php:327
+#: metazot.php:327
 msgid "There are no citations to display."
 msgstr ""
 
-#: zotpress.php:328 lib/shortcode/shortcode.class.lib.php:231
+#: metazot.php:328 lib/shortcode/shortcode.class.lib.php:231
 msgid "Top Level"
 msgstr ""
 
-#: zotpress.php:329 lib/shortcode/shortcode.class.lib.php:230
+#: metazot.php:329 lib/shortcode/shortcode.class.lib.php:230
 msgid "No Collection Selected"
 msgstr ""
 
-#: zotpress.php:330
+#: metazot.php:330
 msgid "Back to Top"
 msgstr ""
 
-#: zotpress.php:331
+#: metazot.php:331
 msgid "No Tag Selected"
 msgstr ""
 
-#: zotpress.php:332
+#: metazot.php:332
 msgid "No tags to display"
 msgstr ""
 
-#: zotpress.php:354 lib/widget/widget.metabox.php:79 lib/widget/widget.php:156
+#: metazot.php:354 lib/widget/widget.metabox.php:79 lib/widget/widget.php:156
 #: lib/shortcode/shortcode.class.lib.php:250
 msgid "Type to search"
 msgstr ""
 
-#: zotpress.php:385
+#: metazot.php:385
 msgid ""
-"Warning: Due to major updates in Zotpress 6.2, you may need to clear the "
+"Warning: Due to major updates in Metazot 6.2, you may need to clear the "
 "cache of each synced Zotero account."
 msgstr ""
 
@@ -133,7 +133,7 @@ msgid "Display your citations on your sidebar"
 msgstr ""
 
 #: lib/widget/widget.sidebar.php:11
-msgid "Zotpress Widget"
+msgid "Metazot Widget"
 msgstr ""
 
 #: lib/widget/widget.sidebar.php:171
@@ -386,7 +386,7 @@ msgid "Paste somewhere in the post"
 msgstr ""
 
 #: lib/widget/widget.php:16
-msgid "Zotpress Reference"
+msgid "Metazot Reference"
 msgstr ""
 
 #: lib/widget/widget.php:157
@@ -418,11 +418,11 @@ msgid "Top Level Items"
 msgstr ""
 
 #: lib/admin/admin.help.php:6
-msgid "What is Zotpress"
+msgid "What is Metazot"
 msgstr ""
 
 #: lib/admin/admin.help.php:9
-msgid "About Zotpress"
+msgid "About Metazot"
 msgstr ""
 
 #: lib/admin/admin.help.php:11
@@ -452,14 +452,14 @@ msgstr ""
 #: lib/admin/admin.help.php:18
 #, php-format
 msgid ""
-"If you like Zotpress, let the world know with a <a class=\"zp-FiveStar\" "
-"title=\"Rate Zotpress\" rel=\"external\" href=\"%s\">rating</a>!"
+"If you like Metazot, let the world know with a <a class=\"zp-FiveStar\" "
+"title=\"Rate Metazot\" rel=\"external\" href=\"%s\">rating</a>!"
 msgstr ""
 
 #: lib/admin/admin.help.php:36
 #, php-format
 msgid ""
-"<a title=\"More of my plugins\" href=\"%s\">Zotpress</a> bridges <a "
+"<a title=\"More of my plugins\" href=\"%s\">Metazot</a> bridges <a "
 "title=\"Zotero\" href=\"%s\">Zotero</a> and WordPress by allowing you to "
 "display items from your Zotero library through shortcodes and widgets. It "
 "also extends the basic meta functionality offered by Zotero by allowing you "
@@ -470,7 +470,7 @@ msgstr ""
 #: lib/admin/admin.help.php:50
 #, php-format
 msgid ""
-"You can use Zotpress by creating <a title=\"Stand-Alone Bibliography\" "
+"You can use Metazot by creating <a title=\"Stand-Alone Bibliography\" "
 "href=\"%s\" class=\"zp-Tab-Link\">stand-alone bibliography</a>, applying <a "
 "title=\"In-Text Citations\" class=\"zp-Tab-Link\" href=\"%s\">in-text "
 "citations</a>, displaying <a title=\"Library\" class=\"zp-Tab-Link\" "
@@ -481,17 +481,17 @@ msgstr ""
 #: lib/admin/admin.help.php:62
 msgid ""
 "You can build shortcodes and search for items in your library using the "
-"<strong>Zotpresss Reference</strong> widget on the post/page add/edit "
+"<strong>Metazots Reference</strong> widget on the post/page add/edit "
 "screens. Below, you can find attributes and options for each kind of "
-"Zotpress shortcode."
+"Metazot shortcode."
 msgstr ""
 
 #: lib/admin/admin.help.php:68
 #, php-format
 msgid ""
 "Have questions? First, check the <a title=\"FAQ\" class=\"zp-Tab-Link\" "
-"href=\"%s\">FAQ</a>. Then search the <a title=\"Zotpress Forums\" "
-"href=\"%s\">Zotpress Support Forums</a>. If you can't find an answer, feel "
+"href=\"%s\">FAQ</a>. Then search the <a title=\"Metazot Forums\" "
+"href=\"%s\">Metazot Support Forums</a>. If you can't find an answer, feel "
 "free to post your question there."
 msgstr ""
 
@@ -542,13 +542,13 @@ msgstr ""
 
 #: lib/admin/admin.help.php:264
 msgid ""
-"Use one or more <code>[zotpressInText]</code> shortcodes in your post, page "
+"Use one or more <code>[metazotInText]</code> shortcodes in your post, page "
 "or what-have-you to create placeholders for in-text citations"
 msgstr ""
 
 #: lib/admin/admin.help.php:265
 msgid ""
-"Then place the <strong>required</strong> <code>[zotpressInTextBib]</code> "
+"Then place the <strong>required</strong> <code>[metazotInTextBib]</code> "
 "shortcode somewhere in your entry <strong>after</strong> the in-text "
 "citation shortcodes. It will then create the in-text shortcodes and auto-"
 "populate a bibliography where it's placed"
@@ -556,8 +556,8 @@ msgstr ""
 
 #: lib/admin/admin.help.php:268
 msgid ""
-"The <code>[zotpressInTextBib]</code> shortcode takes the same attributes as "
-"the <code>[zotpress]</code> shortcode, minus the \"userid,\" \"nickname,\" "
+"The <code>[metazotInTextBib]</code> shortcode takes the same attributes as "
+"the <code>[metazot]</code> shortcode, minus the \"userid,\" \"nickname,\" "
 "and \"limit\" attributes"
 msgstr ""
 
@@ -585,7 +585,7 @@ msgid ""
 msgstr ""
 
 #: lib/admin/admin.help.php:429
-msgid "Zotpress Support Forums"
+msgid "Metazot Support Forums"
 msgstr ""
 
 #: lib/admin/admin.options.php:27 lib/admin/admin.options.php:56
@@ -594,7 +594,7 @@ msgstr ""
 
 #: lib/admin/admin.options.php:29
 msgid ""
-"Enable or disable the Zotpress Reference widget for specific post types."
+"Enable or disable the Metazot Reference widget for specific post types."
 msgstr ""
 
 #: lib/admin/admin.options.php:59 lib/admin/admin.options.php:80
@@ -604,12 +604,12 @@ msgid "Errors"
 msgstr ""
 
 #: lib/admin/admin.options.php:71 lib/admin/admin.options.php:77
-msgid "Reset Zotpress"
+msgid "Reset Metazot"
 msgstr ""
 
 #: lib/admin/admin.options.php:73
 msgid ""
-"Note: This action will clear all database entries associated with Zotpress, "
+"Note: This action will clear all database entries associated with Metazot, "
 "including account information and citations&#8212;it <strong>cannot be "
 "undone</strong>. Proceed with caution."
 msgstr ""
@@ -633,7 +633,7 @@ msgid "Set as Default"
 msgstr ""
 
 #: lib/admin/admin.browse.php:110
-msgid "Zotero + WordPress = Zotpress"
+msgid "Zotero + WordPress = Metazot"
 msgstr ""
 
 #: lib/admin/admin.browse.php:114
@@ -641,11 +641,11 @@ msgid "System Check"
 msgstr ""
 
 #: lib/admin/admin.browse.php:121
-msgid "Welcome to Zotpress"
+msgid "Welcome to Metazot"
 msgstr ""
 
 #: lib/admin/admin.browse.php:126
-msgid "Before we get started, let's make sure your system can support Zotpress"
+msgid "Before we get started, let's make sure your system can support Metazot"
 msgstr ""
 
 #: lib/admin/admin.browse.php:138 lib/admin/admin.browse.php:178
@@ -655,7 +655,7 @@ msgstr ""
 
 #: lib/admin/admin.browse.php:138
 msgid ""
-"Zotpress requires at least one of the following: <strong>cURL, fopen with "
+"Metazot requires at least one of the following: <strong>cURL, fopen with "
 "Streams (PHP 5), or fsockopen</strong>. You will not be able to import items "
 "until your administrator or tech support has set up one of these options. "
 "cURL is recommended."
@@ -667,7 +667,7 @@ msgstr ""
 
 #: lib/admin/admin.browse.php:144
 msgid ""
-"Your system meets the requirements necessary for Zotpress to communicate "
+"Your system meets the requirements necessary for Metazot to communicate "
 "with Zotero from WordPress"
 msgstr ""
 
@@ -687,17 +687,17 @@ msgstr ""
 
 #: lib/admin/admin.browse.php:173
 msgid ""
-"Everything appears to check out. Let's continue setting up Zotpress by "
+"Everything appears to check out. Let's continue setting up Metazot by "
 "adding your Zotero account. Click \"Next.\""
 msgstr ""
 
 #: lib/admin/admin.browse.php:178
-msgid "Zotpress was not able to connect to WordPress.org"
+msgid "Metazot was not able to connect to WordPress.org"
 msgstr ""
 
 #: lib/admin/admin.browse.php:181
 msgid ""
-"Unfortunately, Zotpress ran into an error. Here's what WordPress has to say"
+"Unfortunately, Metazot ran into an error. Here's what WordPress has to say"
 msgstr ""
 
 #: lib/admin/admin.browse.php:181
@@ -707,14 +707,14 @@ msgstr ""
 #: lib/admin/admin.browse.php:183
 msgid ""
 "First, try reloading. If the error recurs, your system may not be set up to "
-"run Zotpress. Please contact your system administrator or website host and "
+"run Metazot. Please contact your system administrator or website host and "
 "ask about allowing PHP scripts to access content like RSS feeds from "
 "external websites through cURL, fopen with Streams (PHP 5), or fsockopen"
 msgstr ""
 
 #: lib/admin/admin.browse.php:185
 msgid ""
-"You can still try to use Zotpress, but it may not work and/or you may "
+"You can still try to use Metazot, but it may not work and/or you may "
 "encounter further errors"
 msgstr ""
 
@@ -795,7 +795,7 @@ msgstr ""
 
 #: lib/admin/admin.accounts.addform.php:54
 msgid ""
-"A private key is required for Zotpress to make requests to Zotero from "
+"A private key is required for Metazot to make requests to Zotero from "
 "WordPress."
 msgstr ""
 
@@ -837,7 +837,7 @@ msgid "Only logged-in editors can access this page."
 msgstr ""
 
 #: lib/admin/admin.php:9
-msgid "Zotpress: 403 Access Denied"
+msgid "Metazot: 403 Access Denied"
 msgstr ""
 
 #: lib/admin/admin.setup.php:12 lib/admin/admin.setup.php:53
@@ -850,8 +850,8 @@ msgstr ""
 
 #: lib/admin/admin.setup.php:28
 msgid ""
-"Zotpress requires at least one of the following to work: cURL, fopen with "
-"Streams (PHP 5), or fsockopen. You will not be able to use Zotpress until "
+"Metazot requires at least one of the following to work: cURL, fopen with "
+"Streams (PHP 5), or fsockopen. You will not be able to use Metazot until "
 "your administrator or tech support has set up one of these options. cURL is "
 "recommended."
 msgstr ""
@@ -904,7 +904,7 @@ msgid "Set Default Style"
 msgstr ""
 
 #. Name of the plugin
-msgid "Zotpress"
+msgid "Metazot"
 msgstr ""
 
 #. Description of the plugin

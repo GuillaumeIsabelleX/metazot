@@ -11,28 +11,28 @@ if ( current_user_can('edit_others_posts') )
 
 	?>
 
-		<div id="zp-Zotpress" class="wrap">
+		<div id="zp-Metazot" class="wrap">
 
 			<?php include( dirname(__FILE__) . '/admin.menu.php' ); ?>
 
 
-			<!-- ZOTPRESS MANAGE ACCOUNTS -->
+			<!-- METAZOT MANAGE ACCOUNTS -->
 
 			<div id="zp-ManageAccounts">
 
-				<h3><?php _e('Synced Zotero Accounts','zotpress'); ?></h3>
-				<?php if (!isset( $_GET['no_accounts'] ) || (isset( $_GET['no_accounts'] ) && $_GET['no_accounts'] != "true")) { ?><a title="<?php _e('Add Account','zotpress'); ?>" class="zp-AddAccountButton button button-secondary" href="<?php echo admin_url("admin.php?page=Zotpress&setup=true"); ?>"><span><?php _e('Add Account','zotpress'); ?></span></a><?php } ?>
+				<h3><?php _e('Synced Zotero Accounts','metazot'); ?></h3>
+				<?php if (!isset( $_GET['no_accounts'] ) || (isset( $_GET['no_accounts'] ) && $_GET['no_accounts'] != "true")) { ?><a title="<?php _e('Add Account','metazot'); ?>" class="zp-AddAccountButton button button-secondary" href="<?php echo admin_url("admin.php?page=Metazot&setup=true"); ?>"><span><?php _e('Add Account','metazot'); ?></span></a><?php } ?>
 
 				<table id="zp-Accounts" class="wp-list-table widefat fixed posts">
 
 					<thead>
 						<tr>
-							<th class="default first manage-column" scope="col"><?php _e('Default','zotpress'); ?></th>
-							<th class="account_type first manage-column" scope="col"><?php _e('Type','zotpress'); ?></th>
-							<th class="api_user_id manage-column" scope="col"><?php _e('User ID','zotpress'); ?></th>
-							<th class="public_key manage-column" scope="col"><?php _e('Private Key','zotpress'); ?></th>
-							<th class="nickname manage-column" scope="col"><?php _e('Nickname','zotpress'); ?></th>
-							<th class="actions last manage-column" scope="col"><?php _e('Actions','zotpress'); ?></th>
+							<th class="default first manage-column" scope="col"><?php _e('Default','metazot'); ?></th>
+							<th class="account_type first manage-column" scope="col"><?php _e('Type','metazot'); ?></th>
+							<th class="api_user_id manage-column" scope="col"><?php _e('User ID','metazot'); ?></th>
+							<th class="public_key manage-column" scope="col"><?php _e('Private Key','metazot'); ?></th>
+							<th class="nickname manage-column" scope="col"><?php _e('Nickname','metazot'); ?></th>
+							<th class="actions last manage-column" scope="col"><?php _e('Actions','metazot'); ?></th>
 						</tr>
 					</thead>
 
@@ -41,7 +41,7 @@ if ( current_user_can('edit_others_posts') )
 
 							global $wpdb;
 
-							$accounts = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."zotpress");
+							$accounts = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."metazot");
 							$zebra = " alternate";
 
 							foreach ($accounts as $num => $account)
@@ -52,10 +52,10 @@ if ( current_user_can('edit_others_posts') )
 
 								// DEFAULT
 								$code .= "                          <td class='default first'>";
-								// if ( get_option("Zotpress_DefaultAccount") && get_option("Zotpress_DefaultAccount") == $account->api_user_id ) $code .= " selected";
+								// if ( get_option("Metazot_DefaultAccount") && get_option("Metazot_DefaultAccount") == $account->api_user_id ) $code .= " selected";
 								$code .= "<a href='javascript:void(0);' rel='". $account->api_user_id ."' class='default zp-Accounts-Default dashicons dashicons-star-";
-								if ( get_option("Zotpress_DefaultAccount") && get_option("Zotpress_DefaultAccount") == $account->api_user_id ) $code .= "filled"; else  $code .= "empty";
-								$code .= "' title='".__('Set as Default','zotpress')."'>".__('Set as Default','zotpress')."</a></td>\n";
+								if ( get_option("Metazot_DefaultAccount") && get_option("Metazot_DefaultAccount") == $account->api_user_id ) $code .= "filled"; else  $code .= "empty";
+								$code .= "' title='".__('Set as Default','metazot')."'>".__('Set as Default','metazot')."</a></td>\n";
 
 								// ACCOUNT TYPE
 								$code .= "                          <td class='account_type'>" . substr($account->account_type, 0, -1) . "</td>\n";
@@ -72,7 +72,7 @@ if ( current_user_can('edit_others_posts') )
 								else
 								{
 									add_thickbox();
-									$code .= 'No private key entered. <a class="zp-OAuth-Button thickbox" href="'.get_bloginfo( 'url' ).'/wp-content/plugins/zotpress/lib/admin/admin.accounts.oauth.php?TB_iframe=true&width=600&height=480&oauth_user='.$account->api_user_id.'&amp;return_uri='.get_bloginfo('url').'">'.__('Start OAuth','zotpress').'?</a>';
+									$code .= 'No private key entered. <a class="zp-OAuth-Button thickbox" href="'.get_bloginfo( 'url' ).'/wp-content/plugins/metazot/lib/admin/admin.accounts.oauth.php?TB_iframe=true&width=600&height=480&oauth_user='.$account->api_user_id.'&amp;return_uri='.get_bloginfo('url').'">'.__('Start OAuth','metazot').'?</a>';
 								}
 								$code .= "</td>\n";
 
@@ -84,8 +84,8 @@ if ( current_user_can('edit_others_posts') )
 
 								// ACTIONS
 								$code .= "                          <td class='actions last'>\n";
-								$code .= "                              <a title='".__('Clear Cache','zotpress')."' class='cache dashicons dashicons-update' href='#" . $account->api_user_id . "'>".__('Clear Cache','zotpress')."</a>\n";
-								$code .= "                              <a title='".__('Remove','zotpress')."' class='delete dashicons dashicons-trash' href='#" . $account->api_user_id . "'>".__('Remove','zotpress')."</a>\n";
+								$code .= "                              <a title='".__('Clear Cache','metazot')."' class='cache dashicons dashicons-update' href='#" . $account->api_user_id . "'>".__('Clear Cache','metazot')."</a>\n";
+								$code .= "                              <a title='".__('Remove','metazot')."' class='delete dashicons dashicons-trash' href='#" . $account->api_user_id . "'>".__('Remove','metazot')."</a>\n";
 								$code .= "                          </td>\n";
 
 								$code .= "                         </tr>\n\n";
@@ -99,14 +99,14 @@ if ( current_user_can('edit_others_posts') )
 
 			</div>
 
-			<span id="ZOTPRESS_PLUGIN_URL" style="display: none;"><?php echo ZOTPRESS_PLUGIN_URL; ?></span>
+			<span id="METAZOT_PLUGIN_URL" style="display: none;"><?php echo METAZOT_PLUGIN_URL; ?></span>
 
 			<?php if ( ! $oauth_is_not_installed ) { ?>
-				<h3><?php _e('What is OAuth?','zotpress'); ?></h3>
+				<h3><?php _e('What is OAuth?','metazot'); ?></h3>
 
 				<p>
-					OAuth helps you create the necessary private key for allowing Zotpress to read your Zotero library and display
-					it for all to see. You can do this manually through the Zotero website; using OAuth in Zotpress is just a quicker, more straightforward way of going about it.
+					OAuth helps you create the necessary private key for allowing Metazot to read your Zotero library and display
+					it for all to see. You can do this manually through the Zotero website; using OAuth in Metazot is just a quicker, more straightforward way of going about it.
 					<strong>Note: You'll need to have OAuth installed on your server to use this option.</strong> If you don't have OAuth installed, you'll have to generate a private key manually through the <a href="http://www.zotero.org/">Zotero</a> website.
 				</p>
 			<?php } ?>
@@ -122,7 +122,7 @@ if ( current_user_can('edit_others_posts') )
 
 else
 {
-	echo "<p>".__("Sorry, you don't have permission to access this page.","zotpress")."</p>";
+	echo "<p>".__("Sorry, you don't have permission to access this page.","metazot")."</p>";
 }
 
 ?>

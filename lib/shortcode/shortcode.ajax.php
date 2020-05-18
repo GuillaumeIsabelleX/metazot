@@ -1,15 +1,15 @@
 <?php
 
 /**
- * ZOTPRESS SHORTCODE AJAX
+ * METAZOT SHORTCODE AJAX
  *
  * Retrieves data from Zotero library based on shortcode.
  *
- * Used by:    zotpress.php
+ * Used by:    metazot.php
  *
  * @return     string          JSON array with: (a) meta about request , and (b) all data for this request
  */
-function Zotpress_shortcode_AJAX()
+function Metazot_shortcode_AJAX()
 {
 	check_ajax_referer( 'zpShortcode_nonce_val', 'zpShortcode_nonce' );
 
@@ -17,7 +17,7 @@ function Zotpress_shortcode_AJAX()
 	global $wpdb;
 
 	// Prep request vars
-	$zpr = Zotpress_prep_request_vars();
+	$zpr = Metazot_prep_request_vars();
 
 	// Include relevant classes and functions
 	include( dirname(__FILE__) . '/../request/request.class.php' );
@@ -25,16 +25,16 @@ function Zotpress_shortcode_AJAX()
   include( dirname(__FILE__) . '/../request/libzotero.php' );
 
 	// Set up request queue (for items)
-	$zp_request_queue = array(); // Structure: [api_user_id] => [items], [requests]
+	$mz_request_queue = array(); // Structure: [api_user_id] => [items], [requests]
 
-	// Set up Zotpress request
-	$zp_import_contents = new ZotpressRequest();
+	// Set up Metazot request
+	$mz_import_contents = new MetazotRequest();
 
 	// Set up request meta
-	$zp_request_meta = array( "request_last" => $zpr["request_last"], "request_next" => 0 );
+	$mz_request_meta = array( "request_last" => $zpr["request_last"], "request_next" => 0 );
 
 	// Set up data variable
-	$zp_all_the_data = array();
+	$mz_all_the_data = array();
 
 
 
@@ -52,7 +52,7 @@ function Zotpress_shortcode_AJAX()
 		$zpr["get_top"] = false;
 	}
 
-	// Account for items + zp_tag_id
+	// Account for items + mz_tag_id
 	if ( $zpr["item_type"] == "items" && $zpr["tag_id"] !== false )
 		$zpr["get_top"] = false;
 
@@ -92,26 +92,26 @@ function Zotpress_shortcode_AJAX()
 	// Handle the possible formats of item/s for bib and in-text
 	//
 	// IN-TEXT FORMATS:
-	// [zotpressInText item="NCXAA92F"]
-	// [zotpressInText item="{NCXAA92F,10-15}"]
-	// [zotpressInText items="{NCXAA92F,10-15},{55MKF89B,1578},{3ITTIXHP}"]
+	// [metazotInText item="NCXAA92F"]
+	// [metazotInText item="{NCXAA92F,10-15}"]
+	// [metazotInText items="{NCXAA92F,10-15},{55MKF89B,1578},{3ITTIXHP}"]
 	// So no multiples without curlies or non-curlies in multiples
 	//
 	// BIB FORMATS:
-	// [zotpress item="GMGCJU34"]
-	// [zotpress items="GMGCJU34,U9Z5JTKC"]
-	// [zotpress item="{000001:XH4BS8MA},{000001:CN73PTWE},{000003:CZR96TX9}"]
+	// [metazot item="GMGCJU34"]
+	// [metazot items="GMGCJU34,U9Z5JTKC"]
+	// [metazot item="{000001:XH4BS8MA},{000001:CN73PTWE},{000003:CZR96TX9}"]
 
 	if ( $zpr["item_key"] )
 	{
 		// Possible format: {api_user_id:item_key}, ...
 		if ( strpos( $zpr["item_key"], ":" ) !== false )
 		{
-			$zp_item_groups = explode( "},{", $zpr["item_key"] );
-			$zp_item_groups[0] = substr($zp_item_groups[0], 1);
-			$zp_item_groups[count($zp_item_groups)-1] = substr($zp_item_groups[count($zp_item_groups)-1], 0, -1);
+			$mz_item_groups = explode( "},{", $zpr["item_key"] );
+			$mz_item_groups[0] = substr($mz_item_groups[0], 1);
+			$mz_item_groups[count($mz_item_groups)-1] = substr($mz_item_groups[count($mz_item_groups)-1], 0, -1);
 
-			foreach ( $zp_item_groups as $item_group_raw )
+			foreach ( $mz_item_groups as $item_group_raw )
 			{
 				// Divide api_user_id from $zpr["item_key"]
 				$item_group = explode( ":", $item_group_raw );
@@ -120,9 +120,9 @@ function Zotpress_shortcode_AJAX()
 				array_push($zpr["item_keys_order"], $item_group[1]);
 
 				// Add to queue
-				if ( array_key_exists("items", $zp_request_queue[$item_group[0]]) )
-					$zp_request_queue[$item_group[0]]["items"] .= ",";
-				$zp_request_queue[$item_group[0]]["items"] .= $item_group[1];
+				if ( array_key_exists("items", $mz_request_queue[$item_group[0]]) )
+					$mz_request_queue[$item_group[0]]["items"] .= ",";
+				$mz_request_queue[$item_group[0]]["items"] .= $item_group[1];
 			}
 		}
 
@@ -133,11 +133,11 @@ function Zotpress_shortcode_AJAX()
 			// Also possible: {item_key}
 
 			// First, try separating multiple citations
-			$zp_item_groups = explode( ";", $zpr["item_key"] );
+			$mz_item_groups = explode( ";", $zpr["item_key"] );
 
 			$zpr["item_key"] = ""; // prep empty
 
-			foreach ( $zp_item_groups as $item_group )
+			foreach ( $mz_item_groups as $item_group )
 			{
 				// Try to separate multiple sources in one citation
 				$zpr["item_key"] = explode( "},{", $item_group );
@@ -160,20 +160,20 @@ function Zotpress_shortcode_AJAX()
 					}
 
 					// Skip duplicates in the queue
-					if ( array_key_exists($zpr["api_user_id"], $zp_request_queue)
-							&& array_key_exists("items", $zp_request_queue[$zpr["api_user_id"]])
-							&& strpos($zp_request_queue[$zpr["api_user_id"]]["items"], $key ) !== false )
+					if ( array_key_exists($zpr["api_user_id"], $mz_request_queue)
+							&& array_key_exists("items", $mz_request_queue[$zpr["api_user_id"]])
+							&& strpos($mz_request_queue[$zpr["api_user_id"]]["items"], $key ) !== false )
 						continue;
 
 					// Add to queue
 					// First, add account if needed
-					if ( ! array_key_exists($zpr["api_user_id"], $zp_request_queue) )
-						$zp_request_queue[$zpr["api_user_id"]] = array();
+					if ( ! array_key_exists($zpr["api_user_id"], $mz_request_queue) )
+						$mz_request_queue[$zpr["api_user_id"]] = array();
 
 					// Then add items
-					if ( array_key_exists("items", $zp_request_queue[$zpr["api_user_id"]]) )
-						$zp_request_queue[$zpr["api_user_id"]]["items"] .= ",";
-					$zp_request_queue[$zpr["api_user_id"]]["items"] .= $key;
+					if ( array_key_exists("items", $mz_request_queue[$zpr["api_user_id"]]) )
+						$mz_request_queue[$zpr["api_user_id"]]["items"] .= ",";
+					$mz_request_queue[$zpr["api_user_id"]]["items"] .= $key;
 				}
 			}
 		}
@@ -182,25 +182,25 @@ function Zotpress_shortcode_AJAX()
 		else if ( strpos( $zpr["item_key"], ";" ) !== false )
 		{
 			// Add to queue
-			if ( array_key_exists("items", $zp_request_queue[$zpr["api_user_id"]]) )
-				$zp_request_queue[$zpr["api_user_id"]] .= ",";
-			$zp_request_queue[$zpr["api_user_id"]]["items"] .= str_replace(";", ",", $zpr["item_key"]);
+			if ( array_key_exists("items", $mz_request_queue[$zpr["api_user_id"]]) )
+				$mz_request_queue[$zpr["api_user_id"]] .= ",";
+			$mz_request_queue[$zpr["api_user_id"]]["items"] .= str_replace(";", ",", $zpr["item_key"]);
 		}
 		else {
-			$zp_request_queue[$zpr["api_user_id"]]["items"] .= $zpr["item_key"];
+			$mz_request_queue[$zpr["api_user_id"]]["items"] .= $zpr["item_key"];
 		}
 	}
 
 
 	// BUILD REQUEST URL FOR EVERY REQUEST
-	if ( count($zp_request_queue) > 0 )
+	if ( count($mz_request_queue) > 0 )
 	{
-		// REVIEW: Does setting $zp_request_queue here overwrite it for each account?
-		foreach ( $zp_request_queue as $api_user_id => $zp_request_account )
-			$zp_request_queue = Zotpress_prep_request_URl($wpdb, $zpr, $zp_request_queue, $api_user_id);
+		// REVIEW: Does setting $mz_request_queue here overwrite it for each account?
+		foreach ( $mz_request_queue as $api_user_id => $mz_request_account )
+			$mz_request_queue = Metazot_prep_request_URl($wpdb, $zpr, $mz_request_queue, $api_user_id);
 	}
 	else {
-		$zp_request_queue = Zotpress_prep_request_URl($wpdb, $zpr, $zp_request_queue);
+		$mz_request_queue = Metazot_prep_request_URl($wpdb, $zpr, $mz_request_queue);
 	}
 
 
@@ -213,12 +213,12 @@ function Zotpress_shortcode_AJAX()
 	*
 	*/
 
-	// var_dump($zp_request_queue); exit;
+	// var_dump($mz_request_queue); exit;
 
 
     //if ( $zpr["request_start"] == 50 ) {
     //    var_dump("shortcode.ajax.php TESTING: ");
-    //    print_r($_GET); var_dump("<br /><br />url: ".$zp_import_url);
+    //    print_r($_GET); var_dump("<br /><br />url: ".$mz_import_url);
     //    var_dump(" AFTER \n\n");
     //}
 
@@ -232,50 +232,50 @@ function Zotpress_shortcode_AJAX()
 	*
 	*/
 
-	$zp_request = array();
+	$mz_request = array();
 
-	foreach ( $zp_request_queue as $zp_request_account )
+	foreach ( $mz_request_queue as $mz_request_account )
 	{
-		if ( count($zp_request_account["requests"]) > 1 )
+		if ( count($mz_request_account["requests"]) > 1 )
 		{
-			foreach ( $zp_request_account["requests"] as $zp_request_url )
+			foreach ( $mz_request_account["requests"] as $mz_request_url )
 			{
-				$zp_imported = $zp_import_contents->get_request_contents( $zp_request_url, $zpr["update"], $zpr["showtags"] );
+				$mz_imported = $mz_import_contents->get_request_contents( $mz_request_url, $zpr["update"], $zpr["showtags"] );
 
 				// Create all-requests json if doesn't exists
-				if ( empty($zp_request) ) $zp_request = $zp_imported;
+				if ( empty($mz_request) ) $mz_request = $mz_imported;
 
 				// Add to existing all-requests json
-				$zp_request["json"] = rtrim($zp_request["json"], "]") . "," . $zp_imported["json"] . "]";
+				$mz_request["json"] = rtrim($mz_request["json"], "]") . "," . $mz_imported["json"] . "]";
 			}
 		}
 		else
 		{
-			$zp_imported = $zp_import_contents->get_request_contents( $zp_request_account["requests"][0], $zpr["update"], $zpr["showtags"] );
+			$mz_imported = $mz_import_contents->get_request_contents( $mz_request_account["requests"][0], $zpr["update"], $zpr["showtags"] );
 
 			// Create all-requests json if doesn't exists
-			if ( empty($zp_request) )
-				$zp_request = $zp_imported;
+			if ( empty($mz_request) )
+				$mz_request = $mz_imported;
 
 			// Add to existing all-requests json
 			else
-				$zp_request["json"] = rtrim($zp_request["json"], "]") . "," . ltrim($zp_imported["json"], "[") . "]";
+				$mz_request["json"] = rtrim($mz_request["json"], "]") . "," . ltrim($mz_imported["json"], "[") . "]";
 
 		}
 	} // Request the data
 
 	// Fix formatting quirk
-	$zp_request["json"] = str_replace("}}]]", "}}]", $zp_request["json"]);
+	$mz_request["json"] = str_replace("}}]]", "}}]", $mz_request["json"]);
 
 
 	// OLD WAY:
-	// $zp_request = $zp_import_contents->get_request_contents( $zp_import_url, $zpr["update"], $zpr["showtags"] );
+	// $mz_request = $mz_import_contents->get_request_contents( $mz_import_url, $zpr["update"], $zpr["showtags"] );
 
 
-	if ( $zp_request["json"] != "0" )
+	if ( $mz_request["json"] != "0" )
 	{
-		$temp_headers = json_decode( $zp_request["headers"] );
-		$temp_data = json_decode( $zp_request["json"] );
+		$temp_headers = json_decode( $mz_request["headers"] );
+		$temp_data = json_decode( $mz_request["json"] );
 
 		// Figure out if there's multiple requests and how many
 		if ( $zpr["request_start"] == 0
@@ -285,18 +285,18 @@ function Zotpress_shortcode_AJAX()
 			$temp_link = explode( "start=", $temp_link[1] );
 			$temp_link = explode( "&", $temp_link[1] );
 
-			$zp_request_meta["request_last"] = $temp_link[0];
+			$mz_request_meta["request_last"] = $temp_link[0];
 		}
 
 		// Figure out the next starting position for the next request, if any
-		if ( $zp_request_meta["request_last"] >= ($zpr["request_start"] + $zpr["limit"]) )
-			$zp_request_meta["request_next"] = $zpr["request_start"] + $zpr["limit"] ;
+		if ( $mz_request_meta["request_last"] >= ($zpr["request_start"] + $zpr["limit"]) )
+			$mz_request_meta["request_next"] = $zpr["request_start"] + $zpr["limit"] ;
 
 		// Overwrite request if tag limit
 		if ( $zpr["overwrite_request"] === true )
 		{
-			$zp_request_meta["request_next"] = 0;
-			$zp_request_meta["request_last"] = 0;
+			$mz_request_meta["request_next"] = 0;
+			$mz_request_meta["request_last"] = 0;
 		}
 
 		// Overwrite last_request
@@ -309,7 +309,7 @@ function Zotpress_shortcode_AJAX()
 			else
 				$zpr["overwrite_last_request"] = intval( ceil( $zpr["overwrite_last_request"] / $zpr["limit"] ) ) * $zpr["limit"];
 
-			$zp_request_meta["request_last"] = $zpr["overwrite_last_request"];
+			$mz_request_meta["request_last"] = $zpr["overwrite_last_request"];
 		}
 
 
@@ -331,31 +331,31 @@ function Zotpress_shortcode_AJAX()
 			}
 
 			// Set up conditional vars
-			if ( $zpr["shownotes"] ) $zp_notes_num = 1;
-			if ( $zpr["showimage"] ) $zp_showimage_keys = "";
+			if ( $zpr["shownotes"] ) $mz_notes_num = 1;
+			if ( $zpr["showimage"] ) $mz_showimage_keys = "";
 
       $i = 0;
 			// Get individual items
 			foreach ( $temp_data as $item )
 			{
 				// Set target for links
-				$zp_target_output = ""; if ( $zpr["target"] ) $zp_target_output = "target='_blank' ";
+				$mz_target_output = ""; if ( $zpr["target"] ) $mz_target_output = "target='_blank' ";
 
 				// Author filtering: skip non-matching authors
 				// EVENTUAL TODO: Zotero API 3 searches title and author, so wrong authors can appear
 				if ( $zpr["author"] && count($item->data->creators) > 0 )
 				{
-					$zp_authors_check = false;
+					$mz_authors_check = false;
 
 					// Deal with multiple authors
 					if ( gettype($zpr["author"]) != "array"
 							&& strpos($zpr["author"], ",") !== false )
 					{
-						$zp_authors = explode( ",", $zpr["author"] );
+						$mz_authors = explode( ",", $zpr["author"] );
 
-						foreach ( $zp_authors as $author )
-							if ( zp_check_author_continue( $item, $author ) === true )
-								$zp_authors_check = true;
+						foreach ( $mz_authors as $author )
+							if ( mz_check_author_continue( $item, $author ) === true )
+								$mz_authors_check = true;
 					}
 					else // single or inclusive
 					{
@@ -364,20 +364,20 @@ function Zotpress_shortcode_AJAX()
 							$author_exists_count = 1;
 
 							foreach ( $zpr["author"] as $author )
-								if ( zp_check_author_continue( $item, $author ) === true )
+								if ( mz_check_author_continue( $item, $author ) === true )
 									$author_exists_count++;
 
 							if ( $author_exists_count == count($zpr["author"])+1 )
-								$zp_authors_check = true;
+								$mz_authors_check = true;
 						}
 						else // inclusive and single
 						{
-							if ( zp_check_author_continue( $item, $zpr["author"] ) === true )
-								$zp_authors_check = true;
+							if ( mz_check_author_continue( $item, $zpr["author"] ) === true )
+								$mz_authors_check = true;
 						}
 					}
 
-					if ( $zp_authors_check === false ) continue;
+					if ( $mz_authors_check === false ) continue;
 				}
 
 				// Year filtering: skip non-matching years
@@ -385,26 +385,26 @@ function Zotpress_shortcode_AJAX()
 				{
 					if ( strpos($zpr["year"], ",") !== false ) // multiple
 					{
-						$zp_years_check = false;
-						$zp_years = explode( ",", $zpr["year"] );
+						$mz_years_check = false;
+						$mz_years = explode( ",", $zpr["year"] );
 
-						foreach ( $zp_years as $year )
-							if ( zp_get_year( $item->meta->parsedDate ) == $year ) $zp_years_check = true;
+						foreach ( $mz_years as $year )
+							if ( mz_get_year( $item->meta->parsedDate ) == $year ) $mz_years_check = true;
 
-						if ( ! $zp_years_check ) continue;
+						if ( ! $mz_years_check ) continue;
 					}
 					else // single
 					{
-						if ( zp_get_year( $item->meta->parsedDate ) != $zpr["year"] ) continue;
+						if ( mz_get_year( $item->meta->parsedDate ) != $zpr["year"] ) continue;
 					}
 				}
 
 				// Skip non-matching years for author-year pairs
 				if ( $zpr["year"] && $zpr["author"] && isset($item->meta->parsedDate) )
-					if ( zp_get_year( $item->meta->parsedDate ) != $zpr["year"] ) continue;
+					if ( mz_get_year( $item->meta->parsedDate ) != $zpr["year"] ) continue;
 
 				// Add item key for show image
-				if ( $zpr["showimage"] ) $zp_showimage_keys .= " ".$item->key;
+				if ( $zpr["showimage"] ) $mz_showimage_keys .= " ".$item->key;
 
 				// Modify style based on language
 				// Languages: jp
@@ -505,7 +505,7 @@ function Zotpress_shortcode_AJAX()
 						// If wrapping title, wrap it:
 						$item->bib = str_ireplace(
 								$item->data->title,
-								"<a ".$zp_target_output."href='".$item->data->url."'>".$item->data->title."</a>",
+								"<a ".$mz_target_output."href='".$item->data->url."'>".$item->data->title."</a>",
 								$item->bib
 							);
 
@@ -518,7 +518,7 @@ function Zotpress_shortcode_AJAX()
 					{
 						$item->bib = str_ireplace(
 								htmlentities($item->data->url),
-								"<a ".$zp_target_output."href='".$item->data->url."'>".$item->data->url."</a>",
+								"<a ".$mz_target_output."href='".$item->data->url."'>".$item->data->url."</a>",
 								$item->bib
 							);
 					}
@@ -533,7 +533,7 @@ function Zotpress_shortcode_AJAX()
 					{
 						$item->bib = str_ireplace(
 								"doi:" . $item->data->DOI,
-								"<a ".$zp_target_output."href='http://doi.org/".$item->data->DOI."'>http://doi.org/".$item->data->DOI."</a>",
+								"<a ".$mz_target_output."href='http://doi.org/".$item->data->DOI."'>http://doi.org/".$item->data->DOI."</a>",
 								$item->bib
 							);
 					}
@@ -543,7 +543,7 @@ function Zotpress_shortcode_AJAX()
 					{
 						$item->bib = str_ireplace(
 								"http://doi.org/" . $item->data->DOI,
-								"<a ".$zp_target_output."href='http://doi.org/".$item->data->DOI."'>http://doi.org/".$item->data->DOI."</a>",
+								"<a ".$mz_target_output."href='http://doi.org/".$item->data->DOI."'>http://doi.org/".$item->data->DOI."</a>",
 								$item->bib
 							);
 					}
@@ -553,7 +553,7 @@ function Zotpress_shortcode_AJAX()
 					{
 						$item->bib = str_ireplace(
 								"https://doi.org/" . $item->data->DOI,
-								"<a ".$zp_target_output."href='https://doi.org/".$item->data->DOI."'>https://doi.org/".$item->data->DOI."</a>",
+								"<a ".$mz_target_output."href='https://doi.org/".$item->data->DOI."'>https://doi.org/".$item->data->DOI."</a>",
 								$item->bib
 							);
 					}
@@ -561,7 +561,7 @@ function Zotpress_shortcode_AJAX()
 
 				// Cite link (RIS)
 				if ( $zpr["citeable"] )
-					$item->bib = preg_replace( '~(.*)' . preg_quote('</div>', '~') . '(.*?)~', '$1' . " <a title='Cite in RIS Format' class='zp-CiteRIS' href='".ZOTPRESS_PLUGIN_URL."lib/request/request.cite.php?api_user_id=".$zpr["api_user_id"]."&amp;item_key=".$item->key."'>Cite</a> </div>" . '$2', $item->bib, 1 );
+					$item->bib = preg_replace( '~(.*)' . preg_quote('</div>', '~') . '(.*?)~', '$1' . " <a title='Cite in RIS Format' class='zp-CiteRIS' href='".METAZOT_PLUGIN_URL."lib/request/request.cite.php?api_user_id=".$zpr["api_user_id"]."&amp;item_key=".$item->key."'>Cite</a> </div>" . '$2', $item->bib, 1 );
 
 				// Highlight text
 				if ( $zpr["highlight"] )
@@ -574,36 +574,36 @@ function Zotpress_shortcode_AJAX()
 					if ( $item->meta->numChildren > 0 )
 					{
 						// Get the user's account
-						$zp_account = zp_get_account ($wpdb, $zpr["api_user_id"]);
+						$mz_account = mz_get_account ($wpdb, $zpr["api_user_id"]);
 
-						$zp_child_url = "https://api.zotero.org/".$zp_account[0]->account_type."/".$zpr["api_user_id"]."/items";
-						$zp_child_url .= "/".$item->key."/children?";
-						if (is_null($zp_account[0]->public_key) === false && trim($zp_account[0]->public_key) != "")
-							$zp_child_url .= "key=".$zp_account[0]->public_key."&";
-						$zp_child_url .= "&format=json&include=data";
+						$mz_child_url = "https://api.zotero.org/".$mz_account[0]->account_type."/".$zpr["api_user_id"]."/items";
+						$mz_child_url .= "/".$item->key."/children?";
+						if (is_null($mz_account[0]->public_key) === false && trim($mz_account[0]->public_key) != "")
+							$mz_child_url .= "key=".$mz_account[0]->public_key."&";
+						$mz_child_url .= "&format=json&include=data";
 
 						// Get data
-						$zp_import_child = new ZotpressRequest();
-						$zp_child_request = $zp_import_child->get_request_contents( $zp_child_url, $zpr["update"] );
-						$zp_children = json_decode( $zp_child_request["json"] );
+						$mz_import_child = new MetazotRequest();
+						$mz_child_request = $mz_import_child->get_request_contents( $mz_child_url, $zpr["update"] );
+						$mz_children = json_decode( $mz_child_request["json"] );
 
-						$zp_download_meta = false;
-						$zp_notes_meta = array();
+						$mz_download_meta = false;
+						$mz_notes_meta = array();
 
-						foreach ( $zp_children as $zp_child )
+						foreach ( $mz_children as $mz_child )
 						{
 							// Check for downloads
 							if ( $zpr["downloadable"] )
 							{
-								if ( isset($zp_child->data->linkMode)
-                                    && ( $zp_child->data->linkMode == "imported_file"
-                                        || $zp_child->data->linkMode == "imported_url")
-                                    && preg_match('(pdf|doc|docx|ppt|pptx|latex|rtf|odt|odp)', $zp_child->data->filename) === 1
+								if ( isset($mz_child->data->linkMode)
+                                    && ( $mz_child->data->linkMode == "imported_file"
+                                        || $mz_child->data->linkMode == "imported_url")
+                                    && preg_match('(pdf|doc|docx|ppt|pptx|latex|rtf|odt|odp)', $mz_child->data->filename) === 1
                                 )
 								{
-									$zp_download_meta = array (
-											"dlkey" => $zp_child->key,
-											"contentType" => $zp_child->data->contentType
+									$mz_download_meta = array (
+											"dlkey" => $mz_child->key,
+											"contentType" => $mz_child->data->contentType
 										);
 								}
 							}
@@ -611,18 +611,18 @@ function Zotpress_shortcode_AJAX()
 							// Check for notes
 							if ( $zpr["shownotes"] )
 							{
-								if ( isset($zp_child->data->itemType) && $zp_child->data->itemType == "note" )
-									$zp_notes_meta[count($zp_notes_meta)] = $zp_child->data->note;
+								if ( isset($mz_child->data->itemType) && $mz_child->data->itemType == "note" )
+									$mz_notes_meta[count($mz_notes_meta)] = $mz_child->data->note;
 							}
 						}
 
             // Display download link if file exists
             $downloadBib = "";
-            if ( $zp_download_meta )
-              $downloadBib = "<a title='Download' class='zp-DownloadURL' href='".ZOTPRESS_PLUGIN_URL."lib/request/request.dl.php?api_user_id=".$zpr["api_user_id"]."&amp;dlkey=".$zp_download_meta["dlkey"]."&amp;content_type=".$zp_download_meta["contentType"]."'>Download</a>";
+            if ( $mz_download_meta )
+              $downloadBib = "<a title='Download' class='zp-DownloadURL' href='".METAZOT_PLUGIN_URL."lib/request/request.dl.php?api_user_id=".$zpr["api_user_id"]."&amp;dlkey=".$mz_download_meta["dlkey"]."&amp;content_type=".$mz_download_meta["contentType"]."'>Download</a>";
             else // Display upload link if file does not exist
             {
-              $upload_url = ZOTPRESS_PLUGIN_URL."lib/request/request.ul.php?api_user_id=".$zpr["api_user_id"]."&amp;key=".$item->key."&amp;content_type=application/pdf";
+              $upload_url = METAZOT_PLUGIN_URL."lib/request/request.ul.php?api_user_id=".$zpr["api_user_id"]."&amp;key=".$item->key."&amp;content_type=application/pdf";
               $html_var = "
               <iframe name='uhiddenFrame".$i."' width='0' height='0' border='0' style='display: none;'></iframe> 
               <button id='umyBtn".$i."' style = 'font-size:8px;text-transform: uppercase;background-color: white;color:black'>Upload</button>
@@ -751,7 +751,7 @@ function Zotpress_shortcode_AJAX()
                 ";
             }
 
-            $edit_url = ZOTPRESS_PLUGIN_URL."lib/request/request.edit.php?api_user_id=".$zpr["api_user_id"]."&amp;key=".$itemBody->key;
+            $edit_url = METAZOT_PLUGIN_URL."lib/request/request.edit.php?api_user_id=".$zpr["api_user_id"]."&amp;key=".$itemBody->key;
             $edit_html_var = "
         <iframe name='hiddenFrame".$i."' width='0' height='0' border='0' scrolling='yes' style='display: none;overflow: scroll;'></iframe> 
         <button id='myBtn".$i."' style = 'font-size:8px;text-transform: uppercase;background-color: white;color:black'>Edit</button>
@@ -806,20 +806,20 @@ function Zotpress_shortcode_AJAX()
             $item->bib = preg_replace('~(.*)' . preg_quote( '</div>', '~') . '(.*?)~', '$1' .$downloadBib. $edit_html_var. '$2', $item->bib, 1 );
 
 						// Display notes, if any
-						if ( count($zp_notes_meta) > 0 )
+						if ( count($mz_notes_meta) > 0 )
 						{
 							$temp_notes = "<li id=\"zp-Note-".$item->key."\">\n";
 
-							if ( count($zp_notes_meta) == 1 )
+							if ( count($mz_notes_meta) == 1 )
 							{
-								$temp_notes .= $zp_notes_meta[0]."\n";
+								$temp_notes .= $mz_notes_meta[0]."\n";
 							}
 							else // multiple
 							{
 								$temp_notes .= "<ul class='zp-Citation-Item-Notes'>\n";
 
-								foreach ($zp_notes_meta as $zp_note_meta)
-									$temp_notes .= "<li class='zp-Citation-note'>" . $zp_note_meta . "\n</li>\n";
+								foreach ($mz_notes_meta as $mz_note_meta)
+									$temp_notes .= "<li class='zp-Citation-note'>" . $mz_note_meta . "\n</li>\n";
 
 								$temp_notes .= "\n</ul><!-- .zp-Citation-Item-Notes -->\n\n";
 							}
@@ -828,14 +828,14 @@ function Zotpress_shortcode_AJAX()
 							$item->notes = $temp_notes . "</li>\n";
 
 							// Add note reference to citation
-							$item->bib = preg_replace('~(.*)' . preg_quote('</div>', '~') . '(.*?)~', '$1' . " <sup class=\"zp-Notes-Reference\"><a href=\"#zp-Note-".$item->key."\">".$zp_notes_num."</a></sup> </div>" . '$2', $item->bib, 1);
-							$zp_notes_num++;
+							$item->bib = preg_replace('~(.*)' . preg_quote('</div>', '~') . '(.*?)~', '$1' . " <sup class=\"zp-Notes-Reference\"><a href=\"#zp-Note-".$item->key."\">".$mz_notes_num."</a></sup> </div>" . '$2', $item->bib, 1);
+							$mz_notes_num++;
 						}
 					}
 				} // $zpr["downloadable"]
 
         $i++;
-				array_push( $zp_all_the_data,  $item);
+				array_push( $mz_all_the_data,  $item);
 			} // foreach item
 
 
@@ -844,33 +844,33 @@ function Zotpress_shortcode_AJAX()
 			if ( $zpr["showimage"] )
 			{
 				// Get images for all item keys from zpdb, if they exist
-				$zp_images = $wpdb->get_results(
+				$mz_images = $wpdb->get_results(
 					"
-					SELECT * FROM ".$wpdb->prefix."zotpress_zoteroItemImages
-					WHERE ".$wpdb->prefix."zotpress_zoteroItemImages.item_key IN ('".str_replace( " ", "', '", trim($zp_showimage_keys) )."')
+					SELECT * FROM ".$wpdb->prefix."metazot_zoteroItemImages
+					WHERE ".$wpdb->prefix."metazot_zoteroItemImages.item_key IN ('".str_replace( " ", "', '", trim($mz_showimage_keys) )."')
 					"
 				);
 
-				if ( count($zp_images) > 0 )
+				if ( count($mz_images) > 0 )
 				{
-					foreach ( $zp_images as $image )
+					foreach ( $mz_images as $image )
 					{
-						$zp_thumbnail = wp_get_attachment_image_src($image->image);
+						$mz_thumbnail = wp_get_attachment_image_src($image->image);
 
-						foreach ( $zp_all_the_data as $id => $data )
+						foreach ( $mz_all_the_data as $id => $data )
 						{
 							if ( $data->key == $image->item_key)
 							{
-								$zp_all_the_data[$id]->image = $zp_thumbnail;
+								$mz_all_the_data[$id]->image = $mz_thumbnail;
 
 								// URL Wrap for images
-								if ( $zpr["urlwrap"] && $zpr["urlwrap"] == "image" && $zp_all_the_data[$id]->data->url != "" )
+								if ( $zpr["urlwrap"] && $zpr["urlwrap"] == "image" && $mz_all_the_data[$id]->data->url != "" )
 								{
 									// Get rid of default URL listing
 									// TO-DO: Does this account for all citation styles?
-									$zp_all_the_data[$id]->bib = str_replace( htmlentities($zp_all_the_data[$id]->data->url), "", $zp_all_the_data[$id]->bib );
-									$zp_all_the_data[$id]->bib = str_replace( " Retrieved from ", "", $zp_all_the_data[$id]->bib );
-									$zp_all_the_data[$id]->bib = str_replace( " Available from: ", "", $zp_all_the_data[$id]->bib );
+									$mz_all_the_data[$id]->bib = str_replace( htmlentities($mz_all_the_data[$id]->data->url), "", $mz_all_the_data[$id]->bib );
+									$mz_all_the_data[$id]->bib = str_replace( " Retrieved from ", "", $mz_all_the_data[$id]->bib );
+									$mz_all_the_data[$id]->bib = str_replace( " Available from: ", "", $mz_all_the_data[$id]->bib );
 								}
 							}
 						}
@@ -880,11 +880,11 @@ function Zotpress_shortcode_AJAX()
 				// Check open lib next
 				if ( $zpr["showimage"] === "openlib" )
 				{
-					$zp_showimage_keys = explode( ",", $zp_showimage_keys );
+					$mz_showimage_keys = explode( ",", $mz_showimage_keys );
 
-					foreach ( $zp_all_the_data as $id => $data )
+					foreach ( $mz_all_the_data as $id => $data )
 					{
-						if ( ! in_array( $data->key,  $zp_showimage_keys )
+						if ( ! in_array( $data->key,  $mz_showimage_keys )
 								&& ( isset($data->data->ISBN) && $data->data->ISBN != "" ) )
 						{
 							$openlib_url = "http://covers.openlibrary.org/b/isbn/".$data->data->ISBN."-M.jpg";
@@ -892,16 +892,16 @@ function Zotpress_shortcode_AJAX()
 
 							if ( $openlib_headers[0] != "HTTP/1.1 404 Not Found" )
 							{
-								$zp_all_the_data[$id]->image = array( $openlib_url );
+								$mz_all_the_data[$id]->image = array( $openlib_url );
 
 								// URL Wrap for images
-								if ( $zpr["urlwrap"] && $zpr["urlwrap"] == "image" && $zp_all_the_data[$id]->data->url != "" )
+								if ( $zpr["urlwrap"] && $zpr["urlwrap"] == "image" && $mz_all_the_data[$id]->data->url != "" )
 								{
 									// Get rid of default URL listing
 									// TO-DO: Does this account for all citation styles?
-									$zp_all_the_data[$id]->bib = str_replace( htmlentities($zp_all_the_data[$id]->data->url), "", $zp_all_the_data[$id]->bib );
-									$zp_all_the_data[$id]->bib = str_replace( " Retrieved from ", "", $zp_all_the_data[$id]->bib );
-									$zp_all_the_data[$id]->bib = str_replace( " Available from: ", "", $zp_all_the_data[$id]->bib );
+									$mz_all_the_data[$id]->bib = str_replace( htmlentities($mz_all_the_data[$id]->data->url), "", $mz_all_the_data[$id]->bib );
+									$mz_all_the_data[$id]->bib = str_replace( " Retrieved from ", "", $mz_all_the_data[$id]->bib );
+									$mz_all_the_data[$id]->bib = str_replace( " Available from: ", "", $mz_all_the_data[$id]->bib );
 								}
 							}
 						}
@@ -918,20 +918,20 @@ function Zotpress_shortcode_AJAX()
 
 				foreach ( $zpr["item_keys_order"] as $temp_key )
 				{
-					foreach ( $zp_all_the_data as $temp_data )
+					foreach ( $mz_all_the_data as $temp_data )
 					{
 						if ( $temp_data->key == $temp_key ) array_push( $temp_arr, $temp_data );
 					}
 				}
 
-				$zp_all_the_data = $temp_arr;
+				$mz_all_the_data = $temp_arr;
 			}
 		}
 	}
 
 	else // No results
 	{
-		$zp_all_the_data = ""; // Necessary?
+		$mz_all_the_data = ""; // Necessary?
 	}
 
 	/**
@@ -940,13 +940,13 @@ function Zotpress_shortcode_AJAX()
 	*
 	*/
 
-	if ( count($zp_all_the_data) > 0 )
+	if ( count($mz_all_the_data) > 0 )
 	{
 		echo json_encode(
 				array (
 					"instance" => $zpr["instance_id"],
-					"meta" => $zp_request_meta,
-					"data" => $zp_all_the_data
+					"meta" => $mz_request_meta,
+					"data" => $mz_all_the_data
 				)
 			);
 	}
@@ -955,22 +955,22 @@ function Zotpress_shortcode_AJAX()
 		echo "0";
 	}
 
-	unset($zp_import_contents);
-	unset($zp_import_url);
-	unset($zp_xml);
+	unset($mz_import_contents);
+	unset($mz_import_url);
+	unset($mz_xml);
 	unset($api_user_id);
-	unset($zp_account);
+	unset($mz_account);
 
 	$wpdb->flush();
 
 	exit();
 }
-add_action( 'wp_ajax_zpRetrieveViaShortcode', 'Zotpress_shortcode_AJAX' );
-add_action( 'wp_ajax_nopriv_zpRetrieveViaShortcode', 'Zotpress_shortcode_AJAX' );
+add_action( 'wp_ajax_zpRetrieveViaShortcode', 'Metazot_shortcode_AJAX' );
+add_action( 'wp_ajax_nopriv_zpRetrieveViaShortcode', 'Metazot_shortcode_AJAX' );
 
 
 
-function Zotpress_prep_request_vars()
+function Metazot_prep_request_vars()
 {
 	$zpr = array();
 
@@ -1008,7 +1008,7 @@ function Zotpress_prep_request_vars()
 	// Author, year, style, limit, title
 	$zpr["author"] = false; if ( isset($_GET['author']) && $_GET['author'] != "false" ) $zpr["author"] = $_GET['author'];
 	$zpr["year"] = false; if ( isset($_GET['year']) && $_GET['year'] != "false" ) $zpr["year"] = $_GET['year'];
-	$zpr["style"] = zp_Get_Default_Style(); if ( isset($_GET['style']) && $_GET['style'] != "false" && $_GET['style'] != "default" ) $zpr["style"] = $_GET['style'];
+	$zpr["style"] = mz_Get_Default_Style(); if ( isset($_GET['style']) && $_GET['style'] != "false" && $_GET['style'] != "default" ) $zpr["style"] = $_GET['style'];
 	if ( isset($_GET['limit']) && $_GET['limit'] != 0 )
 	{
 		$zpr["limit"] = intval($_GET['limit']);
@@ -1126,35 +1126,35 @@ function Zotpress_prep_request_vars()
 
 	return $zpr;
 
-} // function Zotpress_prep_request_vars
+} // function Metazot_prep_request_vars
 
 
 
 /**
  * Preps and formats the Zotpero API request URL.
  *
- * Handles all possible Zotpress parameters for bibliography
+ * Handles all possible Metazot parameters for bibliography
  * shortcodes. Per user account.
  *
  * @param obj $wpdb WP DB object.
  * @param arr $zpr Holds all params for request.
- * @param arr $zp_request_queue Holds all requests for all accounts.
+ * @param arr $mz_request_queue Holds all requests for all accounts.
  * @param str $api_user_id Optional. API user ID.
  */
-function Zotpress_prep_request_URl($wpdb, $zpr, $zp_request_queue, $api_user_id=false)
+function Metazot_prep_request_URl($wpdb, $zpr, $mz_request_queue, $api_user_id=false)
 {
 	// Get account and $api_user_id
 	if ( $api_user_id ) {
-		$zp_account = zp_get_account ($wpdb, $api_user_id);
+		$mz_account = mz_get_account ($wpdb, $api_user_id);
 	}
 	else {
 		if ( $zpr["api_user_id"] ) {
-			$zp_account = zp_get_account ($wpdb, $zpr["api_user_id"]);
+			$mz_account = mz_get_account ($wpdb, $zpr["api_user_id"]);
 			$api_user_id = $zpr["api_user_id"];
 		}
 		else {
-			$zp_account = zp_get_account ($wpdb);
-			$api_user_id = $zp_account[0]->api_user_id;
+			$mz_account = mz_get_account ($wpdb);
+			$api_user_id = $mz_account[0]->api_user_id;
 		}
 	}
 
@@ -1175,52 +1175,52 @@ function Zotpress_prep_request_URl($wpdb, $zpr, $zp_request_queue, $api_user_id=
 	}
 
 	// User type, user id, item type
-	$zp_import_url = "https://api.zotero.org/".$zp_account[0]->account_type."/".$api_user_id."/".$zpr["item_type"];
+	$mz_import_url = "https://api.zotero.org/".$mz_account[0]->account_type."/".$api_user_id."/".$zpr["item_type"];
 
 	// Top or single item key
-	if ( $zpr["get_top"] ) $zp_import_url .= "/top";
+	if ( $zpr["get_top"] ) $mz_import_url .= "/top";
 
-	if ( strpos($zp_request_queue[$api_user_id]["items"], ',') == false )
+	if ( strpos($mz_request_queue[$api_user_id]["items"], ',') == false )
 	// if ( $zpr["item_key"] )
 		if ( gettype( $zpr["item_key"] ) == "array"
 				&& count( $zpr["item_key"] ) == 1
 				&& strpos( $zpr["item_key"][0], ',' ) == false )
-			$zp_import_url .= "/" . $zpr["item_key"][0];
+			$mz_import_url .= "/" . $zpr["item_key"][0];
 		else if ( gettype( $zpr["item_key"] ) == "string"
 				&& ( strpos( $zpr["item_key"], "," ) === false
 			 		&& strpos( $zpr["item_key"], ";" ) === false ) )
-			$zp_import_url .= "/" . $zpr["item_key"];
-	if ( $zpr["collection_id"] ) $zp_import_url .= "/" . $zpr["collection_id"];
-	if ( $zpr["sub"] ) $zp_import_url .= "/" . $zpr["sub"];
-	$zp_import_url .= "?";
+			$mz_import_url .= "/" . $zpr["item_key"];
+	if ( $zpr["collection_id"] ) $mz_import_url .= "/" . $zpr["collection_id"];
+	if ( $zpr["sub"] ) $mz_import_url .= "/" . $zpr["sub"];
+	$mz_import_url .= "?";
 
 	// Public key, if needed
-	if (is_null($zp_account[0]->public_key) === false && trim($zp_account[0]->public_key) != "")
-		$zp_import_url .= "key=".$zp_account[0]->public_key."&";
+	if (is_null($mz_account[0]->public_key) === false && trim($mz_account[0]->public_key) != "")
+		$mz_import_url .= "key=".$mz_account[0]->public_key."&";
 
 	// Style
-	$zp_import_url .= "style=".$zpr["style"];
+	$mz_import_url .= "style=".$zpr["style"];
 
 	// Format, limit, etc.
-	$zp_import_url .= "&format=json&include=data,bib&limit=".$zpr["limit"];
+	$mz_import_url .= "&format=json&include=data,bib&limit=".$zpr["limit"];
 
 	// Sort and order
 	if ( $zpr["sortby"] && $zpr["sortby"] != "default" )
 	{
-		$zp_import_url .= "&sort=".$zpr["sortby"];
-		if ( $zpr["order"] ) $zp_import_url .= "&direction=".$zpr["order"];
+		$mz_import_url .= "&sort=".$zpr["sortby"];
+		if ( $zpr["order"] ) $mz_import_url .= "&direction=".$zpr["order"];
 	}
 
 	// Start if multiple
-	if ( $zpr["request_start"] != 0 ) $zp_import_url .= "&start=".$zpr["request_start"];
+	if ( $zpr["request_start"] != 0 ) $mz_import_url .= "&start=".$zpr["request_start"];
 
 	// Multiple item keys
 	// EVENTUAL TO-DO: Limited to 50 item keys at a time ... can I get around this?
 	// TODO: Test this with a bib that has 50+ items
-	// if ( $zpr["item_key"] && strpos( $zpr["item_key"],"," ) !== false ) $zp_import_url .= "&itemKey=" . $zpr["item_key"];
-	if ( substr_count($zp_request_account["items"], ",") >= 50 )
+	// if ( $zpr["item_key"] && strpos( $zpr["item_key"],"," ) !== false ) $mz_import_url .= "&itemKey=" . $zpr["item_key"];
+	if ( substr_count($mz_request_account["items"], ",") >= 50 )
 	{
-		$items = explode( ",", $zp_request_account["items"] );
+		$items = explode( ",", $mz_request_account["items"] );
 
 		$requests = array();
 		$request_items = array();
@@ -1235,11 +1235,11 @@ function Zotpress_prep_request_URl($wpdb, $zpr, $zp_request_queue, $api_user_id=
 			}
 		}
 
-		$zp_request_queue[$api_user_id]["requests"] = $requests;
+		$mz_request_queue[$api_user_id]["requests"] = $requests;
 	}
 	else {
 
-		// $zp_request_queue[$api_user_id]["requests"] = explode( ",", $zp_request_account["items"] );
+		// $mz_request_queue[$api_user_id]["requests"] = explode( ",", $mz_request_account["items"] );
 	}
 
 	// Tag-specific
@@ -1251,19 +1251,19 @@ function Zotpress_prep_request_URl($wpdb, $zpr, $zp_request_queue, $api_user_id=
 
 			foreach ( $temp as $temp_tag )
 			{
-				$zp_import_url .= "&tag=" . urlencode( stripslashes( $temp_tag ));
+				$mz_import_url .= "&tag=" . urlencode( stripslashes( $temp_tag ));
 			}
 		}
 		else
 		{
-			$zp_import_url .= "&tag=" . urlencode( stripslashes( $zpr["tag_id"] ));
+			$mz_import_url .= "&tag=" . urlencode( stripslashes( $zpr["tag_id"] ));
 		}
 	}
 
 	// Filtering: collections and tags take priority over authors and year
 	// EVENTUAL TODO: Searching by two+ values is not supported on the Zotero side ...
 	// For now, we get all and manually filter below
-	$zp_author_or_year_multiple = false;
+	$mz_author_or_year_multiple = false;
 
 	if ( $zpr["collection_id"] || $zpr["tag_id"] )
 	{
@@ -1274,14 +1274,14 @@ function Zotpress_prep_request_URl($wpdb, $zpr, $zp_request_queue, $api_user_id=
 			if ( ( $zpr["author"] && strpos( $zpr["author"], "," ) !== false )
 					|| ( $zpr["year"] && strpos( $zpr["year"], "," ) !== false ) )
 			{
-				if ( $zpr["author"] && strpos( $zpr["author"], "," ) !== false ) $zp_author_or_year_multiple = "author";
-				else $zp_author_or_year_multiple = "year";
+				if ( $zpr["author"] && strpos( $zpr["author"], "," ) !== false ) $mz_author_or_year_multiple = "author";
+				else $mz_author_or_year_multiple = "year";
 			}
 			else // Set but not multiple
 			{
-				$zp_import_url .= "&qmode=titleCreatorYear";
-				if ( $zpr["author"] ) $zp_import_url .= "&q=".urlencode( $zpr["author"] );
-				if ( $zpr["year"] && ! $zpr["author"] ) $zp_import_url .= "&q=".$zpr["year"];
+				$mz_import_url .= "&qmode=titleCreatorYear";
+				if ( $zpr["author"] ) $mz_import_url .= "&q=".urlencode( $zpr["author"] );
+				if ( $zpr["year"] && ! $zpr["author"] ) $mz_import_url .= "&q=".$zpr["year"];
 			}
 		}
 	}
@@ -1289,79 +1289,79 @@ function Zotpress_prep_request_URl($wpdb, $zpr, $zp_request_queue, $api_user_id=
 	{
 		if ( $zpr["year"] || $zpr["author"] )
 		{
-			$zp_import_url .= "&qmode=titleCreatorYear";
+			$mz_import_url .= "&qmode=titleCreatorYear";
 
 			if ( $zpr["author"] )
 			{
 				if ( $zpr["inclusive"] === false )
 				{
-					$zp_authors = explode( ",", $zpr["author"] );
-					$zp_import_url .= "&q=".urlencode( $zp_authors[0] );
-					unset( $zp_authors[0] );
-					$zpr["author"] = $zp_authors;
+					$mz_authors = explode( ",", $zpr["author"] );
+					$mz_import_url .= "&q=".urlencode( $mz_authors[0] );
+					unset( $mz_authors[0] );
+					$zpr["author"] = $mz_authors;
 				}
 				else // inclusive
 				{
-					$zp_import_url .= "&q=".urlencode( $zpr["author"] );
+					$mz_import_url .= "&q=".urlencode( $zpr["author"] );
 				}
 			}
 
-			if ( $zpr["year"] && ! $zpr["author"] ) $zp_import_url .= "&q=".$zpr["year"];
+			if ( $zpr["year"] && ! $zpr["author"] ) $mz_import_url .= "&q=".$zpr["year"];
 		}
 	}
 
 	// Avoid attachments and notes
 	if ( $zpr["item_type"] == "items"
 			|| ( $zpr["sub"] && $zpr["sub"] == "items" ) )
-		$zp_import_url .= "&itemType=-attachment+||+note";
+		$mz_import_url .= "&itemType=-attachment+||+note";
 
 	// Deal with possible term
 	if ( $zpr["term"] )
 		if ( $zpr["filter"] && $zpr["filter"] == "tag")
-			$zp_import_url .= "&tag=".urlencode( $wpdb->esc_like($zpr["term"]) );
+			$mz_import_url .= "&tag=".urlencode( $wpdb->esc_like($zpr["term"]) );
 		else
-			$zp_import_url .= "&q=".urlencode( $wpdb->esc_like($zpr["term"]) );
+			$mz_import_url .= "&q=".urlencode( $wpdb->esc_like($zpr["term"]) );
 
 
 	// DEAL WITH MULTIPLE REQUESTS
-	if ( count($zp_request_queue) > 0 )
+	if ( count($mz_request_queue) > 0 )
 	{
 		// Assume items
-		if ( array_key_exists("requests", $zp_request_queue[$api_user_id])
-				&& count($zp_request_queue[$api_user_id]["requests"]) > 1 )
+		if ( array_key_exists("requests", $mz_request_queue[$api_user_id])
+				&& count($mz_request_queue[$api_user_id]["requests"]) > 1 )
 		{
 			$item_keys = "";
 
-			foreach ( $zp_request_queue[$api_user_id]["requests"] as $num => $request ) {
+			foreach ( $mz_request_queue[$api_user_id]["requests"] as $num => $request ) {
 				if ( $item_keys != "" ) $item_keys .= ",";
 				$item_keys .= $request;
 			}
 
-			$zp_request_queue[$api_user_id]["requests"][$num] = $zp_import_url . "&itemKey=" . $item_keys;
+			$mz_request_queue[$api_user_id]["requests"][$num] = $mz_import_url . "&itemKey=" . $item_keys;
 		}
 		else // one request or less
 		{
 			// Ignore for only one item
-			if ( strpos( $zp_request_queue[$api_user_id]["items"], "," ) !== false )
+			if ( strpos( $mz_request_queue[$api_user_id]["items"], "," ) !== false )
 			{
-				if ( is_array($zp_request_queue[$api_user_id]["items"]) )
-					$zp_request_queue[$api_user_id]["items"] = implode(",", $zp_request_queue[$api_user_id]["items"]);
+				if ( is_array($mz_request_queue[$api_user_id]["items"]) )
+					$mz_request_queue[$api_user_id]["items"] = implode(",", $mz_request_queue[$api_user_id]["items"]);
 
-				$zp_request_queue[$api_user_id]["requests"] = array( $zp_import_url . "&itemKey=" . $zp_request_queue[$api_user_id]["items"] );
+				$mz_request_queue[$api_user_id]["requests"] = array( $mz_import_url . "&itemKey=" . $mz_request_queue[$api_user_id]["items"] );
 			}
 			else // one item
 			{
-				$zp_request_queue[$api_user_id]["requests"] = array( $zp_import_url );
+				$mz_request_queue[$api_user_id]["requests"] = array( $mz_import_url );
 			}
 		}
 	}
 	else
 	{
 		// Assume normal
-		$zp_request_queue[$api_user_id]["requests"] = array( $zp_import_url );
+		$mz_request_queue[$api_user_id]["requests"] = array( $mz_import_url );
 	}
 
-	return $zp_request_queue;
+	return $mz_request_queue;
 }
 
 

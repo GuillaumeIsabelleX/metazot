@@ -10,29 +10,29 @@ require('libzotero.php');
 
 
 // Content prep
-$zp_xml = false;
+$mz_xml = false;
 
 // Key
 if (isset($_GET['key']) && preg_match("/^[a-zA-Z0-9]+$/", $_GET['key']))
-  $zp_item_key = trim(urldecode($_GET['key']));
+  $mz_item_key = trim(urldecode($_GET['key']));
 else
-  $zp_xml = "No key provided.";
+  $mz_xml = "No key provided.";
 
 // Api User ID
 if (isset($_GET['api_user_id']) && preg_match("/^[a-zA-Z0-9]+$/", $_GET['api_user_id']))
-  $zp_api_user_id = trim(urldecode($_GET['api_user_id']));
+  $mz_api_user_id = trim(urldecode($_GET['api_user_id']));
 else
-  $zp_xml = "No API User ID provided.";
+  $mz_xml = "No API User ID provided.";
 
-if ($zp_xml === false)
+if ($mz_xml === false)
 {
   // Access WordPress db
   global $wpdb;
   
   // Get account
-  $zp_account = zp_get_account ($wpdb, $zp_api_user_id);
-  $zp_url = "https://api.zotero.org/".$zp_account[0]->account_type."/".$zp_api_user_id."/items/".$zp_item_key;
-  $zp_version_url = $zp_url;
+  $mz_account = mz_get_account ($wpdb, $mz_api_user_id);
+  $mz_url = "https://api.zotero.org/".$mz_account[0]->account_type."/".$mz_api_user_id."/items/".$mz_item_key;
+  $mz_version_url = $mz_url;
 
   $verch = curl_init();
   //headers
@@ -43,7 +43,7 @@ if ($zp_xml === false)
   }
 
   if(!isset($verheaders['Zotero-API-Key'])){
-    $verheaders['Zotero-API-Key'] = $zp_account[0]->public_key;
+    $verheaders['Zotero-API-Key'] = $mz_account[0]->public_key;
     }
 
   if(!isset($verheaders['Content-Type'])){
@@ -56,7 +56,7 @@ if ($zp_xml === false)
 
   // Set query data here with the URL
   curl_setopt($verch, CURLOPT_FRESH_CONNECT, true);
-  curl_setopt($verch, CURLOPT_URL, $zp_version_url); 
+  curl_setopt($verch, CURLOPT_URL, $mz_version_url); 
   curl_setopt($verch, CURLOPT_HEADER, true);
   curl_setopt($verch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($verch, CURLINFO_HEADER_OUT, true);
@@ -72,10 +72,10 @@ if ($zp_xml === false)
       die("Error creating attachment item\n\n");
   }
   echo '<pre>'; print_r($verrespheaders); echo '</pre>';
-  $zp_version = $verrespheaders['last-modified-version'];
+  $mz_version = $verrespheaders['last-modified-version'];
   $ch = curl_init();
   $itemBody = $_POST;
-  $library = new Zotero\Library($zp_account[0]->account_type, $zp_api_user_id, '', $zp_account[0]->public_key);
+  $library = new Zotero\Library($mz_account[0]->account_type, $mz_api_user_id, '', $mz_account[0]->public_key);
   echo '<pre>'; print_r($itemBody); echo '</pre>';
   //add child attachment
   //get attachment template
@@ -92,7 +92,7 @@ if ($zp_xml === false)
   }
 
   if(!isset($headers['Zotero-API-Key'])){
-    $headers['Zotero-API-Key'] = $zp_account[0]->public_key;
+    $headers['Zotero-API-Key'] = $mz_account[0]->public_key;
     }
 
   if(!isset($headers['Content-Type'])){
@@ -100,7 +100,7 @@ if ($zp_xml === false)
 }
 
 if(!isset($headers['If-Unmodified-Since-Version'])){
-  $headers['If-Unmodified-Since-Version'] = $zp_version;
+  $headers['If-Unmodified-Since-Version'] = $mz_version;
 }
 
 if(!isset($headers['Expect'])){
@@ -112,7 +112,7 @@ if(!isset($headers['Expect'])){
   }
 
   curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
-  curl_setopt($ch, CURLOPT_URL, $zp_url );
+  curl_setopt($ch, CURLOPT_URL, $mz_url );
   curl_setopt($ch, CURLOPT_HEADER, true);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($ch, CURLINFO_HEADER_OUT, true);
@@ -136,7 +136,7 @@ if(!isset($headers['Expect'])){
   }
 }
 else {
-  echo $zp_xml;
+  echo $mz_xml;
 }	
 
 ?>

@@ -2,46 +2,46 @@ jQuery(document).ready(function()
 {
 	///////////////////////////////////////////////
 	//
-	//   ZOTPRESS IN-TEXT
+	//   METAZOT IN-TEXT
 	//
 	///////////////////////////////////////////////
 
-	if ( jQuery(".zp-Zotpress-InTextBib").length > 0 )
+	if ( jQuery(".zp-Metazot-InTextBib").length > 0 )
 	{
 		// Create global array for citations per post
 		window.zpIntextCitations = {};
 		window.zpIntextCitationCount = 0;
 
-		jQuery(".zp-Zotpress-InTextBib").each( function( index, instance )
+		jQuery(".zp-Metazot-InTextBib").each( function( index, instance )
 		{
 			var $instance = jQuery(instance);
-      		var zp_params = {};
+      		var mz_params = {};
 			window.zpIntextCitations["post-"+jQuery(".ZP_POSTID", $instance).text()] = {};
 
-			zp_params.zpItemkey = false; if ( jQuery(".ZP_ITEM_KEY", $instance).text().trim().length > 0 ) zp_params.zpItemkey = jQuery(".ZP_ITEM_KEY", $instance).text();
+			mz_params.zpItemkey = false; if ( jQuery(".ZP_ITEM_KEY", $instance).text().trim().length > 0 ) mz_params.zpItemkey = jQuery(".ZP_ITEM_KEY", $instance).text();
 
-			zp_params.zpStyle = false; if ( jQuery(".ZP_STYLE", $instance).text().trim().length > 0 ) zp_params.zpStyle = jQuery(".ZP_STYLE", $instance).text();
-			zp_params.zpTitle = false; if ( jQuery(".ZP_TITLE", $instance).text().trim().length > 0 ) zp_params. zpTitle = jQuery(".ZP_TITLE", $instance).text();
+			mz_params.zpStyle = false; if ( jQuery(".ZP_STYLE", $instance).text().trim().length > 0 ) mz_params.zpStyle = jQuery(".ZP_STYLE", $instance).text();
+			mz_params.zpTitle = false; if ( jQuery(".ZP_TITLE", $instance).text().trim().length > 0 ) mz_params. zpTitle = jQuery(".ZP_TITLE", $instance).text();
 
-			zp_params.zpShowImages = false; if ( jQuery(".ZP_SHOWIMAGE", $instance).text().trim().length > 0 ) zp_params.zpShowImages = jQuery(".ZP_SHOWIMAGE", $instance).text().trim();
-			zp_params.zpShowTags = false; if ( jQuery(".ZP_SHOWTAGS", $instance).text().trim().length > 0 ) zp_params.zpShowTags = true;
-			zp_params.zpDownloadable = false; if ( jQuery(".ZP_DOWNLOADABLE", $instance).text().trim().length > 0 ) zp_params.zpDownloadable = true;
-			zp_params.zpShowNotes = false; if ( jQuery(".ZP_NOTES", $instance).text().trim().length > 0 ) zp_params.zpShowNotes = true;
-			zp_params.zpShowAbstracts = false; if ( jQuery(".ZP_ABSTRACT", $instance).text().trim().length > 0 ) zp_params.zpShowAbstracts = true;
-			zp_params.zpCiteable = false; if ( jQuery(".ZP_CITEABLE", $instance).text().trim().length > 0 ) zp_params.zpCiteable = true;
-			zp_params.zpTarget = false; if ( jQuery(".ZP_TARGET", $instance).text().trim().length > 0 ) zp_params.zpTarget = true;
-			zp_params.zpURLWrap = false; if ( jQuery(".ZP_URLWRAP", $instance).text().trim().length > 0 ) zp_params.zpURLWrap = jQuery(".ZP_URLWRAP", $instance).text();
-			zp_params.zpHighlight = false; if ( jQuery(".ZP_HIGHLIGHT", $instance).text().trim().length > 0 ) zp_params.zpHighlight = jQuery(".ZP_HIGHLIGHT", $instance).text();
+			mz_params.zpShowImages = false; if ( jQuery(".ZP_SHOWIMAGE", $instance).text().trim().length > 0 ) mz_params.zpShowImages = jQuery(".ZP_SHOWIMAGE", $instance).text().trim();
+			mz_params.zpShowTags = false; if ( jQuery(".ZP_SHOWTAGS", $instance).text().trim().length > 0 ) mz_params.zpShowTags = true;
+			mz_params.zpDownloadable = false; if ( jQuery(".ZP_DOWNLOADABLE", $instance).text().trim().length > 0 ) mz_params.zpDownloadable = true;
+			mz_params.zpShowNotes = false; if ( jQuery(".ZP_NOTES", $instance).text().trim().length > 0 ) mz_params.zpShowNotes = true;
+			mz_params.zpShowAbstracts = false; if ( jQuery(".ZP_ABSTRACT", $instance).text().trim().length > 0 ) mz_params.zpShowAbstracts = true;
+			mz_params.zpCiteable = false; if ( jQuery(".ZP_CITEABLE", $instance).text().trim().length > 0 ) mz_params.zpCiteable = true;
+			mz_params.zpTarget = false; if ( jQuery(".ZP_TARGET", $instance).text().trim().length > 0 ) mz_params.zpTarget = true;
+			mz_params.zpURLWrap = false; if ( jQuery(".ZP_URLWRAP", $instance).text().trim().length > 0 ) mz_params.zpURLWrap = jQuery(".ZP_URLWRAP", $instance).text();
+			mz_params.zpHighlight = false; if ( jQuery(".ZP_HIGHLIGHT", $instance).text().trim().length > 0 ) mz_params.zpHighlight = jQuery(".ZP_HIGHLIGHT", $instance).text();
 
-			//zp_params.zpForceNumsCount = 1;
+			//mz_params.zpForceNumsCount = 1;
 
-			zp_get_items ( 0, 0, $instance, zp_params, false ); // Get cached items first
+			mz_get_items ( 0, 0, $instance, mz_params, false ); // Get cached items first
 		});
 
-	} // Zotpress In-Text
+	} // Metazot In-Text
 
 	// Get list items
-	function zp_get_items ( request_start, request_last, $instance, params, update )
+	function mz_get_items ( request_start, request_last, $instance, params, update )
 	{
 		if ( typeof(request_start) === "undefined" || request_start == "false" || request_start == "" )
 			request_start = 0;
@@ -88,10 +88,10 @@ jQuery(document).ready(function()
 			},
 			success: function(data)
 			{
-				var zp_items = jQuery.parseJSON( data );
+				var mz_items = jQuery.parseJSON( data );
 
 				// First, display the items from this request, if any
-				if ( typeof zp_items != 'undefined' && zp_items != null && parseInt(zp_items) != 0 && zp_items.data.length > 0 )
+				if ( typeof mz_items != 'undefined' && mz_items != null && parseInt(mz_items) != 0 && mz_items.data.length > 0 )
 				{
 					var tempItems = "";
 					if ( params.zpShowNotes == true ) var tempNotes = "";
@@ -103,16 +103,16 @@ jQuery(document).ready(function()
 					// Indicate whether cache has been used
 					if ( update === false )
 					{
-						jQuery("#"+zp_items.instance+" .zp-List").addClass("used_cache");
+						jQuery("#"+mz_items.instance+" .zp-List").addClass("used_cache");
 					}
 					else if ( update === true )
 					{
 						// Remove existing notes temporarily
-						if ( ! jQuery("#"+zp_items.instance+" .zp-List").hasClass("updating") && jQuery("#"+zp_items.instance+" .zp-Citation-Notes").length > 0 )
-							jQuery("#"+zp_items.instance+" .zp-Citation-Notes").remove();
+						if ( ! jQuery("#"+mz_items.instance+" .zp-List").hasClass("updating") && jQuery("#"+mz_items.instance+" .zp-Citation-Notes").length > 0 )
+							jQuery("#"+mz_items.instance+" .zp-Citation-Notes").remove();
 
-						if ( ! jQuery("#"+zp_items.instance+" .zp-List").hasClass("updating") )
-							jQuery("#"+zp_items.instance+" .zp-List").addClass("updating");
+						if ( ! jQuery("#"+mz_items.instance+" .zp-List").hasClass("updating") )
+							jQuery("#"+mz_items.instance+" .zp-List").addClass("updating");
 
 						//params.zpForceNumsCount = 1;
 					}
@@ -120,15 +120,15 @@ jQuery(document).ready(function()
 
 
 					// Format in-text citations
-					zp_format_intext_citations( $instance, params.zpItemkey, zp_items.data, params, update );
+					mz_format_intext_citations( $instance, params.zpItemkey, mz_items.data, params, update );
 
 					// Format in-text bibliography
-					tempItems = zp_format_intextbib ( $instance, zp_items, params.zpItemkey, params, update );
+					tempItems = mz_format_intextbib ( $instance, mz_items, params.zpItemkey, params, update );
 
 
 
 					// Append cached OR initial request items (first 50) to list
-					if ( update === false ) jQuery("#"+zp_items.instance+" .zp-List").append( tempItems );
+					if ( update === false ) jQuery("#"+mz_items.instance+" .zp-List").append( tempItems );
 
 
 					// Append notes to container
@@ -137,24 +137,24 @@ jQuery(document).ready(function()
 						tempNotes = "<div class='zp-Citation-Notes'>\n<h4>Notes</h4>\n<ol>\n" + tempNotes;
 						tempNotes = tempNotes + "</ol>\n</div><!-- .zp-Citation-Notes -->\n\n";
 
-						jQuery("#"+zp_items.instance).append( tempNotes );
+						jQuery("#"+mz_items.instance).append( tempNotes );
 					}
 
 
 					// Then, continue with other requests, if they exist
-					if ( zp_items.meta.request_next != false && zp_items.meta.request_next != "false" )
+					if ( mz_items.meta.request_next != false && mz_items.meta.request_next != "false" )
 					{
-						zp_get_items ( zp_items.meta.request_next, zp_items.meta.request_last, $instance, params, update );
+						mz_get_items ( mz_items.meta.request_next, mz_items.meta.request_last, $instance, params, update );
 					}
 					else
 					{
 						// Remove loading
-						jQuery("#"+zp_items.instance+" .zp-List").removeClass("loading");
+						jQuery("#"+mz_items.instance+" .zp-List").removeClass("loading");
 
 						// Check for updates
-						if ( ! jQuery("#"+zp_items.instance+" .zp-List").hasClass("updating") )
+						if ( ! jQuery("#"+mz_items.instance+" .zp-List").hasClass("updating") )
 						{
-							zp_get_items ( 0, 0, $instance, params, true );
+							mz_get_items ( 0, 0, $instance, params, true );
 						}
 						else
 						{
@@ -162,12 +162,12 @@ jQuery(document).ready(function()
 							var orderby = jQuery(".ZP_ORDER", $instance).text();
 
 							// Re-sort if not numbered and sorting by author or date
-							if ( ["author","date"].indexOf(sortby) !== -1 && jQuery("#"+zp_items.instance+" .zp-List .csl-left-margin").length == 0 )
+							if ( ["author","date"].indexOf(sortby) !== -1 && jQuery("#"+mz_items.instance+" .zp-List .csl-left-margin").length == 0 )
 							{
 								var sortOrder = "data-zp-author-year";
 								if ( sortby == "date") sortOrder = "data-zp-year-author";
 
-								jQuery("#"+zp_items.instance+" .zp-List div.zp-Entry").sort(function(a,b)
+								jQuery("#"+mz_items.instance+" .zp-List div.zp-Entry").sort(function(a,b)
 								{
 									var an = a.getAttribute(sortOrder).toLowerCase(),
 										bn = b.getAttribute(sortOrder).toLowerCase();
@@ -185,7 +185,7 @@ jQuery(document).ready(function()
 									else
 										return 0;
 
-								}).detach().appendTo("#"+zp_items.instance+" .zp-List");
+								}).detach().appendTo("#"+mz_items.instance+" .zp-List");
 							}
 						}
 					}
@@ -195,7 +195,7 @@ jQuery(document).ready(function()
 				else
 				{
 					var tempPost = $instance.attr("class");
-					tempPost = tempPost.replace("zp-Zotpress zp-Zotpress-InTextBib zp-Post-", "");
+					tempPost = tempPost.replace("zp-Metazot zp-Metazot-InTextBib zp-Post-", "");
 
 					// Removes loading icon and in-text data; accounts for post-ID and non-standard themes
 					if ( jQuery("#post-"+tempPost).length > 0 )
@@ -209,14 +209,14 @@ jQuery(document).ready(function()
 			},
 			error: function(errorThrown)
 			{
-				console.log("Zotpress Error:");
+				console.log("Metazot Error:");
 				console.log(errorThrown);
 			}
 		});
 
-	} // function zp_get_items
+	} // function mz_get_items
 
-	function zp_format_intext_citations ( $instance, item_keys, item_data, params, update )
+	function mz_format_intext_citations ( $instance, item_keys, item_data, params, update )
 	{
 		// Tested formats:
 		// KEY
@@ -500,7 +500,7 @@ jQuery(document).ready(function()
 				if ( ! window.zpIntextCitations["post-"+item.post_id][item.key].hasOwnProperty("intexttitle"))
 					window.zpIntextCitations["post-"+item.post_id][item.key]["intexttitle"] = "";
 
-				item_citation = "<a "+window.zpIntextCitations["post-"+item.post_id][item.key]["intexttitle"]+"class='zp-ZotpressInText' href='#zp-ID-"+item.post_id+"-"+item.api_user_id+"-"+item.key+"'>" + item_citation + "</a>";
+				item_citation = "<a "+window.zpIntextCitations["post-"+item.post_id][item.key]["intexttitle"]+"class='zp-MetazotInText' href='#zp-ID-"+item.post_id+"-"+item.api_user_id+"-"+item.key+"'>" + item_citation + "</a>";
 
 				// Deal with <sup>
 				if ( intext_citation_params.format.indexOf("sup") != "-1" ) item_citation = "<sup>"+item_citation+"</sup>";
@@ -539,26 +539,26 @@ jQuery(document).ready(function()
 
 		}); // each intext_citation
 
-	} // zp_format_intext_citations
+	} // mz_format_intext_citations
 
 
 
 
-	function zp_format_intextbib ( $instance, zp_items, zp_itemkeys, params, update )
+	function mz_format_intextbib ( $instance, mz_items, mz_itemkeys, params, update )
 	{
     	var tempItemsArr = {}; // Format: ["itemkey", "data"]
 		var tempHasNum = false;
 		var zpPostID = jQuery(".ZP_POSTID", $instance).text();
 
-		jQuery.each( zp_items.data, function( index, item )
+		jQuery.each( mz_items.data, function( index, item )
 		{
 			var tempItem = "";
 
 			// Determine item reference
-			var $item_ref = jQuery("#"+zp_items.instance+" .zp-List #zp-ID-"+jQuery(".ZP_API_USER_ID", $instance).text()+"-"+item.key);
+			var $item_ref = jQuery("#"+mz_items.instance+" .zp-List #zp-ID-"+jQuery(".ZP_API_USER_ID", $instance).text()+"-"+item.key);
 
 			// Skip duplicates
-			if ( jQuery("#"+zp_items.instance+" .zp-List #zp-ID-"+jQuery(".ZP_API_USER_ID", $instance).text()+"-"+item.key).length > 0 )
+			if ( jQuery("#"+mz_items.instance+" .zp-List #zp-ID-"+jQuery(".ZP_API_USER_ID", $instance).text()+"-"+item.key).length > 0 )
 				return true;
 
 			// Year
@@ -580,10 +580,10 @@ jQuery(document).ready(function()
 			tempItem += " data-zp-author-year='"+tempAuthor+"-"+tempItemYear+"' class='zp-Entry zpSearchResultsItem zp-Num-"+window.zpIntextCitations["post-"+zpPostID][item.key]["num"];
 
 			// Add update class to item
-			if ( update === true ) tempItem += " zp_updated";
+			if ( update === true ) tempItem += " mz_updated";
 
 			// Image
-			if ( jQuery("#"+zp_items.instance+" .ZP_SHOWIMAGE").text().trim().length > 0
+			if ( jQuery("#"+mz_items.instance+" .ZP_SHOWIMAGE").text().trim().length > 0
 					&& item.hasOwnProperty('image') )
 			{
 				tempItem += " zp-HasImage'>\n";
@@ -606,8 +606,8 @@ jQuery(document).ready(function()
 			}
 
 			// Force numbers
-			if ( jQuery("#"+zp_items.instance+" .ZP_FORCENUM").text().length > 0
-					&& jQuery("#"+zp_items.instance+" .ZP_FORCENUM").text() == "1" )
+			if ( jQuery("#"+mz_items.instance+" .ZP_FORCENUM").text().length > 0
+					&& jQuery("#"+mz_items.instance+" .ZP_FORCENUM").text() == "1" )
 			{
 				if ( ! /csl-left-margin/i.test(item.bib) ) // if existing style numbering not found
 				{
@@ -618,8 +618,8 @@ jQuery(document).ready(function()
 			}
 
 			if ( /csl-left-margin/i.test(item.bib) ||
-					( jQuery("#"+zp_items.instance+" .ZP_FORCENUM").text().length > 0
-						&& jQuery("#"+zp_items.instance+" .ZP_FORCENUM").text() == "1" ) )
+					( jQuery("#"+mz_items.instance+" .ZP_FORCENUM").text().length > 0
+						&& jQuery("#"+mz_items.instance+" .ZP_FORCENUM").text() == "1" ) )
 			{
 				tempHasNum = true;
 
@@ -643,7 +643,7 @@ jQuery(document).ready(function()
 			if ( params.zpShowTags == true &&
 					( item.data.hasOwnProperty('tags') && item.data.tags.length > 0 ) )
 			{
-				tempItem += "<p class='zp-Zotpress-ShowTags'><span class='title'>Tags:</span> ";
+				tempItem += "<p class='zp-Metazot-ShowTags'><span class='title'>Tags:</span> ";
 
 				jQuery.each(item.data.tags, function ( tindex, tag )
 				{
@@ -677,7 +677,7 @@ jQuery(document).ready(function()
 		if ( tempHasNum && update === false )
 		{
 			// If first request (first 50)
-			if ( jQuery("#"+zp_items.instance+" .zp-List").children().length == 0 )
+			if ( jQuery("#"+mz_items.instance+" .zp-List").children().length == 0 )
 			{
 				jQuery.each( window.zpIntextCitations["post-"+zpPostID],
 					function ( index, value)
@@ -696,7 +696,7 @@ jQuery(document).ready(function()
 					var tempNum = window.zpIntextCitations["post-"+zpPostID][itemKey]["num"];
 
 					// Insert into proper place
-					jQuery("#"+zp_items.instance+" .zp-List .zp-Entry.zp-Num-"+(tempNum-1)).after(itemBib);
+					jQuery("#"+mz_items.instance+" .zp-List .zp-Entry.zp-Num-"+(tempNum-1)).after(itemBib);
 				});
 			}
 		}
@@ -707,13 +707,13 @@ jQuery(document).ready(function()
 
 		return tempItemsOrdered;
 
-	} // function zp_format_intextbib
+	} // function mz_format_intextbib
 
 
 
     //    HIGHLIGHT ENTRY ON JUMP
 
-    jQuery(".zp-InText-Citation").on( "click", ".zp-ZotpressInText", function()
+    jQuery(".zp-InText-Citation").on( "click", ".zp-MetazotInText", function()
 	{
 		jQuery(jQuery(this).attr("href")).effect("highlight", { color: "#C5EFF7", easing: "easeInExpo" }, 1200);
 	});

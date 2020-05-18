@@ -2,111 +2,111 @@ jQuery(document).ready(function()
 {
 	///////////////////////////////////////////////
 	//
-	//   ZOTPRESS BIBLIOGRAPHY
+	//   METAZOT BIBLIOGRAPHY
 	//
 	///////////////////////////////////////////////
 
-	if ( jQuery(".zp-Zotpress-Bib").length > 0 )
+	if ( jQuery(".zp-Metazot-Bib").length > 0 )
 	{
-		jQuery(".zp-Zotpress-Bib").each( function( index, instance )
+		jQuery(".zp-Metazot-Bib").each( function( index, instance )
 		{
 			var $instance = jQuery(instance);
-      		var zp_params = {};
+      		var mz_params = {};
 
-			zp_params.zpItemkey = false; if ( jQuery(".ZP_ITEM_KEY", $instance).text().trim().length > 0 ) zp_params.zpItemkey = jQuery(".ZP_ITEM_KEY", $instance).text();
-			zp_params.zpCollectionId = false; if ( jQuery(".ZP_COLLECTION_ID", $instance).text().trim().length > 0 ) zp_params.zpCollectionId = jQuery(".ZP_COLLECTION_ID", $instance).text();
-			zp_params.zpTagId = false; if ( jQuery(".ZP_TAG_ID", $instance).text().trim().length > 0 ) zp_params.zpTagId = jQuery(".ZP_TAG_ID", $instance).text();
+			mz_params.zpItemkey = false; if ( jQuery(".ZP_ITEM_KEY", $instance).text().trim().length > 0 ) mz_params.zpItemkey = jQuery(".ZP_ITEM_KEY", $instance).text();
+			mz_params.zpCollectionId = false; if ( jQuery(".ZP_COLLECTION_ID", $instance).text().trim().length > 0 ) mz_params.zpCollectionId = jQuery(".ZP_COLLECTION_ID", $instance).text();
+			mz_params.zpTagId = false; if ( jQuery(".ZP_TAG_ID", $instance).text().trim().length > 0 ) mz_params.zpTagId = jQuery(".ZP_TAG_ID", $instance).text();
 
-			zp_params.zpAuthor = false; if ( jQuery(".ZP_AUTHOR", $instance).text().trim().length > 0 ) zp_params.zpAuthor = jQuery(".ZP_AUTHOR", $instance).text();
-			zp_params.zpYear = false; if ( jQuery(".ZP_YEAR", $instance).text().trim().length > 0 ) zp_params.zpYear = jQuery(".ZP_YEAR", $instance).text();
-			zp_params.zpStyle = false; if ( jQuery(".ZP_STYLE", $instance).text().trim().length > 0 ) zp_params.zpStyle = jQuery(".ZP_STYLE", $instance).text();
-			zp_params.zpLimit = false; if ( jQuery(".ZP_LIMIT", $instance).text().trim().length > 0 ) zp_params.zpLimit = jQuery(".ZP_LIMIT", $instance).text();
-			zp_params.zpTitle = false; if ( jQuery(".ZP_TITLE", $instance).text().trim().length > 0 ) zp_params. zpTitle = jQuery(".ZP_TITLE", $instance).text();
+			mz_params.zpAuthor = false; if ( jQuery(".ZP_AUTHOR", $instance).text().trim().length > 0 ) mz_params.zpAuthor = jQuery(".ZP_AUTHOR", $instance).text();
+			mz_params.zpYear = false; if ( jQuery(".ZP_YEAR", $instance).text().trim().length > 0 ) mz_params.zpYear = jQuery(".ZP_YEAR", $instance).text();
+			mz_params.zpStyle = false; if ( jQuery(".ZP_STYLE", $instance).text().trim().length > 0 ) mz_params.zpStyle = jQuery(".ZP_STYLE", $instance).text();
+			mz_params.zpLimit = false; if ( jQuery(".ZP_LIMIT", $instance).text().trim().length > 0 ) mz_params.zpLimit = jQuery(".ZP_LIMIT", $instance).text();
+			mz_params.zpTitle = false; if ( jQuery(".ZP_TITLE", $instance).text().trim().length > 0 ) mz_params. zpTitle = jQuery(".ZP_TITLE", $instance).text();
 
-			zp_params.zpShowImages = false; if ( jQuery(".ZP_SHOWIMAGE", $instance).text().trim().length > 0 ) zp_params.zpShowImages = jQuery(".ZP_SHOWIMAGE", $instance).text().trim();
-			zp_params.zpShowTags = false; if ( jQuery(".ZP_SHOWTAGS", $instance).text().trim().length > 0 ) zp_params.zpShowTags = true;
-			zp_params.zpDownloadable = false; if ( jQuery(".ZP_DOWNLOADABLE", $instance).text().trim().length > 0 ) zp_params.zpDownloadable = true;
-			zp_params.zpInclusive = false; if ( jQuery(".ZP_INCLUSIVE", $instance).text().trim().length > 0 ) zp_params.zpInclusive = true;
-			zp_params.zpShowNotes = false; if ( jQuery(".ZP_NOTES", $instance).text().trim().length > 0 ) zp_params.zpShowNotes = true;
-			zp_params.zpShowAbstracts = false; if ( jQuery(".ZP_ABSTRACT", $instance).text().trim().length > 0 ) zp_params.zpShowAbstracts = true;
-			zp_params.zpCiteable = false; if ( jQuery(".ZP_CITEABLE", $instance).text().trim().length > 0 ) zp_params.zpCiteable = true;
-			zp_params.zpTarget = false; if ( jQuery(".ZP_TARGET", $instance).text().trim().length > 0 ) zp_params.zpTarget = true;
-			zp_params.zpURLWrap = false; if ( jQuery(".ZP_URLWRAP", $instance).text().trim().length > 0 ) zp_params.zpURLWrap = jQuery(".ZP_URLWRAP", $instance).text();
-			zp_params.zpHighlight = false; if ( jQuery(".ZP_HIGHLIGHT", $instance).text().trim().length > 0 ) zp_params.zpHighlight = jQuery(".ZP_HIGHLIGHT", $instance).text();
+			mz_params.zpShowImages = false; if ( jQuery(".ZP_SHOWIMAGE", $instance).text().trim().length > 0 ) mz_params.zpShowImages = jQuery(".ZP_SHOWIMAGE", $instance).text().trim();
+			mz_params.zpShowTags = false; if ( jQuery(".ZP_SHOWTAGS", $instance).text().trim().length > 0 ) mz_params.zpShowTags = true;
+			mz_params.zpDownloadable = false; if ( jQuery(".ZP_DOWNLOADABLE", $instance).text().trim().length > 0 ) mz_params.zpDownloadable = true;
+			mz_params.zpInclusive = false; if ( jQuery(".ZP_INCLUSIVE", $instance).text().trim().length > 0 ) mz_params.zpInclusive = true;
+			mz_params.zpShowNotes = false; if ( jQuery(".ZP_NOTES", $instance).text().trim().length > 0 ) mz_params.zpShowNotes = true;
+			mz_params.zpShowAbstracts = false; if ( jQuery(".ZP_ABSTRACT", $instance).text().trim().length > 0 ) mz_params.zpShowAbstracts = true;
+			mz_params.zpCiteable = false; if ( jQuery(".ZP_CITEABLE", $instance).text().trim().length > 0 ) mz_params.zpCiteable = true;
+			mz_params.zpTarget = false; if ( jQuery(".ZP_TARGET", $instance).text().trim().length > 0 ) mz_params.zpTarget = true;
+			mz_params.zpURLWrap = false; if ( jQuery(".ZP_URLWRAP", $instance).text().trim().length > 0 ) mz_params.zpURLWrap = jQuery(".ZP_URLWRAP", $instance).text();
+			mz_params.zpHighlight = false; if ( jQuery(".ZP_HIGHLIGHT", $instance).text().trim().length > 0 ) mz_params.zpHighlight = jQuery(".ZP_HIGHLIGHT", $instance).text();
 
-			zp_params.zpForceNumsCount = 1;
+			mz_params.zpForceNumsCount = 1;
 
 			// Deal with multiples
 			// Order of priority: collections, tags, authors, years
 			// Filters (dealt with on shortcode.ajax.php): tags?, authors, years
-			if ( zp_params.zpCollectionId && zp_params.zpCollectionId.indexOf(",") != -1 )
+			if ( mz_params.zpCollectionId && mz_params.zpCollectionId.indexOf(",") != -1 )
 			{
-				var tempCollections = zp_params.zpCollectionId.split(",");
+				var tempCollections = mz_params.zpCollectionId.split(",");
 
 				jQuery.each( tempCollections, function (i, collection)
 				{
-					zp_params.zpCollectionId = collection;
-					zp_get_items ( 0, 0, $instance, zp_params, false ); // Get cached items first
+					mz_params.zpCollectionId = collection;
+					mz_get_items ( 0, 0, $instance, mz_params, false ); // Get cached items first
 				});
 			}
 			else
 			{
 				// Inclusive tags (treat exclusive normally)
-				if ( zp_params.zpTagId && zp_params.zpInclusive == true && zp_params.zpTagId.indexOf(",") != -1 )
+				if ( mz_params.zpTagId && mz_params.zpInclusive == true && mz_params.zpTagId.indexOf(",") != -1 )
 				{
-					var tempTags = zp_params.zpTagId.split(",");
+					var tempTags = mz_params.zpTagId.split(",");
 
 					jQuery.each( tempTags, function (i, tag)
 					{
-						zp_params.zpTagId = tag;
-						zp_get_items ( 0, 0, $instance, zp_params, false ); // Get cached items first
+						mz_params.zpTagId = tag;
+						mz_get_items ( 0, 0, $instance, mz_params, false ); // Get cached items first
 					});
 				}
 				else
 				{
-					if ( zp_params.zpAuthor && zp_params.zpAuthor.indexOf(",") != -1 )
+					if ( mz_params.zpAuthor && mz_params.zpAuthor.indexOf(",") != -1 )
 					{
-						var tempAuthors = zp_params.zpAuthor.split(",");
+						var tempAuthors = mz_params.zpAuthor.split(",");
 
-						if ( zp_params.zpInclusive == true )
+						if ( mz_params.zpInclusive == true )
 						{
 							jQuery.each( tempAuthors, function (i, author)
 							{
-								zp_params.zpAuthor = author;
-								zp_get_items ( 0, 0, $instance, zp_params, false );
+								mz_params.zpAuthor = author;
+								mz_get_items ( 0, 0, $instance, mz_params, false );
 							});
 						}
 						else // exclusive
 						{
-							zp_get_items ( 0, 0, $instance, zp_params, false );
+							mz_get_items ( 0, 0, $instance, mz_params, false );
 						}
 					}
 					else
 					{
-						if ( zp_params.zpYear && zp_params.zpYear.indexOf(",") != -1 )
+						if ( mz_params.zpYear && mz_params.zpYear.indexOf(",") != -1 )
 						{
-							var tempYears = zp_params.zpYear.split(",");
+							var tempYears = mz_params.zpYear.split(",");
 
 							jQuery.each( tempYears, function (i, year)
 							{
-								zp_params.zpYear = year;
-								zp_get_items ( 0, 0, $instance, zp_params, false );
+								mz_params.zpYear = year;
+								mz_get_items ( 0, 0, $instance, mz_params, false );
 							});
 						}
 						else // NORMAL, no multiples
 						{
-							zp_get_items ( 0, 0, $instance, zp_params, false );
+							mz_get_items ( 0, 0, $instance, mz_params, false );
 						}
 					}
 				}
 			}
 		});
-	} // Zotpress Bibliography
+	} // Metazot Bibliography
 
 
 
 	// Get list items:
-	function zp_get_items ( request_start, request_last, $instance, params, update )
+	function mz_get_items ( request_start, request_last, $instance, params, update )
 	{
 		if ( typeof(request_start) === "undefined" || request_start == "false" || request_start == "" )
 			request_start = 0;
@@ -159,10 +159,10 @@ jQuery(document).ready(function()
 			},
 			success: function(data)
 			{
-				var zp_items = jQuery.parseJSON( data );
+				var mz_items = jQuery.parseJSON( data );
 
 				// First, display the items from this request, if any:
-				if ( typeof zp_items != 'undefined' && zp_items != null && zp_items != 0 && zp_items.data.length > 0 )
+				if ( typeof mz_items != 'undefined' && mz_items != null && mz_items != 0 && mz_items.data.length > 0 )
 				{
 					var tempItems = "";
 					if ( params.zpShowNotes == true ) var tempNotes = "";
@@ -172,35 +172,35 @@ jQuery(document).ready(function()
 					// Indicate whether cache has been used:
 					if ( update === false )
 					{
-						jQuery("#"+zp_items.instance+" .zp-List").addClass("used_cache");
+						jQuery("#"+mz_items.instance+" .zp-List").addClass("used_cache");
 					}
 					else if ( update === true )
 					{
 						// Remove existing notes temporarily:
-						if ( ! jQuery("#"+zp_items.instance+" .zp-List").hasClass("updating") && jQuery("#"+zp_items.instance+" .zp-Citation-Notes").length > 0 )
-							jQuery("#"+zp_items.instance+" .zp-Citation-Notes").remove();
+						if ( ! jQuery("#"+mz_items.instance+" .zp-List").hasClass("updating") && jQuery("#"+mz_items.instance+" .zp-Citation-Notes").length > 0 )
+							jQuery("#"+mz_items.instance+" .zp-Citation-Notes").remove();
 
-						if ( ! jQuery("#"+zp_items.instance+" .zp-List").hasClass("updating") )
-							jQuery("#"+zp_items.instance+" .zp-List").addClass("updating");
+						if ( ! jQuery("#"+mz_items.instance+" .zp-List").hasClass("updating") )
+							jQuery("#"+mz_items.instance+" .zp-List").addClass("updating");
 
 						params.zpForceNumsCount = 1;
 					}
 
 
-					jQuery.each(zp_items.data, function( index, item )
+					jQuery.each(mz_items.data, function( index, item )
 					{
 						var tempItem = "";
 
 						// Determine item reference
-						var $item_ref = jQuery("#"+zp_items.instance+" .zp-List #zp-ID-"+jQuery(".ZP_API_USER_ID", $instance).text()+"-"+item.key);
+						var $item_ref = jQuery("#"+mz_items.instance+" .zp-List #zp-ID-"+jQuery(".ZP_API_USER_ID", $instance).text()+"-"+item.key);
 
 						// Replace or skip duplicates
 						if ( $item_ref.length > 0 )
 						{
-							if ( update === false && ! jQuery("#"+zp_items.instance+" .zp-List").hasClass("used_cache") )
+							if ( update === false && ! jQuery("#"+mz_items.instance+" .zp-List").hasClass("used_cache") )
 								return false;
 
-							//if ( update === true && jQuery("#"+zp_items.instance+" .zp-List").hasClass("used_cache") )
+							//if ( update === true && jQuery("#"+mz_items.instance+" .zp-List").hasClass("used_cache") )
 							//	$item_ref.remove();
 							//else
 							//	return true;
@@ -233,10 +233,10 @@ jQuery(document).ready(function()
 						tempItem += " class='zp-Entry zpSearchResultsItem";
 
 						// Add update class to item
-						if ( update === true ) tempItem += " zp_updated";
+						if ( update === true ) tempItem += " mz_updated";
 
 						// Image
-						if ( jQuery("#"+zp_items.instance+" .ZP_SHOWIMAGE").text().trim().length > 0 && item.hasOwnProperty('image') )
+						if ( jQuery("#"+mz_items.instance+" .ZP_SHOWIMAGE").text().trim().length > 0 && item.hasOwnProperty('image') )
 						{
 							tempItem += " zp-HasImage'>\n";
 							tempItem += "<div id='zp-Citation-"+item.key+"' class='zp-Entry-Image hasImage' rel='"+item.key+"'>\n";
@@ -258,7 +258,7 @@ jQuery(document).ready(function()
 						}
 
 						// Force numbers
-						if ( jQuery("#"+zp_items.instance+" .ZP_FORCENUM").text().length > 0 && jQuery("#"+zp_items.instance+" .ZP_FORCENUM").text() == "1" )
+						if ( jQuery("#"+mz_items.instance+" .ZP_FORCENUM").text().length > 0 && jQuery("#"+mz_items.instance+" .ZP_FORCENUM").text() == "1" )
 						{
 							if ( ! /csl-left-margin/i.test(item.bib) ) // if existing style numbering not found
 							{
@@ -278,7 +278,7 @@ jQuery(document).ready(function()
 						if ( params.zpShowTags == true &&
 								( item.data.hasOwnProperty('tags') && item.data.tags.length > 0 ) )
 						{
-							tempItem += "<p class='zp-Zotpress-ShowTags'><span class='title'>Tags:</span> ";
+							tempItem += "<p class='zp-Metazot-ShowTags'><span class='title'>Tags:</span> ";
 
 							jQuery.each(item.data.tags, function ( tindex, tag )
 							{
@@ -313,7 +313,7 @@ jQuery(document).ready(function()
 
 
 					// Append cached/initial items to list:
-					if ( update === false ) jQuery("#"+zp_items.instance+" .zp-List").append( tempItems );
+					if ( update === false ) jQuery("#"+mz_items.instance+" .zp-List").append( tempItems );
 
 
 					// Append notes to container:
@@ -322,16 +322,16 @@ jQuery(document).ready(function()
 						tempNotes = "<div class='zp-Citation-Notes'>\n<h4>Notes</h4>\n<ol>\n" + tempNotes;
 						tempNotes = tempNotes + "</ol>\n</div><!-- .zp-Citation-Notes -->\n\n";
 
-						jQuery("#"+zp_items.instance).append( tempNotes );
+						jQuery("#"+mz_items.instance).append( tempNotes );
 					}
 
 
 					// Fix incorrect numbering in existing numbered style
-					if ( jQuery("#"+zp_items.instance+" .zp-List .csl-left-margin").length > 0 )
+					if ( jQuery("#"+mz_items.instance+" .zp-List .csl-left-margin").length > 0 )
 					{
 						params.zpForceNumsCount = 1; // UNSURE: 0?
 
-						jQuery("#"+zp_items.instance+" .zp-List .csl-left-margin").each(function ( index, item )
+						jQuery("#"+mz_items.instance+" .zp-List .csl-left-margin").each(function ( index, item )
 						{
 							var item_content = jQuery(item).text();
 							item_content = item_content.replace( item_content.match(/\d+/)[0], params.zpForceNumsCount );
@@ -342,19 +342,19 @@ jQuery(document).ready(function()
 					}
 
 					// Then, continue with other requests, if they exist
-					if ( zp_items.meta.request_next != false && zp_items.meta.request_next != "false" )
+					if ( mz_items.meta.request_next != false && mz_items.meta.request_next != "false" )
 					{
-						zp_get_items ( zp_items.meta.request_next, zp_items.meta.request_last, $instance, params, update );
+						mz_get_items ( mz_items.meta.request_next, mz_items.meta.request_last, $instance, params, update );
 					}
 					else
 					{
 						// Remove loading
-						jQuery("#"+zp_items.instance+" .zp-List").removeClass("loading");
+						jQuery("#"+mz_items.instance+" .zp-List").removeClass("loading");
 
 						// Check for updates
-						if ( ! jQuery("#"+zp_items.instance+" .zp-List").hasClass("updating") )
+						if ( ! jQuery("#"+mz_items.instance+" .zp-List").hasClass("updating") )
 						{
-							zp_get_items ( 0, 0, $instance, params, true );
+							mz_get_items ( 0, 0, $instance, params, true );
 						}
 
 						// Otherwise finish up and re-sort if needed
@@ -365,12 +365,12 @@ jQuery(document).ready(function()
 							var orderby = jQuery(".ZP_ORDER", $instance).text();
 
 							// Re-sort if not numbered and sorting by author or date
-							if ( ["author","date"].indexOf(sortby) !== -1 && jQuery("#"+zp_items.instance+" .zp-List .csl-left-margin").length == 0 )
+							if ( ["author","date"].indexOf(sortby) !== -1 && jQuery("#"+mz_items.instance+" .zp-List .csl-left-margin").length == 0 )
 							{
 								var sortOrder = "data-zp-author-year";
 								if ( sortby == "date") sortOrder = "data-zp-year-author";
 
-								jQuery("#"+zp_items.instance+" .zp-List div.zp-Entry").sort(function(a,b)
+								jQuery("#"+mz_items.instance+" .zp-List div.zp-Entry").sort(function(a,b)
 								{
 									var an = a.getAttribute(sortOrder).toLowerCase(),
 										bn = b.getAttribute(sortOrder).toLowerCase();
@@ -388,7 +388,7 @@ jQuery(document).ready(function()
 									else
 										return 0;
 
-								}).detach().appendTo("#"+zp_items.instance+" .zp-List");
+								}).detach().appendTo("#"+mz_items.instance+" .zp-List");
 							}
 						}
 					}
@@ -413,6 +413,6 @@ jQuery(document).ready(function()
 			}
 		});
 
-	} // function zp_get_items
+	} // function mz_get_items
 
 });

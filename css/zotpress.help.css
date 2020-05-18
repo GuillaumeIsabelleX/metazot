@@ -5,28 +5,28 @@ div#zp-Zotero-API {
     background-color: #fff;
 }
 
-div#zp-Zotpress ul#zp-Zotero-API-Menu {
+div#zp-Metazot ul#zp-Zotero-API-Menu {
     background-color: #26292c;
     display: block;
     margin: 3em 0 0;
 }
-div#zp-Zotpress ul#zp-Zotero-API-Menu:before,
-div#zp-Zotpress ul#zp-Zotero-API-Menu:after {
+div#zp-Metazot ul#zp-Zotero-API-Menu:before,
+div#zp-Metazot ul#zp-Zotero-API-Menu:after {
     content: "";
     display: table;
 }
-div#zp-Zotpress ul#zp-Zotero-API-Menu:after {
+div#zp-Metazot ul#zp-Zotero-API-Menu:after {
     clear: both;
 }
 
-div#zp-Zotpress ul#zp-Zotero-API-Menu li {
+div#zp-Metazot ul#zp-Zotero-API-Menu li {
     background: none;
     display: block;
     float: left;
     margin: 0;
     padding: 0;
 }
-div#zp-Zotpress ul#zp-Zotero-API-Menu li a {
+div#zp-Metazot ul#zp-Zotero-API-Menu li a {
     color: #fff;
     display: block;
     font: normal 1em/2.15em "Helvetica", "Arial", sans-serif;
@@ -35,10 +35,10 @@ div#zp-Zotpress ul#zp-Zotero-API-Menu li a {
     text-decoration: none;
 }
 
-div#zp-Zotpress ul#zp-Zotero-API-Menu li.ui-tabs-active {
+div#zp-Metazot ul#zp-Zotero-API-Menu li.ui-tabs-active {
     background-color: #e14d43;
 }
-div#zp-Zotpress ul#zp-Zotero-API-Menu li a:focus {
+div#zp-Metazot ul#zp-Zotero-API-Menu li a:focus {
     box-shadow: none;
 }
 
@@ -103,12 +103,12 @@ div.zp-Zotero-API-Attribute {
     margin: 5px 0;
     padding: 2em;
 }
-div#zp-Zotpress div.zp-Zotero-API-Attribute h4 {
+div#zp-Metazot div.zp-Zotero-API-Attribute h4 {
     font: 600 1em/1em "Helvetica", Arial, sans-serif;
     margin-top: 0.5em;
     text-transform: uppercase;
 }
-div#zp-Zotpress div.zp-Zotero-API-Attribute h4 strong {
+div#zp-Metazot div.zp-Zotero-API-Attribute h4 strong {
     text-transform: lowercase;
     font-size: 2em;
 }
@@ -130,7 +130,7 @@ div.zp-Message {
     overflow: hidden;
     width: 278px;
 }
-div#zp-Zotpress div.zp-Message h3 {
+div#zp-Metazot div.zp-Message h3 {
     color: #fff;
     font-size: 21px;
     line-height: 1.4em;
@@ -210,7 +210,7 @@ div.zp-InText-Example-Col:nth-child(1) {
 div.zp-InText-Example-Col.alt {
     background-color: #f3f3f3;
 }
-div#zp-Zotpress div.zp-InText-Example-Col h4 {
+div#zp-Metazot div.zp-InText-Example-Col h4 {
     font-size: 1.25em;
     margin: 0;
     padding: 1em 0 0;
@@ -220,7 +220,7 @@ div#zp-InText-Example .title {
     font-style: italic;
 }
 
-div#zp-Zotpress code {
+div#zp-Metazot code {
     background: #ddd;
     border-radius: 3px;
     -moz-border-radius: 3px;
@@ -239,7 +239,7 @@ div#zp-Zotpress code {
 .zp-Documentation strong {
     font-weight: bold;
 }
-div#zp-Zotpress .zp-Documentation code {
+div#zp-Metazot .zp-Documentation code {
     background: #eaeaea;
 }
 

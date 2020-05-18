@@ -1,11 +1,11 @@
 <?php
 
-    function Zotpress_zotpressInText ($atts)
+    function Metazot_metazotInText ($atts)
     {
         /*
         *   GLOBAL VARIABLES
         *
-        *   $GLOBALS['zp_shortcode_instances'] {instantiated in zotpress.php}
+        *   $GLOBALS['mz_shortcode_instances'] {instantiated in metazot.php}
         *
         */
 
@@ -59,51 +59,51 @@
         global $wpdb;
 
         // Turn on/off minified versions if testing/live
-        $minify = ''; if ( ZOTPRESS_LIVEMODE ) $minify = '.min';
+        $minify = ''; if ( METAZOT_LIVEMODE ) $minify = '.min';
 
-		wp_enqueue_script( 'zotpress.shortcode.intext'.$minify.'.js' );
+		wp_enqueue_script( 'metazot.shortcode.intext'.$minify.'.js' );
 
-        $zp_account = false;
+        $mz_account = false;
 
         if ($nickname !== false)
         {
-            $zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress WHERE nickname='".$nickname."'", OBJECT);
-            $api_user_id = $zp_account->api_user_id;
+            $mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot WHERE nickname='".$nickname."'", OBJECT);
+            $api_user_id = $mz_account->api_user_id;
         }
         else if ($api_user_id !== false)
         {
-            $zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress WHERE api_user_id='".$api_user_id."'", OBJECT);
-            $api_user_id = $zp_account->api_user_id;
+            $mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot WHERE api_user_id='".$api_user_id."'", OBJECT);
+            $api_user_id = $mz_account->api_user_id;
         }
         else if ($api_user_id === false && $nickname === false)
         {
-            if (get_option("Zotpress_DefaultAccount") !== false)
+            if (get_option("Metazot_DefaultAccount") !== false)
             {
-                $api_user_id = get_option("Zotpress_DefaultAccount");
-                $zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress WHERE api_user_id ='".$api_user_id."'", OBJECT);
+                $api_user_id = get_option("Metazot_DefaultAccount");
+                $mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot WHERE api_user_id ='".$api_user_id."'", OBJECT);
             }
             else // When all else fails ...
             {
-                $zp_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."zotpress LIMIT 1", OBJECT);
-                $api_user_id = $zp_account->api_user_id;
+                $mz_account = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."metazot LIMIT 1", OBJECT);
+                $api_user_id = $mz_account->api_user_id;
             }
         }
 
 
         // Generate instance id for shortcode
-		$zp_instance_id = "zp-ID-".$api_user_id."-" . str_replace( " ", "_", str_replace( "&", "_", str_replace( "+", "_", str_replace( "/", "_", str_replace( "{", "-", str_replace( "}", "-", str_replace( ",", "_", $items ) ) ) ) ) ) ) ."-".get_the_ID();
+		$mz_instance_id = "zp-ID-".$api_user_id."-" . str_replace( " ", "_", str_replace( "&", "_", str_replace( "+", "_", str_replace( "/", "_", str_replace( "{", "-", str_replace( "}", "-", str_replace( ",", "_", $items ) ) ) ) ) ) ) ."-".get_the_ID();
 
-		if ( ! isset( $GLOBALS['zp_shortcode_instances'][get_the_ID()] ) )
-			$GLOBALS['zp_shortcode_instances'][get_the_ID()] = array();
+		if ( ! isset( $GLOBALS['mz_shortcode_instances'][get_the_ID()] ) )
+			$GLOBALS['mz_shortcode_instances'][get_the_ID()] = array();
 
-        $GLOBALS['zp_shortcode_instances'][get_the_ID()][] = array( "instance_id" => $zp_instance_id, "api_user_id" =>$api_user_id, "items" => $items );
+        $GLOBALS['mz_shortcode_instances'][get_the_ID()][] = array( "instance_id" => $mz_instance_id, "api_user_id" =>$api_user_id, "items" => $items );
 
 
 		// Show theme scripts
-		$GLOBALS['zp_is_shortcode_displayed'] = true;
+		$GLOBALS['mz_is_shortcode_displayed'] = true;
 
 		// Output attributes and loading
-		return '<span id="zp-InText-'.$zp_instance_id."-".count($GLOBALS['zp_shortcode_instances'][get_the_ID()]).'"
+		return '<span id="zp-InText-'.$mz_instance_id."-".count($GLOBALS['mz_shortcode_instances'][get_the_ID()]).'"
 						class="zp-InText-Citation loading"
 						rel="{ \'api_user_id\': \''.$api_user_id.'\', \'pages\': \''.$pages.'\', \'items\': \''.$items.'\', \'format\': \''.$format.'\', \'brackets\': \''.$brackets.'\', \'etal\': \''.$etal.'\', \'separator\': \''.$separator.'\', \'and\': \''.$and.'\' }"></span>';
     }

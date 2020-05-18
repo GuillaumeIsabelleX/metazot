@@ -1,13 +1,13 @@
 jQuery(document).ready(function()
 {
-	if ( jQuery("#zp-Zotpress-SearchBox").length > 0 || jQuery("#zp-Browse-Collections-Select").length > 0 )
+	if ( jQuery("#zp-Metazot-SearchBox").length > 0 || jQuery("#zp-Browse-Collections-Select").length > 0 )
 	{
 
 		// Set max per page (pagination)
 		window.zpPage = 1;
 		window.zpMaxPerPage = 10;
-    if ( jQuery("#ZOTPRESS_AC_MAXPERPAGE").length > 0 && jQuery("#ZOTPRESS_AC_MAXPERPAGE").val().length > 0 ) {
-			window.zpMaxPerPage = jQuery("#ZOTPRESS_AC_MAXPERPAGE").val();
+    if ( jQuery("#METAZOT_AC_MAXPERPAGE").length > 0 && jQuery("#METAZOT_AC_MAXPERPAGE").val().length > 0 ) {
+			window.zpMaxPerPage = jQuery("#METAZOT_AC_MAXPERPAGE").val();
     }
 
 
@@ -82,13 +82,13 @@ jQuery(document).ready(function()
 			var zpHref = window.location.href.split("?");
 
 			// Add extra params, if they exist
-			var zp_extra_params = ""; if  ( typeof zpHref[1] !== 'undefined' && zpHref[1].indexOf("page=Zotpress") != -1 ) zp_extra_params += "page=Zotpress";
+			var mz_extra_params = ""; if  ( typeof zpHref[1] !== 'undefined' && zpHref[1].indexOf("page=Metazot") != -1 ) mz_extra_params += "page=Metazot";
 
 			if ( jQuery(this).val() != "blank" )
 			{
 				if ( jQuery(this).val() != "toplevel" )
 				{
-          if ( zp_extra_params.length > 0 ) { zp_extra_params = "&"+zp_extra_params; }
+          if ( mz_extra_params.length > 0 ) { mz_extra_params = "&"+mz_extra_params; }
 
 					var api_user_id = "";
           if ( jQuery("#zp-FilterByAccount").length > 0 ) {
@@ -97,7 +97,7 @@ jQuery(document).ready(function()
 
 					var temp = jQuery("option:selected", this).text().split(" (");
 
-					var new_location = zpHref[0] + "?collection_id=" + jQuery("option:selected", this).val() + "&collection_name=" + temp[0].replace( / /g, "+" ) + zp_extra_params;
+					var new_location = zpHref[0] + "?collection_id=" + jQuery("option:selected", this).val() + "&collection_name=" + temp[0].replace( / /g, "+" ) + mz_extra_params;
 
           if ( api_user_id.length > 0 ) {
             new_location = new_location + api_user_id;
@@ -107,14 +107,14 @@ jQuery(document).ready(function()
 				}
 				else // Toplevel
 				{
-          if ( zp_extra_params.length > 0 ) { zp_extra_params = "?"+zp_extra_params; }
+          if ( mz_extra_params.length > 0 ) { mz_extra_params = "?"+mz_extra_params; }
 
           var api_user_id = "";
           if ( jQuery("#zp-FilterByAccount").length > 0 ) {
 						api_user_id = "&api_user_id="+jQuery("option:selected", jQuery("#zp-FilterByAccount")).val();
           }
 
-					var new_location = zpHref[0] + zp_extra_params;
+					var new_location = zpHref[0] + mz_extra_params;
           if ( api_user_id.length > 0 ) { new_location = new_location + api_user_id; }
 
 					window.location = new_location;
@@ -130,9 +130,9 @@ jQuery(document).ready(function()
 			var zpHref = window.location.href.split("?");
 
 			// Add extra params, if they exist
-			var zp_extra_params = "";
-      if  ( typeof zpHref[1] !== 'undefined' && zpHref[1].indexOf("page=Zotpress") != -1 ) {
-        zp_extra_params += "page=Zotpress";
+			var mz_extra_params = "";
+      if  ( typeof zpHref[1] !== 'undefined' && zpHref[1].indexOf("page=Metazot") != -1 ) {
+        mz_extra_params += "page=Metazot";
       }
 
 			if ( jQuery(this).val() != "--No Tag Selected--" )
@@ -144,18 +144,18 @@ jQuery(document).ready(function()
 
 				if ( jQuery(this).val() != "toplevel" )
 				{
-          if ( zp_extra_params.length > 0 ) {
-            zp_extra_params = "&"+zp_extra_params;
+          if ( mz_extra_params.length > 0 ) {
+            mz_extra_params = "&"+mz_extra_params;
           }
 
-					var new_location = zpHref[0] + "?tag_id="+jQuery("option:selected", this).val() + zp_extra_params;
+					var new_location = zpHref[0] + "?tag_id="+jQuery("option:selected", this).val() + mz_extra_params;
 				}
 				else // Toplevel
 				{
-          if ( zp_extra_params.length > 0 ) {
-            zp_extra_params = "?"+zp_extra_params;
+          if ( mz_extra_params.length > 0 ) {
+            mz_extra_params = "?"+mz_extra_params;
           }
-					var new_location = zpHref[0] + zp_extra_params;
+					var new_location = zpHref[0] + mz_extra_params;
 				}
 
         if ( api_user_id.length > 0 ) {
@@ -166,6 +166,6 @@ jQuery(document).ready(function()
 			}
 		});
 
-	} // Zotpress Library
+	} // Metazot Library
 
 });

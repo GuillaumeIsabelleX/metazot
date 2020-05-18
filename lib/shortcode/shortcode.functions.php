@@ -4,7 +4,7 @@
     
     // GET YEAR
     // Used by: In-Text Shortcode, In-Text Bibliography Shortcode
-    function zp_get_year($date, $yesnd = false)
+    function mz_get_year($date, $yesnd = false)
     {
 		$date_return = false;
 		
@@ -39,7 +39,7 @@
 				
 				$zpdate = ""; if ( isset( $val["zpdate"] ) ) $zpdate = $val["zpdate"]; else $zpdate = $val["date"];
 				
-				$date[$key] = zp_date_format($zpdate);
+				$date[$key] = mz_date_format($zpdate);
 			}
 		}
 		
@@ -80,7 +80,7 @@
 	 * 
 	 * @return     string     the formatted date, or the original if formatting fails
 	 */
-	function zp_date_format ($date)
+	function mz_date_format ($date)
 	{
 		// Set up search lists
 		$list_month_long = array ( "01" => "January", "02" => "February", "03" => "March", "04" => "April", "05" => "May", "06" => "June", "07" => "July", "08" => "August", "09" => "September", "10" => "October", "11" => "November", "12" => "December" );

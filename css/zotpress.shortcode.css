@@ -1,17 +1,17 @@
 
 /* START OF BASIC SHORTCODES */
 
-div.zp-Zotpress {
+div.zp-Metazot {
     margin: 0 0 1em;
 }
-div.zp-Zotpress div.zp-List.loading {
+div.zp-Metazot div.zp-List.loading {
     background: transparent url('../images/loading_default.gif') no-repeat center bottom;
     padding-bottom: 21px;
     min-height: 2em;
 }
 
 /* Thanks to http://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/ */
-div.zp-Zotpress a {
+div.zp-Metazot a {
     -ms-word-break: break-all;
     word-break: break-all;
     word-break: break-word;
@@ -20,10 +20,10 @@ div.zp-Zotpress a {
     hyphens: auto;
 }
 
-div.zp-Zotpress div.zp-Entry.zp-HasImage {
+div.zp-Metazot div.zp-Entry.zp-HasImage {
     clear: both;
 }
-div.zp-Zotpress div.zp-Entry-Image {
+div.zp-Metazot div.zp-Entry-Image {
     float: right;
 }
 
@@ -44,8 +44,8 @@ a.zp-DownloadURL:after {
 
 /* In-Text Citations */
 
-.zp-ZotpressShortcode.cite .summary,
-.zp-ZotpressShortcode.bib .summary {
+.zp-MetazotShortcode.cite .summary,
+.zp-MetazotShortcode.bib .summary {
     display: none;
 }
 
@@ -116,33 +116,33 @@ a.zp-DownloadURL:after {
     margin: 0 0 1em 1em;
 }
 
-#zp-Zotpress-SearchBox .zp-SearchBy-Container {
+#zp-Metazot-SearchBox .zp-SearchBy-Container {
     border-top: 1px solid #ccc;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     padding: 0.5em 0;
 }
-#zp-Zotpress-SearchBox .zpSearchFilterContainer {
+#zp-Metazot-SearchBox .zpSearchFilterContainer {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     margin: 0 0.5em;
 }
-#zp-Zotpress-SearchBox input[type="radio"] {
+#zp-Metazot-SearchBox input[type="radio"] {
     cursor: pointer;
     margin: 0 0.5em 0 0;
     vertical-align: middle;
 }
-#zp-Zotpress-SearchBox label {
+#zp-Metazot-SearchBox label {
     cursor: pointer;
     margin: 0;
 }
-#zp-Zotpress-SearchBox .zp-SearchBy {
+#zp-Metazot-SearchBox .zp-SearchBy {
     margin: 0 1.5em;
 }
-#zp-Zotpress-SearchBox label,
-#zp-Zotpress-SearchBox .zp-SearchBy {
+#zp-Metazot-SearchBox label,
+#zp-Metazot-SearchBox .zp-SearchBy {
     font-size: 0.5em;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -173,7 +173,7 @@ a.zp-DownloadURL:after {
     display: none;
 }
 
-#zp-Zotpress-SearchBox-Input {
+#zp-Metazot-SearchBox-Input {
     border: none;
     width: 100%;
 }
@@ -212,7 +212,7 @@ a.zp-DownloadURL:after {
 }
 
 
-div.zp-List .zp_display_progress {
+div.zp-List .mz_display_progress {
     background: transparent url('../images/loading_default.gif') no-repeat center left;
     font-size: 0.7em;
     line-height: 2;

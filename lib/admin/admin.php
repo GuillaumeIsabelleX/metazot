@@ -2,11 +2,11 @@
 
 // ADMIN -----------------------------------------------------------------------------------------
 
-    function Zotpress_options()
+    function Metazot_options()
     {
         // Prevent access to users who are not editors
 		if ( ! current_user_can('edit_others_posts') && ! is_admin() )
-			wp_die( __('Only logged-in editors can access this page.', 'zotpress'), __('Zotpress: 403 Access Denied', 'zotpress'), array( 'response' => 403 ) );
+			wp_die( __('Only logged-in editors can access this page.', 'metazot'), __('Metazot: 403 Access Denied', 'metazot'), array( 'response' => 403 ) );
 
 
 
@@ -57,17 +57,17 @@
 
 
 
-	function zp_Get_Default_Style()
+	function mz_Get_Default_Style()
 	{
-		$zp_default_style = "apa";
-		if (get_option("Zotpress_DefaultStyle"))
-			$zp_default_style = get_option("Zotpress_DefaultStyle");
+		$mz_default_style = "apa";
+		if (get_option("Metazot_DefaultStyle"))
+			$mz_default_style = get_option("Metazot_DefaultStyle");
 
-		return $zp_default_style;
+		return $mz_default_style;
 	}
 
 
-	function Zotpress_process_accounts_AJAX()
+	function Metazot_process_accounts_AJAX()
 	{
 		check_ajax_referer( 'zpAccountsAJAX_nonce_val', 'zpAccountsAJAX_nonce' );
 
@@ -159,7 +159,7 @@
 
 			if ($errorCheck == false)
 			{
-				$query = "INSERT INTO ".$wpdb->prefix."zotpress (account_type, api_user_id, public_key";
+				$query = "INSERT INTO ".$wpdb->prefix."metazot (account_type, api_user_id, public_key";
 				if ($nickname) $query .= ", nickname";
 				$query .= ") ";
 				$query .= "VALUES ('$account_type', '$api_user_id', '$public_key'";
@@ -204,14 +204,14 @@
 				$api_user_id = $_GET['api_user_id'];
 
 				// Delete account and items
-				$wpdb->query("DELETE FROM ".$wpdb->prefix."zotpress WHERE api_user_id='".$api_user_id."'");
-				zp_clear_cache_for_user ($wpdb, $api_user_id);
+				$wpdb->query("DELETE FROM ".$wpdb->prefix."metazot WHERE api_user_id='".$api_user_id."'");
+				mz_clear_cache_for_user ($wpdb, $api_user_id);
 
 				// Check if default account
-				if ( get_option("Zotpress_DefaultAccount") && get_option("Zotpress_DefaultAccount") == $api_user_id )
-					delete_option( "Zotpress_DefaultAccount" );
+				if ( get_option("Metazot_DefaultAccount") && get_option("Metazot_DefaultAccount") == $api_user_id )
+					delete_option( "Metazot_DefaultAccount" );
 
-				$total_accounts = $wpdb->get_var( "SELECT COUNT(*) FROM ".$wpdb->prefix."zotpress;" );
+				$total_accounts = $wpdb->get_var( "SELECT COUNT(*) FROM ".$wpdb->prefix."metazot;" );
 
 				// Display success XML
 				$xml .= "<result success='true' total_accounts='".$total_accounts."' />\n";
@@ -241,7 +241,7 @@
 				$api_user_id = $_GET['api_user_id'];
 
 				// Clear the cache
-				zp_clear_cache_for_user ($wpdb, $api_user_id);
+				mz_clear_cache_for_user ($wpdb, $api_user_id);
 
 				// Display success XML
 				$xml .= "<result success='true' cache_cleared='true' />\n";
@@ -292,7 +292,7 @@
             // SET DEFAULT ACCOUNT
             if ( $errorCheck === false )
             {
-                update_option( "Zotpress_DefaultAccount", $account );
+                update_option( "Metazot_DefaultAccount", $account );
                 $xml .= "<result success='true' account='".$account."' />\n";
             }
 		}
@@ -334,11 +334,11 @@
             if ( $errorCheck === false )
             {
                 // Update style list
-                if (strpos(get_option("Zotpress_StyleList"), $style) === false)
-                    update_option( "Zotpress_StyleList", get_option("Zotpress_StyleList") . ", " . $style);
+                if (strpos(get_option("Metazot_StyleList"), $style) === false)
+                    update_option( "Metazot_StyleList", get_option("Metazot_StyleList") . ", " . $style);
 
                 // Update default style
-				update_option("Zotpress_DefaultStyle", $style);
+				update_option("Metazot_DefaultStyle", $style);
 				$xml .= "<result success='true' style='".$style."' />\n";
             }
 		}
@@ -379,7 +379,7 @@
             // SET DEFAULT ACCOUNT
             if ( $errorCheck === false )
             {
-                update_option("Zotpress_DefaultCPT", $cpt);
+                update_option("Metazot_DefaultCPT", $cpt);
                 $xml .= "<result success='true' cpt='".$cpt."' />\n";
             }
 		}
@@ -388,7 +388,7 @@
 
 		/*
 
-		   RESET ZOTPRESS
+		   RESET METAZOT
 
 		*/
 
@@ -419,36 +419,36 @@
                 global $current_user;
 
                 // Drop all tables except accounts/main
-                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress;");
-                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_oauth;");
-                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroItems;");
-                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroCollections;");
-                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroTags;");
-                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroRelItemColl;");
-                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroRelItemTags;");
-                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_cache ;");
-                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."zotpress_zoteroItemImages ;");
+                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot;");
+                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_oauth;");
+                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroItems;");
+                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroCollections;");
+                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroTags;");
+                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroRelItemColl;");
+                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroRelItemTags;");
+                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_cache ;");
+                $wpdb->query("DROP TABLE IF EXISTS ".$wpdb->prefix."metazot_zoteroItemImages ;");
 
-		        delete_option( 'Zotpress_cache_version' );
-		        delete_option( 'Zotpress_DefaultCPT' );
-                delete_option( 'Zotpress_DefaultAccount' );
-                delete_option( 'Zotpress_DefaultEditor' );
-                delete_option( 'Zotpress_DefaultStyle' );
-                delete_option( 'Zotpress_StyleList' );
-                delete_option( 'Zotpress_update_version' );
-                delete_option( 'Zotpress_main_db_version' );
-                delete_option( 'Zotpress_oauth_db_version' );
-                delete_option( 'Zotpress_zoteroItems_db_version' );
-                delete_option( 'Zotpress_zoteroCollections_db_version' );
-                delete_option( 'Zotpress_zoteroTags_db_version' );
-                delete_option( 'Zotpress_zoteroRelItemColl_db_version' );
-                delete_option( 'Zotpress_zoteroRelItemTags_db_version' );
-				delete_option( 'Zotpress_zoteroItemImages_db_version' );
-				delete_option( 'Zotpress_update_notice_dismissed' );
-				delete_option( 'Zotpress_zoteroItemImages_db_version' );
+		        delete_option( 'Metazot_cache_version' );
+		        delete_option( 'Metazot_DefaultCPT' );
+                delete_option( 'Metazot_DefaultAccount' );
+                delete_option( 'Metazot_DefaultEditor' );
+                delete_option( 'Metazot_DefaultStyle' );
+                delete_option( 'Metazot_StyleList' );
+                delete_option( 'Metazot_update_version' );
+                delete_option( 'Metazot_main_db_version' );
+                delete_option( 'Metazot_oauth_db_version' );
+                delete_option( 'Metazot_zoteroItems_db_version' );
+                delete_option( 'Metazot_zoteroCollections_db_version' );
+                delete_option( 'Metazot_zoteroTags_db_version' );
+                delete_option( 'Metazot_zoteroRelItemColl_db_version' );
+                delete_option( 'Metazot_zoteroRelItemTags_db_version' );
+				delete_option( 'Metazot_zoteroItemImages_db_version' );
+				delete_option( 'Metazot_update_notice_dismissed' );
+				delete_option( 'Metazot_zoteroItemImages_db_version' );
 
-                delete_user_meta( $current_user->ID, 'zotpress_5_2_ignore_notice' );
-                delete_user_meta( $current_user->ID, 'zotpress_survey_notice_ignore' );
+                delete_user_meta( $current_user->ID, 'metazot_5_2_ignore_notice' );
+                delete_user_meta( $current_user->ID, 'metazot_survey_notice_ignore' );
 
                 $xml .= "<result success='true' reset='complete' />\n";
             }
@@ -508,7 +508,7 @@
 				$wpdb->query(
 					$wpdb->prepare(
 						"
-						INSERT INTO ".$wpdb->prefix."zotpress_zoteroItemImages (api_user_id, item_key, image)
+						INSERT INTO ".$wpdb->prefix."metazot_zoteroItemImages (api_user_id, item_key, image)
 						VALUES (%s, %s, %s)
 						ON DUPLICATE KEY UPDATE image=%s
 						",
@@ -582,7 +582,7 @@
 				$wpdb->query(
 					$wpdb->prepare(
 						"
-						DELETE FROM ".$wpdb->prefix."zotpress_zoteroItemImages
+						DELETE FROM ".$wpdb->prefix."metazot_zoteroItemImages
 						WHERE item_key=%s AND api_user_id=%s
 						",
 						$item_key, $api_user_id
@@ -621,7 +621,7 @@
 
 		exit();
 	}
-    add_action( 'wp_ajax_zpAccountsViaAJAX', 'Zotpress_process_accounts_AJAX' );
+    add_action( 'wp_ajax_zpAccountsViaAJAX', 'Metazot_process_accounts_AJAX' );
 
 // ADMIN ------------------------------------------------------------------------------------------
 

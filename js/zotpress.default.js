@@ -7,7 +7,7 @@ jQuery(document).ready(function() {
 
 	*/
 
-    jQuery("div#zp-Zotpress div#zp-Zotpress-Navigation a.nav-item").click( function() {
+    jQuery("div#zp-Metazot div#zp-Metazot-Navigation a.nav-item").click( function() {
         jQuery(this).addClass("active");
     });
 
@@ -50,7 +50,7 @@ jQuery(document).ready(function() {
 			}
 		);
 
-		window.location = "admin.php?page=Zotpress&api_user_id="+id;
+		window.location = "admin.php?page=Metazot&api_user_id="+id;
 	});
 
 
@@ -59,7 +59,7 @@ jQuery(document).ready(function() {
 	jQuery('div#zp-Browse-Bar').delegate("select#zp-List-Tags", "change", function()
 	{
 		if ( jQuery(this).attr('rel') != 'empty' )
-			window.location = "admin.php?page=Zotpress&api_user_id="+jQuery('select#zp-FilterByAccount option:selected').val()+"&tag_id="+jQuery("option:selected", this).attr("rel");
+			window.location = "admin.php?page=Metazot&api_user_id="+jQuery('select#zp-FilterByAccount option:selected').val()+"&tag_id="+jQuery("option:selected", this).attr("rel");
 	});
 
 

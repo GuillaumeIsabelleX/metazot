@@ -1,6 +1,6 @@
 <?php
 
-class zotpressLib
+class metazotLib
 {
 	/**
 	 * Creates a HTML-formatted library for the selected account.
@@ -141,19 +141,19 @@ class zotpressLib
 		$content = "";
 
 		// Turn on/off minified versions if testing/live
-        $minify = ''; if ( ZOTPRESS_LIVEMODE ) $minify = '.min';
+        $minify = ''; if ( METAZOT_LIVEMODE ) $minify = '.min';
 
 		// Enqueue scripts
 		if ( $this->type == "dropdown" )
 		{
-			wp_enqueue_script( 'zotpress.lib'.$minify.'.js' );
-			wp_enqueue_script( 'zotpress.lib.dropdown'.$minify.'.js' );
+			wp_enqueue_script( 'metazot.lib'.$minify.'.js' );
+			wp_enqueue_script( 'metazot.lib.dropdown'.$minify.'.js' );
 		}
 		else
 		{
 			wp_enqueue_script( 'jquery-ui-autocomplete' );
-			wp_enqueue_script( 'zotpress.lib'.$minify.'.js' );
-			wp_enqueue_script( 'zotpress.lib.searchbar'.$minify.'.js' );
+			wp_enqueue_script( 'metazot.lib'.$minify.'.js' );
+			wp_enqueue_script( 'metazot.lib.searchbar'.$minify.'.js' );
 		}
 
 
@@ -162,7 +162,7 @@ class zotpressLib
 		global $api_user_id;
 
 		if ( isset($_GET['account_id']) && preg_match("/^[0-9]+$/", $_GET['account_id']) )
-			$api_user_id = $wpdb->get_var("SELECT nickname FROM ".$wpdb->prefix."zotpress WHERE id='".$_GET['account_id']."'", OBJECT);
+			$api_user_id = $wpdb->get_var("SELECT nickname FROM ".$wpdb->prefix."metazot WHERE id='".$_GET['account_id']."'", OBJECT);
 		else
 			$api_user_id = $this->getAccount()->api_user_id;
 
@@ -226,9 +226,9 @@ class zotpressLib
                         $content .= "<select id='zp-Browse-Collections-Select' class='loading'>\n";
 
                         // Set default option
-                        $content .= "<option class='loading' value='loading'>".__('Loading','zotpress')." ...</option>";
-                        if ( $tag_id ) $content .= "<option value='blank'>--".__('No Collection Selected','zotpress')."--</option>";
-                        if ( ! $tag_id && ! $collection_id ) $content .= "<option value='toplevel'>".__('Top Level','zotpress')."</option>";
+                        $content .= "<option class='loading' value='loading'>".__('Loading','metazot')." ...</option>";
+                        if ( $tag_id ) $content .= "<option value='blank'>--".__('No Collection Selected','metazot')."--</option>";
+                        if ( ! $tag_id && ! $collection_id ) $content .= "<option value='toplevel'>".__('Top Level','metazot')."</option>";
 
                         $content .= "</select>\n";
                         $content .= "</div>\n\n";
@@ -238,7 +238,7 @@ class zotpressLib
                     $content .= '<div id="zp-Browse-Tags">';
                         $content .= "<div class='zp-Browse-Select'>\n";
                         $content .= '<select id="zp-List-Tags" name="zp-List-Tags" class="loading">';
-                        $content .= "\n<option class='loading' value='loading'>".__('Loading','zotpress')." ...</option>\n";
+                        $content .= "\n<option class='loading' value='loading'>".__('Loading','metazot')." ...</option>\n";
                         $content .= "</select>\n";
                         $content .= "</div>\n\n";
                     $content .= '</div><!-- #zp-Browse-Tags -->';
@@ -246,13 +246,13 @@ class zotpressLib
 
                 else:
 
-                    $content .= '<div id="zp-Zotpress-SearchBox">';
-                        $content .= '<input id="zp-Zotpress-SearchBox-Input" class="help" type="text" value="'.__('Type to search','zotpress').'" />';
+                    $content .= '<div id="zp-Metazot-SearchBox">';
+                        $content .= '<input id="zp-Metazot-SearchBox-Input" class="help" type="text" value="'.__('Type to search','metazot').'" />';
 
                         if ( $this->filters ):
 
                         $content .= "<div class='zp-SearchBy-Container'>";
-                        $content .= "<span class=\"zp-SearchBy\">".__('Search by','zotpress').":</span>";
+                        $content .= "<span class=\"zp-SearchBy\">".__('Search by','metazot').":</span>";
 
                         // Turn filter string into array
                         $filters = explode( ",", $this->filters );
@@ -277,27 +277,27 @@ class zotpressLib
 
                         // Min Length
                         $minlength = 3; if ( $this->getMinLength() ) $minlength = intval($this->getMinLength());
-                        $content .= '<input type="hidden" id="ZOTPRESS_AC_MINLENGTH" name="ZOTPRESS_AC_MINLENGTH" value="'.$minlength.'" />';
+                        $content .= '<input type="hidden" id="METAZOT_AC_MINLENGTH" name="METAZOT_AC_MINLENGTH" value="'.$minlength.'" />';
 
                         // Max Results
                         $maxresults = 50; if ( $this->getMaxResults() ) $maxresults = intval($this->getMaxResults());
-                        $content .= '<input type="hidden" id="ZOTPRESS_AC_MAXRESULTS" name="ZOTPRESS_AC_MAXRESULTS" value="'.$maxresults.'" />';
+                        $content .= '<input type="hidden" id="METAZOT_AC_MAXRESULTS" name="METAZOT_AC_MAXRESULTS" value="'.$maxresults.'" />';
 
                         // Max Per Page
                         $maxperpage = 10; if ( $this->getMaxPerPage() ) $maxperpage = intval($this->getMaxPerPage());
-                        $content .= '<input type="hidden" id="ZOTPRESS_AC_MAXPERPAGE" name="ZOTPRESS_AC_MAXPERPAGE" value="'.$maxperpage.'" />';
+                        $content .= '<input type="hidden" id="METAZOT_AC_MAXPERPAGE" name="METAZOT_AC_MAXPERPAGE" value="'.$maxperpage.'" />';
 
                         // Downloadable, Citeable, Showimages
                         $downloadable = false; if ( $this->downloadable ) $downloadable = $this->downloadable;
                         $citeable = false; if ( $this->citeable ) $citeable = $this->citeable;
                         $showimages = false; if ( $this->showimage ) $showimages = $this->showimage;
 
-                        $content .= '<input type="hidden" id="ZOTPRESS_AC_DOWNLOAD" name="ZOTPRESS_AC_DOWNLOAD" value="'.$downloadable.'" />';
-                        $content .= '<input type="hidden" id="ZOTPRESS_AC_CITE" name="ZOTPRESS_AC_CITE" value="'.$citeable.'" />';
-                        if ( $showimages ) $content .= '<input type="hidden" id="ZOTPRESS_AC_IMAGES" name="ZOTPRESS_AC_IMAGES" value="true" />';
+                        $content .= '<input type="hidden" id="METAZOT_AC_DOWNLOAD" name="METAZOT_AC_DOWNLOAD" value="'.$downloadable.'" />';
+                        $content .= '<input type="hidden" id="METAZOT_AC_CITE" name="METAZOT_AC_CITE" value="'.$citeable.'" />';
+                        if ( $showimages ) $content .= '<input type="hidden" id="METAZOT_AC_IMAGES" name="METAZOT_AC_IMAGES" value="true" />';
 
-                        $content .= '<input type="hidden" id="ZOTPRESS_PLUGIN_URL" name="ZOTPRESS_PLUGIN_URL" value="'. ZOTPRESS_PLUGIN_URL.'" />';
-                        $content .= '<input type="hidden" id="ZOTPRESS_USER" name="ZOTPRESS_USER" value="'.$this->getAccount()->api_user_id.'" />';
+                        $content .= '<input type="hidden" id="METAZOT_PLUGIN_URL" name="METAZOT_PLUGIN_URL" value="'. METAZOT_PLUGIN_URL.'" />';
+                        $content .= '<input type="hidden" id="METAZOT_USER" name="METAZOT_USER" value="'.$this->getAccount()->api_user_id.'" />';
                     $content .= '</div>';
                     $content .= "\n";
 
@@ -321,19 +321,19 @@ class zotpressLib
                         if ( $collection_name )
                             $content .= $collection_name;
                         else
-                            $content .= __('Collection items','zotpress').":";
+                            $content .= __('Collection items','metazot').":";
                         $content .= "</span>";
                         if ( is_admin() )
-                            $content .= "<label for='item_key'>".__('Collection Key','zotpress').":</label><input type='text' name='item_key' class='item_key' value='".$collection_id."'>\n";
+                            $content .= "<label for='item_key'>".__('Collection Key','metazot').":</label><input type='text' name='item_key' class='item_key' value='".$collection_id."'>\n";
                     $content .= "</div>\n";
                 }
                 else if ( $tag_id ) // Top Level
                 {
-                    $content .= "<div class='zp-Collection-Title'>".__('Viewing items tagged','zotpress')." \"<strong>".str_replace("+", " ", $tag_id)."</strong>\"</div>\n";
+                    $content .= "<div class='zp-Collection-Title'>".__('Viewing items tagged','metazot')." \"<strong>".str_replace("+", " ", $tag_id)."</strong>\"</div>\n";
                 }
                 else
                 {
-                    $content .= "<div class='zp-Collection-Title'>".__('Top Level Items','zotpress')."</div>\n";
+                    $content .= "<div class='zp-Collection-Title'>".__('Top Level Items','metazot')."</div>\n";
                 }
             }
 
@@ -343,7 +343,7 @@ class zotpressLib
                 $content .= "\">";
 
                 // Autocomplete will fill this up
-                $content .= '<img class="zpSearchLoading" src="'.ZOTPRESS_PLUGIN_URL.'/images/loading_default.gif" alt="thinking" />';
+                $content .= '<img class="zpSearchLoading" src="'.METAZOT_PLUGIN_URL.'/images/loading_default.gif" alt="thinking" />';
             }
 
             // Container for results

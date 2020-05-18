@@ -14,17 +14,17 @@
 
 ?>
 
-<div id="zp-Zotpress-Navigation">
+<div id="zp-Metazot-Navigation">
 
     <div id="zp-Icon">
-        <img src="<?php echo ZOTPRESS_PLUGIN_URL; ?>/images/icon-64x64.png" title="Zotero + WordPress = Zotpress">
+        <img src="<?php echo METAZOT_PLUGIN_URL; ?>/images/icon-64x64.png" title="Zotero + WordPress = Metazot">
     </div>
 
     <div class="nav">
-        <a class="nav-item <?php if ($tagpage == "default") echo "nav-tab-active"; ?>" href="admin.php?page=Zotpress"><?php _e('Browse','zotpress'); ?></a>
-        <?php if ( current_user_can('edit_others_posts') ) { ?><a class="nav-item <?php if ($tagpage == "accounts") echo "nav-tab-active"; ?>" href="admin.php?page=Zotpress&amp;accounts=true"><?php _e('Accounts', 'zotpress'); ?></a><?php } ?>
-        <?php if ( current_user_can('edit_others_posts') ) { ?><a class="nav-item <?php if ($tagpage == "options") echo "nav-tab-active"; ?>" href="admin.php?page=Zotpress&amp;options=true"><?php _e('Options', 'zotpress'); ?></a><?php } ?>
-        <a class="nav-item <?php if ($tagpage == "help") echo "nav-tab-active"; ?>" href="admin.php?page=Zotpress&amp;help=true"><?php _e('Help', 'zotpress'); ?></a>
+        <a class="nav-item <?php if ($tagpage == "default") echo "nav-tab-active"; ?>" href="admin.php?page=Metazot"><?php _e('Browse','metazot'); ?></a>
+        <?php if ( current_user_can('edit_others_posts') ) { ?><a class="nav-item <?php if ($tagpage == "accounts") echo "nav-tab-active"; ?>" href="admin.php?page=Metazot&amp;accounts=true"><?php _e('Accounts', 'metazot'); ?></a><?php } ?>
+        <?php if ( current_user_can('edit_others_posts') ) { ?><a class="nav-item <?php if ($tagpage == "options") echo "nav-tab-active"; ?>" href="admin.php?page=Metazot&amp;options=true"><?php _e('Options', 'metazot'); ?></a><?php } ?>
+        <a class="nav-item <?php if ($tagpage == "help") echo "nav-tab-active"; ?>" href="admin.php?page=Metazot&amp;help=true"><?php _e('Help', 'metazot'); ?></a>
     </div>
 
-</div><!-- #zp-Zotpress-Navigation -->
+</div><!-- #zp-Metazot-Navigation -->
