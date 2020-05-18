@@ -573,6 +573,8 @@ function Metazot_shortcode_AJAX()
 					//@STCGoal Check if item has children that could be downloads
 					if ( $item->meta->numChildren > 0 )
 					{
+						console.log("Number of Child for item is : " + $item->meta->numChildren);
+						
 						// Get the user's account
 						$mz_account = mz_get_account ($wpdb, $zpr["api_user_id"]);
 
